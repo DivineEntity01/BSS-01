@@ -1,9 +1,12 @@
 local Player = game.Players.LocalPlayer
 Players = game.Players
 local Character = Player.Character
-local EnabledSnail = true
 local GC = getconnections or get_signal_cons
-_G.Snail = true
+_G.Snail = false
+_G.Crab = false
+--_G.Commando = false
+local EnabledSnail = true
+local EnabledCrab = true
 
 --[[
 
@@ -15,10 +18,14 @@ _G.Snail = true
 
 ]]
 
-
-
 -- Snail Switch
 _G.SnailIn = true
+
+-- Coconut Switch
+_G.CoconutCrabIn = false
+
+-- Commando Chick Switch
+--_G.CommandoChick = false
 
 
 
@@ -42,9 +49,22 @@ if GC then
 			end
 		end
 end
+
 if _G.SnailIn == true then
 if workspace:WaitForChild('SnailPlatform', 1) then
+    workspace:WaitForChild('SnailPlatform', 1):Destroy()
+    Character.HumanoidRootPart.CFrame = CFrame.new(310, 133, 2)
     workspace.SnailPlatform:Destroy()
+    local Platform = Instance.new("Part")
+    Platform.Parent = game.workspace
+    Platform.Name = 'SnailPlatform'
+    Platform.Anchored = true
+    Platform.CFrame = CFrame.new(423, 128, -178)
+    Platform.Size = Vector3.new(10, 1, 10)
+    Platform.Color = Color3.new(0, 0, 0)
+    wait(1)
+    _G.Snail = true
+    Character.HumanoidRootPart.CFrame = CFrame.new(423, 133, -178)
 else
 Character.HumanoidRootPart.CFrame = CFrame.new(310, 133, 2)
 local Platform = Instance.new("Part")
@@ -57,30 +77,85 @@ Platform.Color = Color3.new(0, 0, 0)
 wait(1)
 _G.Snail = true
 Character.HumanoidRootPart.CFrame = CFrame.new(423, 133, -178)
-wait(3)
+wait(1)
+end
 while _G.Snail == true do
     wait()
     if EnabledSnail == true then
         EnabledSnail = false
         local SnailMonster = game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 5)
-        local Target = SnailMonster:WaitForChild("Target", 5)
         if SnailMonster then
-            if SnailMonster.Target.Value == Character then
+            if SnailMonster.Target.Value == Character and SnailMonster.Humanoid.Health >= 1000 then
                 Character.HumanoidRootPart.CFrame = CFrame.new(423, 133, -178)
-            elseif Target.Value ~= Player then
+            elseif SnailMonster.Target.Value == Character and SnailMonster.Humanoid.Health <= 1000 then
             game.Workspace.SnailPlatform:Destroy()
              _G.Snail = false
-             _G.SnailIn = false
             end
         elseif not SnailMonster then
             game.Workspace.SnailPlatform:Destroy()
             _G.Snail = false
-            _G.SnailIn = false
         end
 end
 wait(10)
 EnabledSnail = true
 end
+end
+if _G.SnailIn == false then
+    local platform = workspace:WaitForChild('SnailPlatform', 1)
+    if platform then
+        platform:Destroy()
+    elseif not platform then
+end
+end
+if _G.CoconutCrabIn == true then
+    if workspace:WaitForChild('CoconutPlatform', 1) then
+        workspace.CoconutPlatform:Destroy()
+        Character.HumanoidRootPart.CFrame = CFrame.new(-344, 111, 535)
+        wait()
+        local Platform2 = Instance.new("Part")
+        Platform2.Parent = game.workspace
+        Platform2.Name = 'CoconutPlatform'
+        Platform2.Anchored = true
+        Platform2.CFrame = CFrame.new(-262, 109, 510)
+        Platform2.Size = Vector3.new(10, 1, 10)
+        Platform2.Color = Color3.new(0, 0, 0)
+        wait(0.3)
+        Character.HumanoidRootPart.CFrame = CFrame.new(-262, 114, 508)
+        _G.Crab = true
+    else
+        Character.HumanoidRootPart.CFrame = CFrame.new(-344, 111, 535)
+        local Platform2 = Instance.new("Part")
+        Platform2.Parent = game.workspace
+        Platform2.Name = 'CoconutPlatform'
+        Platform2.Anchored = true
+        Platform2.CFrame = CFrame.new(-262, 109, 510)
+        Platform2.Size = Vector3.new(10, 1, 10)
+        Platform2.Color = Color3.new(0, 0, 0)
+        wait(0.3)
+        Character.HumanoidRootPart.CFrame = CFrame.new(-262, 114, 508)
+        _G.Crab = true
+    end
+     while _G.Crab == true do
+            wait()
+            if EnabledCrab == true then
+            EnabledCrab = false
+            local CoconutMonster = game:GetService("Workspace").Monsters:WaitForChild("Coconut Crab (Lvl 12)", 5)
+            local Target = CoconutMonster:WaitForChild("Target", 5)
+            wait(1)
+            if CoconutMonster then
+                if Target.Value == Character then
+                    Character.HumanoidRootPart.CFrame = CFrame.new(-262, 114, 508)
+                elseif Target.Value ~= Character then
+                    game.workspace.CoconutPlatform:Destroy()
+                    _G.Crab = false
+                end
+            elseif not CoconutMonster then
+                    _G.Crab = false
+                    game.workspace.CoconutPlatform:Destroy()
+            end
+            end
+                wait(10)
+                EnabledCrab = true
 end
 end
 
