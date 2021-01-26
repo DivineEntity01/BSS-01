@@ -18,12 +18,6 @@ local EnabledCrab = true
 
 ]]
 
--- Snail Switch
-_G.SnailIn = true
-
--- Coconut Switch
-_G.CoconutCrabIn = false
-
 -- Commando Chick Switch
 --_G.CommandoChick = false
 
