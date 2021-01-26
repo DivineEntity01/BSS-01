@@ -1,0 +1,87 @@
+local Player = game.Players.LocalPlayer
+Players = game.Players
+local Character = Player.Character
+local EnabledSnail = true
+local GC = getconnections or get_signal_cons
+_G.Snail = true
+
+--[[
+
+ ___  ____  ____  ____  ____  _  _   ___  ___ 
+/ __)( ___)(_  _)(_  _)(_  _)( \( ) / __)/ __)
+\__ \ )__)   )(    )(   _)(_  )  ( ( (_-.\__ \
+(___/(____) (__)  (__) (____)(_)\_) \___/(___/
+
+
+]]
+
+
+
+-- Snail Switch
+_G.SnailIn = true
+
+
+
+
+--[[
+
+ ___   ___  ____  ____  ____  ____ 
+/ __) / __)(  _ \(_  _)(  _ \(_  _)
+\__ \( (__  )   / _)(_  )___/  )(  
+(___/ \___)(_)\_)(____)(__)   (__) 
+
+]]
+
+
+if GC then
+		for i,v in pairs(GC(Players.LocalPlayer.Idled)) do
+			if v["Disable"] then
+				v["Disable"](v)
+			elseif v["Disconnect"] then
+				v["Disconnect"](v)
+			end
+		end
+end
+if _G.SnailIn == true then
+if workspace:WaitForChild('SnailPlatform', 1) then
+    workspace.SnailPlatform:Destroy()
+else
+Character.HumanoidRootPart.CFrame = CFrame.new(310, 133, 2)
+local Platform = Instance.new("Part")
+Platform.Parent = game.workspace
+Platform.Name = 'SnailPlatform'
+Platform.Anchored = true
+Platform.CFrame = CFrame.new(423, 128, -178)
+Platform.Size = Vector3.new(10, 1, 10)
+Platform.Color = Color3.new(0, 0, 0)
+wait(1)
+_G.Snail = true
+Character.HumanoidRootPart.CFrame = CFrame.new(423, 133, -178)
+wait(3)
+while _G.Snail == true do
+    wait()
+    if EnabledSnail == true then
+        EnabledSnail = false
+        local SnailMonster = game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 5)
+        local Target = SnailMonster:WaitForChild("Target", 5)
+        if SnailMonster then
+            if SnailMonster.Target.Value == Character then
+                Character.HumanoidRootPart.CFrame = CFrame.new(423, 133, -178)
+            elseif Target.Value ~= Player then
+            game.Workspace.SnailPlatform:Destroy()
+             _G.Snail = false
+             _G.SnailIn = false
+            end
+        elseif not SnailMonster then
+            game.Workspace.SnailPlatform:Destroy()
+            _G.Snail = false
+            _G.SnailIn = false
+        end
+end
+wait(10)
+EnabledSnail = true
+end
+end
+end
+
+
