@@ -67,7 +67,7 @@ else
     switch.Parent = Values
     switch.Value = true
 end
-wait()
+
 local EnabledDispensers = EnabledDispensers.bool.Value
 
 --AntiAFK taken from Infinite Yield Source https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source
@@ -261,29 +261,43 @@ CoreGui:SetCore("SendNotification", {
 })
 end
 end
-
+if _G.MondoIn == false then
+    workspace:WaitForChild('MondoPlatform', 1):Destroy()
+end
 
 --AutoDispensers
 if _G.DispensersIn == true then
 while _G.DispensersIn == true do
 if game.Players.LocalPlayer:IsInGroup(3982592) and EnabledDispensers == true and not EssentialDispensers then
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args))
+    wait()
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args2))
+    wait()
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args3))
-    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args4))
-    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args5))
+    wait()
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args6))
+    wait()
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args7))
+    wait()
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args8))
+    wait()
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args9))
+    wait()
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args10))
+    wait()
 elseif not game.Players.LocalPlayer:IsInGroup(3982592) and EnabledDispensers == true and not EssentialDispensers then
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args5))
+    wait()
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args6))
+    wait()
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args7))
+    wait()
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args8))
+    wait()
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args9))
+    wait()
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args10))
+    wait()
 end
 if EnabledDispensers == true and _G.EssentialDispensers == true then
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(e1))
@@ -295,7 +309,7 @@ if _G.DispensersIn == false then
 break
 elseif _G.DispensersIn == true and EnabledDispensers == true then
 game.workspace.Values.bool.Value = false
-wait(5)
+wait(600)
 EnabledDispensers = true
 elseif _G.DispensersIn == true and EnabledDispensers == false then
 wait(600)
@@ -304,7 +318,7 @@ end
 end
 if _G.DispensersIn == false then
     game.workspace.Values.bool.Value = false
-    wait(0.5)
+    wait(5)
     game.workspace.Values.bool.Value = true
     _G.DispensersIn = false
 end
