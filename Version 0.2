@@ -236,7 +236,7 @@ end
 end
 end
 else 
-local StarterGui = game:GetService("CoreGui")
+local CoreGui = game:GetService("StarterGui")
 local bindable = Instance.new("BindableFunction")
 
 function bindable.OnInvoke(response)
@@ -248,7 +248,7 @@ function bindable.OnInvoke(response)
     Character.HumanoidRootPart.bruh:Destroy()
 end
 
-StarterGui:SetCore("SendNotification", {
+CoreGui:SetCore("SendNotification", {
 	Title = "MondoChick Enabled",
 	Text = "There is no Mondo Chick",
 	Duration = 6000,
