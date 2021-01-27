@@ -9,7 +9,7 @@ _G.Mondo = false
 local EnabledSnail = true
 local EnabledCrab = true
 local EnabledMondo = true
-local EnabledDispensers = game.workspace:WaitForChild('Values', 1)
+local EnabledDispensers = wait()
 local args, args2, args3, args4 = 
 {[1] = "Honey Dispenser"}, 
 {[1] = "Treat Dispenser"}, 
@@ -54,9 +54,8 @@ local e1, e2, e3, e4 =
 ]]
 
 
-if workspace:WaitForChild('Values', 1) then
+if not workspace:WaitForChild('Values', 1) then
     wait()
-else
     local Values = Instance.new('Folder')
     Values.Name = 'Values'
     Values.Parent = game.workspace
@@ -64,8 +63,10 @@ else
     switch.Name = 'bool'
     switch.Parent = Values
     switch.Value = true
+elseif workspace:WaitForChild('Values', 1) then
 end
-
+wait()
+local EnabledDispensers = game.workspace:WaitForChild('Values', 1)
 local EnabledDispensers = EnabledDispensers.bool.Value
 
 --AntiAFK taken from Infinite Yield Source https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source
