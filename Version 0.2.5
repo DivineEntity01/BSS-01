@@ -262,7 +262,10 @@ CoreGui:SetCore("SendNotification", {
 end
 end
 if _G.MondoIn == false then
+    if workspace:WaitForChild('MondoPlatform', 1) then
     workspace:WaitForChild('MondoPlatform', 1):Destroy()
+    else
+    wait()
 end
 
 --AutoDispensers
