@@ -219,7 +219,7 @@ if game:GetService("Workspace").Monsters:WaitForChild("Mondo Chick (Lvl 8)", 5) 
         Platform3.Color = Color3.new(0, 0, 0)
         wait(1)
         _G.Mondo = true
-        Character.HumanoidRootPart.CFrame = CFrame.new(79, 211, -166)
+        Character.HumanoidRootPart.CFrame = CFrame.new(79, 214, -166)
     while _G.Mondo == true do
         wait()
         if EnabledMondo == true then
@@ -228,7 +228,7 @@ if game:GetService("Workspace").Monsters:WaitForChild("Mondo Chick (Lvl 8)", 5) 
         local Health = game:GetService("Workspace").Monsters:WaitForChild("Mondo Chick (Lvl 8)", 5).Humanoid.Health
         local MondoPlatform = game.Workspace:WaitForChild('MondoPlatform')
         if MondoMonster and Health >= 100 then
-            Character.HumanoidRootPart.CFrame = CFrame.new(79, 211, -166)
+            Character.HumanoidRootPart.CFrame = CFrame.new(79, 214, -166)
         elseif MondoMonster and Health <= 100 then
             Character.HumanoidRootPart.CFrame = CFrame.new(23, 176, -181)
             MondoPlatform:Destroy()
