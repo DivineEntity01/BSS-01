@@ -2,7 +2,6 @@ local Player = game.Players.LocalPlayer
 local Players = game.Players
 local Character = Player.Character
 local GC = getconnections or get_signal_cons
-local Values = game.workspace:WaitForChild('Values', 1)
 _G.Snail = false
 _G.Crab = false
 _G.Mondo = false
@@ -17,7 +16,7 @@ local args, args2, args3, args4 =
 {[1] = "Strawberry Dispenser"}, 
 {[1] = "Blueberry Dispenser"}
 local args5, args6, args7, args8, args9, args10 = 
-{[1] = "Wreath Clock"},
+{[1] = "Wealth Clock"},
 {[1] = "Free Ant Pass Dispenser"},
 {[1] = "Coconut Dispenser"},
 {[1] = "Free Royal Jelly Dispenser"},
@@ -232,8 +231,13 @@ if game:GetService("Workspace").Monsters:WaitForChild("Mondo Chick (Lvl 8)", 5) 
         elseif MondoMonster and Health <= 100 then
             Character.HumanoidRootPart.CFrame = CFrame.new(23, 176, -181)
             MondoPlatform:Destroy()
+        elseif not MondoMonster then
+            Character.HumanoidRootPart.CFrame = CFrame.new(23, 176, -181)
+            MondoPlatform:Destroy()
 end
 end
+wait(10)
+EnabledMondo = true
 end
 else 
 local CoreGui = game:GetService("StarterGui")
