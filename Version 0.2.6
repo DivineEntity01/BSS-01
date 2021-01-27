@@ -270,6 +270,13 @@ end
 
 --AutoDispensers
 if _G.DispensersIn == true then
+local CoreGui = game:GetService("StarterGui")
+CoreGui:SetCore("SendNotification", {
+	Title = "AutoDispensers Enabled",
+	Text = "AutoDispenser is enabled, may cause lag once it autocollects em",
+	Duration = 60,
+	Button1 = "Yeah"
+})
 while _G.DispensersIn == true do
 if game.Players.LocalPlayer:IsInGroup(3982592) and EnabledDispensers == true and not EssentialDispensers then
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args))
