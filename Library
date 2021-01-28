@@ -36,12 +36,12 @@ local Library = {
     };
 
     Settings = {
-        MainTextSize = 15;
-        MainTweenTime = 1;
-        RippleTweenTime = 1;
-        CheckboxTweenTime = 0.5;
-        ColorPickerTweenTime = 0.5;
-        DropdownTweenTime = 0.5;
+        MainTextSize = 20;
+        MainTweenTime = 0.6;
+        RippleTweenTime = 0.4;
+        CheckboxTweenTime = 0.3;
+        ColorPickerTweenTime = 0.3;
+        DropdownTweenTime = 0.8;
         DropdownButtonColorHoverTweenTime = 0.5;
         MainTextFont = Enum.Font.Code;
         UIToggleKey = Enum.KeyCode.RightControl;
@@ -59,7 +59,7 @@ Holder.BackgroundColor3 = Color3.new(0, 0, 0)
 Holder.BackgroundTransparency = 1
 Holder.BorderColor3 = Color3.new(0, 0, 0)
 Holder.BorderSizePixel = 0
-Holder.Size = UDim2.new(0, 100, 0, 100)
+Holder.Size = UDim2.new(0, 75, 0, 100)
 
 TabPadding.Name = "TabPadding"
 TabPadding.Parent = Holder
