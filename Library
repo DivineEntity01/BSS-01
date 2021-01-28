@@ -36,7 +36,7 @@ local Library = {
     };
 
     Settings = {
-        MainTextSize = 10;
+        MainTextSize = 15;
         MainTweenTime = 1;
         RippleTweenTime = 1;
         CheckboxTweenTime = 0.5;
@@ -44,7 +44,7 @@ local Library = {
         DropdownTweenTime = 0.5;
         DropdownButtonColorHoverTweenTime = 0.5;
         MainTextFont = Enum.Font.Code;
-        UIToggleKey = Enum.KeyCode.RightAlt;
+        UIToggleKey = Enum.KeyCode.RightControl;
         TweenEasingStyle = Enum.EasingStyle.Quart;
     }
 }
@@ -59,7 +59,7 @@ Holder.BackgroundColor3 = Color3.new(0, 0, 0)
 Holder.BackgroundTransparency = 1
 Holder.BorderColor3 = Color3.new(0, 0, 0)
 Holder.BorderSizePixel = 0
-Holder.Size = UDim2.new(0, 50, 0, 50)
+Holder.Size = UDim2.new(0, 100, 0, 100)
 
 TabPadding.Name = "TabPadding"
 TabPadding.Parent = Holder
@@ -100,7 +100,7 @@ function Library:CreateTab(tabtitle, tabdescription)
     TabName.BorderColor3 = Library.Colors.Border
     TabName.BorderSizePixel = 0
     TabName.Position = UDim2.new(0.150000006, 0, 0.5, 0)
-    TabName.Size = UDim2.new(0, 100, 0, 26)
+    TabName.Size = UDim2.new(0, 200, 0, 32)
     TabName.AutoButtonColor = false
     TabName.Font = Library.Settings.MainTextFont
     TabName.TextColor3 = Library.Colors.Text
@@ -887,4 +887,4 @@ function Library:CreateTab(tabtitle, tabdescription)
     return CoastsLibrary;
 end
 
-return Library;
+return Library; 
