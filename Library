@@ -36,7 +36,7 @@ local Library = {
     };
 
     Settings = {
-        MainTextSize = 20;
+        MainTextSize = 13;
         MainTweenTime = 0.6;
         RippleTweenTime = 0.4;
         CheckboxTweenTime = 0.3;
@@ -59,7 +59,7 @@ Holder.BackgroundColor3 = Color3.new(0, 0, 0)
 Holder.BackgroundTransparency = 1
 Holder.BorderColor3 = Color3.new(0, 0, 0)
 Holder.BorderSizePixel = 0
-Holder.Size = UDim2.new(0, 75, 0, 100)
+Holder.Size = UDim2.new(0, 100, 0, 100)
 
 TabPadding.Name = "TabPadding"
 TabPadding.Parent = Holder
@@ -100,7 +100,7 @@ function Library:CreateTab(tabtitle, tabdescription)
     TabName.BorderColor3 = Library.Colors.Border
     TabName.BorderSizePixel = 0
     TabName.Position = UDim2.new(0.150000006, 0, 0.5, 0)
-    TabName.Size = UDim2.new(0, 200, 0, 32)
+    TabName.Size = UDim2.new(0, 140, 0, 20)
     TabName.AutoButtonColor = false
     TabName.Font = Library.Settings.MainTextFont
     TabName.TextColor3 = Library.Colors.Text
@@ -152,7 +152,7 @@ function Library:CreateTab(tabtitle, tabdescription)
     DescriptionText.BackgroundTransparency = 1
     DescriptionText.BorderColor3 = Library.Colors.Border
     DescriptionText.BorderSizePixel = 0
-    DescriptionText.Size = UDim2.new(0, 200, 0, 32)
+    DescriptionText.Size = UDim2.new(0, 145, 0, 20)
     DescriptionText.Font = Library.Settings.MainTextFont
     DescriptionText.Text = (" " .. tabdescription)
     DescriptionText.TextColor3 = Library.Colors.Text
@@ -192,7 +192,7 @@ function Library:CreateTab(tabtitle, tabdescription)
             if IsATabOpen then
                 return false
             elseif not IsATabOpen then
-                TweenService:Create(TabUnderline, TweenInfo.new(0.50, Library.Settings.TweenEasingStyle, Enum.EasingDirection.Out), {Position = UDim2.new(0, 0, 0.9375, 0), Size = UDim2.new(0, 200, 0, 2)}):Play()
+                TweenService:Create(TabUnderline, TweenInfo.new(0.50, Library.Settings.TweenEasingStyle, Enum.EasingDirection.Out), {Position = UDim2.new(0, 0, 0.9375, 0), Size = UDim2.new(0, 145, 0, 2)}):Play()
                 TweenService:Create(DescriptionHolder, TweenInfo.new(0.50, Library.Settings.TweenEasingStyle, Enum.EasingDirection.Out), {Position = UDim2.new(1.08000004, 0, 0, 0), Size = UDim2.new(0, TextBounds.X + 15, 0, 32)}):Play()
             end
         end
@@ -222,7 +222,7 @@ function Library:CreateTab(tabtitle, tabdescription)
             RippleHolder.BorderColor3 = Library.Colors.Border
             RippleHolder.BorderSizePixel = 0
             RippleHolder.ClipsDescendants = true
-            RippleHolder.Size = UDim2.new(0, 200, 0, 32)
+            RippleHolder.Size = UDim2.new(0, 145, 0, 20)
 
             RippleEffect.Name = "RippleEffect"
             RippleEffect.Parent = RippleHolder
@@ -252,7 +252,7 @@ function Library:CreateTab(tabtitle, tabdescription)
         SectionLabel.BackgroundColor3 = Library.Colors.Section
         SectionLabel.BorderColor3 = Library.Colors.Border
         SectionLabel.BorderSizePixel = 0
-        SectionLabel.Size = UDim2.new(0, 200, 0, 30)
+        SectionLabel.Size = UDim2.new(0, 145, 0, 20)
         SectionLabel.Font = Library.Settings.MainTextFont
         SectionLabel.Text = sectionname
         SectionLabel.TextColor3 = Library.Colors.Text
@@ -286,7 +286,7 @@ function Library:CreateTab(tabtitle, tabdescription)
         CheckboxHolder.BackgroundTransparency = 1
         CheckboxHolder.BorderColor3 = Library.Colors.Border
         CheckboxHolder.BorderSizePixel = 0
-        CheckboxHolder.Size = UDim2.new(0, 200, 0, 30)
+        CheckboxHolder.Size = UDim2.new(0, 145, 0, 18)
 
         CheckboxTitleText.Name = "CheckboxTitleText"
         CheckboxTitleText.Parent = CheckboxHolder
@@ -295,7 +295,7 @@ function Library:CreateTab(tabtitle, tabdescription)
         CheckboxTitleText.BorderColor3 = Library.Colors.Border
         CheckboxTitleText.BorderSizePixel = 0
         CheckboxTitleText.Position = UDim2.new(0.0350000001, 0, 0.112999983, 0)
-        CheckboxTitleText.Size = UDim2.new(0, 146, 0, 25)
+        CheckboxTitleText.Size = UDim2.new(0, 145, 0, 25)
         CheckboxTitleText.Font = Library.Settings.MainTextFont
         CheckboxTitleText.Text = checkboxname
         CheckboxTitleText.TextColor3 = Color3.new(1, 1, 1)
@@ -360,7 +360,7 @@ function Library:CreateTab(tabtitle, tabdescription)
         Button.BorderColor3 = Library.Colors.Border
         Button.BorderSizePixel = 0
         Button.ClipsDescendants = true
-        Button.Size = UDim2.new(0, 200, 0, 30)
+        Button.Size = UDim2.new(0, 145, 0, 20)
         Button.AutoButtonColor = false
         Button.Font = Library.Settings.MainTextFont
         Button.Text = buttonname
@@ -410,7 +410,7 @@ function Library:CreateTab(tabtitle, tabdescription)
         ColorPickerHolder.BackgroundTransparency = 1
         ColorPickerHolder.BorderColor3 = Library.Colors.Border
         ColorPickerHolder.BorderSizePixel = 0
-        ColorPickerHolder.Size = UDim2.new(0, 200, 0, 30)
+        ColorPickerHolder.Size = UDim2.new(0, 145, 0, 20)
 
         ColorPickerTitleText.Name = "ColorPickerTitleText"
         ColorPickerTitleText.Parent = ColorPickerHolder
@@ -761,14 +761,14 @@ function Library:CreateTab(tabtitle, tabdescription)
         DropdownHolder.BackgroundTransparency = 1
         DropdownHolder.BorderColor3 = Library.Colors.Border
         DropdownHolder.BorderSizePixel = 0
-        DropdownHolder.Size = UDim2.new(0, 200, 0, 30)
+        DropdownHolder.Size = UDim2.new(0, 145, 0, 20)
 
         SelectedOption.Name = (dropdownname .. "SelectedOption")
         SelectedOption.Parent = DropdownHolder
         SelectedOption.BackgroundColor3 = Library.Colors.Dropdown
         SelectedOption.BorderColor3 = Library.Colors.Border
         SelectedOption.BorderSizePixel = 0
-        SelectedOption.Size = UDim2.new(0, 200, 0, 30)
+        SelectedOption.Size = UDim2.new(0, 145, 0, 20)
         SelectedOption.Font = Library.Settings.MainTextFont
         SelectedOption.Text = dropdownlistoptions[dropdownlistpresetnumber]
         SelectedOption.TextColor3 = Library.Colors.Text
