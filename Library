@@ -36,7 +36,7 @@ local Library = {
     };
 
     Settings = {
-        MainTextSize = 5;
+        MainTextSize = 10;
         MainTweenTime = 1;
         RippleTweenTime = 1;
         CheckboxTweenTime = 0.5;
@@ -44,7 +44,7 @@ local Library = {
         DropdownTweenTime = 0.5;
         DropdownButtonColorHoverTweenTime = 0.5;
         MainTextFont = Enum.Font.Code;
-        UIToggleKey = Enum.KeyCode.RightControl;
+        UIToggleKey = Enum.KeyCode.RightAlt;
         TweenEasingStyle = Enum.EasingStyle.Quart;
     }
 }
@@ -100,7 +100,7 @@ function Library:CreateTab(tabtitle, tabdescription)
     TabName.BorderColor3 = Library.Colors.Border
     TabName.BorderSizePixel = 0
     TabName.Position = UDim2.new(0.150000006, 0, 0.5, 0)
-    TabName.Size = UDim2.new(0, 200, 0, 32)
+    TabName.Size = UDim2.new(0, 100, 0, 26)
     TabName.AutoButtonColor = false
     TabName.Font = Library.Settings.MainTextFont
     TabName.TextColor3 = Library.Colors.Text
