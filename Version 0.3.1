@@ -49,9 +49,11 @@ local f1, f2, f3=
 
 -- Commando Chick Switch
 --_G.CommandoChick = false
---_G.DispensersIn = false
+--_G.DispensersIn = true
 --_G.CoconutCrabIn = false
---_G.FieldBoosters = false
+--_G.FieldBoosters = true
+--_G.MondoIn = false
+
 --[[
 
  ___   ___  ____  ____  ____  ____ 
@@ -219,7 +221,7 @@ if _G.CoconutCrabIn == false then
 end
 end
 --MondoChick
-if _G.MondoIn == true and _G.CoconutCrabIn == true and _G.SnailIn == false then
+if _G.MondoIn == true and _G.CoconutCrabIn == false and _G.SnailIn == false then
     if workspace:WaitForChild('MondoPlatform', 0.05) then
     workspace:WaitForChild('MondoPlatform', 0.05):Destroy()
 end
@@ -236,11 +238,11 @@ if game:GetService("Workspace").Monsters:WaitForChild("Mondo Chick (Lvl 8)", 0.0
         _G.Mondo = true
         Character.HumanoidRootPart.CFrame = CFrame.new(79, 213, -166)
     while _G.Mondo == true do
-        if EnabledMondo == true then
+        if EnabledMondo == true and game:GetService("Workspace").Monsters:WaitForChild("Mondo Chick (Lvl 8)", 0.05) then
         EnabledMondo = false
         local MondoMonster = game:GetService("Workspace").Monsters:WaitForChild("Mondo Chick (Lvl 8)", 0.05)
         local MondoPlatform = game.Workspace:WaitForChild('MondoPlatform', 0.05)
-        local MondoHumanoid = MondoMonster:WaitForChild('Humanoid', 0.05)
+        local MondoHumanoid = MondoMonster:FindFirstChild('Humanoid', 0.05)
         local Health = MondoHumanoid.Health
         if MondoMonster and Health >= 1000 then
         Character.HumanoidRootPart.CFrame = CFrame.new(79, 213, -166)
@@ -254,14 +256,18 @@ end
         
 end
 if not MondoMonster and EnabledMondo == true then
+    if game.Workspace:WaitForChild('MondoPlatform', 0.05) then
     game.Workspace:WaitForChild('MondoPlatform', 0.05):Destroy()
+    else
     _G.MondoIn = false
+    end
 end
-if MondoMonster and Health <= 1000 and EnabledMondo == true then
+if MondoMonster and Health <= 1500 and EnabledMondo == true then
             Character.HumanoidRootPart.CFrame = CFrame.new(23, 176, -181)
             game.Workspace:WaitForChild('MondoPlatform', 0.05):Destroy()
+            _G.MondoIn = false
 end
-wait(0.7)
+wait(0.15)
 EnabledMondo = true
 end
 elseif not game:GetService("Workspace").Monsters:WaitForChild("Mondo Chick (Lvl 8)", 0.05) and game.Workspace.Values.alertmondo.Value == false then
@@ -273,7 +279,7 @@ function bindable.OnInvoke(response)
     sound.Name = 'bruh'
     sound.SoundId = "rbxassetid://170040190"
     sound:Play()
-    wait(2)
+    wait(60)
     Character.HumanoidRootPart.bruh:Destroy()
 end
 
@@ -301,14 +307,19 @@ end
 --AutoDispensers
 if _G.DispensersIn == true and workspace.Values.alertdispenser.Value == false then
 local CoreGui = game:GetService("StarterGui")
+function bindable.OnInvoke(response)
+    game.Workspace.Values.alertdispenser.Value = true
+end
 CoreGui:SetCore("SendNotification", {
 	Title = "AutoDispensers Enabled",
 	Text = "AutoDispenser is enabled, may cause lag once it autocollects em",
-	Duration = 7,
+	Duration = 30,
+	Callback = bindable,
 	Button1 = "Yeah"
 })
 while _G.DispensersIn == true do
 if game.Players.LocalPlayer:IsInGroup(3982592) and EnabledDispensers == true and not EssentialDispensers then
+    print('claimed')
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args))
     wait()
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args2))
@@ -357,7 +368,6 @@ end
 if _G.DispensersIn == false then
 break
 elseif _G.DispensersIn == true and EnabledDispensers == true then
-game.Workspace.Values.alertdispenser.Value = true
 game.Workspace.Values.bool.Value = false
 wait(600)
 EnabledDispensers = true
