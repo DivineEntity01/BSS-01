@@ -59,7 +59,7 @@ Holder.BackgroundColor3 = Color3.new(0, 0, 0)
 Holder.BackgroundTransparency = 1
 Holder.BorderColor3 = Color3.new(0, 0, 0)
 Holder.BorderSizePixel = 0
-Holder.Size = UDim2.new(0, 100, 0, 100)
+Holder.Size = UDim2.new(0, 50, 0, 50)
 
 TabPadding.Name = "TabPadding"
 TabPadding.Parent = Holder
