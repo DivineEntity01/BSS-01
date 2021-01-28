@@ -49,10 +49,9 @@ local f1, f2, f3=
 
 -- Commando Chick Switch
 --_G.CommandoChick = false
-
-_G.DispensersIn = true
-_G.CoconutCrabIn = false
-_G.FieldBoosters = true
+--_G.DispensersIn = false
+--_G.CoconutCrabIn = false
+--_G.FieldBoosters = false
 --[[
 
  ___   ___  ____  ____  ____  ____ 
@@ -310,7 +309,6 @@ CoreGui:SetCore("SendNotification", {
 })
 while _G.DispensersIn == true do
 if game.Players.LocalPlayer:IsInGroup(3982592) and EnabledDispensers == true and not EssentialDispensers then
-    print('claimed')
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args))
     wait()
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args2))
