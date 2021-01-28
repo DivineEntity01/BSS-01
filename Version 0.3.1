@@ -239,7 +239,7 @@ if game:GetService("Workspace").Monsters:WaitForChild("Mondo Chick (Lvl 8)", 0.0
         if EnabledMondo == true then
         EnabledMondo = false
         local MondoMonster = game:GetService("Workspace").Monsters:WaitForChild("Mondo Chick (Lvl 8)", 0.05)
-        local MondoPlatform = game.Workspace:WaitForChild('MondoPlatform')
+        local MondoPlatform = game.Workspace:WaitForChild('MondoPlatform', 0.05)
         local MondoHumanoid = MondoMonster:WaitForChild('Humanoid', 0.05)
         local Health = MondoHumanoid.Health
         if MondoMonster and Health >= 1000 then
