@@ -1,0 +1,424 @@
+--A very sexy lib made by https://v3rmillion.net/member.php?action=profile&uid=1379221
+--Here's the release thread https://v3rmillion.net/showthread.php?tid=1066917
+
+
+--UI Library
+loadstring(game:HttpGet("https://raw.githubusercontent.com/DivineEntity01/BSS-01/main/Rodus%20%7C%20UI-Library", true))()
+if game:GetService('CoreGui'):WaitForChild('Simple Swarm', 0.08) then
+wait()
+elseif not game:GetService('CoreGui'):WaitForChild('Simple Swarm', 0.08) then
+CreateMain("Simple Swarm")
+CreateTab("Bosses Tab")
+CreateTab("Machines Tab")
+CreateTab("Extras")
+
+--Bosses
+CreateToggle(tabs['Bosses Tab'], "Coconut Crab", "Turn on to kill the Crab",function()
+end)
+CreateToggle(tabs['Bosses Tab'], "Stump Snail", "Turn on to kill the Snail",function()
+end)
+CreateToggle(tabs['Bosses Tab'], "Mondo Chick", "Turn on to kill the Mondo Chick",function()
+end)
+
+--Machines(Dispensers, Field Boosters)
+CreateToggle(tabs['Machines Tab'], "AutoDispensers", "Autocollects the dispensers",function(bool1)
+end)
+CreateToggle(tabs['Machines Tab'], "Auto Boosters", "Activates the boosters automatically",function()
+end)
+CreateToggle(tabs['Machines Tab'], "Essential Dispensers", "Do not recommend, doesn't collect the tokens from manual dispensers",function()
+end)
+
+--Extras
+CreateLabel(tabs['Extras'], "Notes", Color3.fromRGB(0,255,0))
+CreateLabel(tabs['Extras'], "You need to manually pick", Color3.fromRGB(0,255,0))
+CreateLabel(tabs['Extras'], "the boss tokens", Color3.fromRGB(0,255,0))
+CreateLabel(tabs['Extras'], "", Color3.fromRGB(0,255,0))
+CreateLabel(tabs['Extras'], "Simple Swarm Version:", Color3.fromRGB(0,255,0))
+CreateLabel(tabs['Extras'], "1.3.1", Color3.fromRGB(0,255,0))
+CreateLabel(tabs['Extras'], "There may be some bugs", Color3.fromRGB(0,255,0))
+CreateLabel(tabs['Extras'], "I'll fix em later", Color3.fromRGB(0,255,0))
+CreateToggle(tabs['Extras'], "Star Catcher", "Catches the falling lights(Needs to complete the science bear beesmas quest)",function()
+end)
+end
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------
+
+--Local Variables
+local Player = game.Players.LocalPlayer
+local Players = game.Players
+local Character = Player.Character
+local GC = getconnections or get_signal_cons
+local EnabledSnail = true
+local EnabledCrab = true
+local EnabledMondo = true
+local EnabledDispensers = game.workspace
+local AlertDispensers = game.workspace
+local AlertMondo = game.workspace
+
+if GC then
+		for i,v in pairs(GC(Players.LocalPlayer.Idled)) do
+			if v["Disable"] then
+				v["Disable"](v)
+			elseif v["Disconnect"] then
+				v["Disconnect"](v)
+			end
+		end
+end
+
+if not workspace:WaitForChild('Values', 0.3) then
+    wait()
+    local Values = Instance.new('Folder')
+    Values.Name = 'Values'
+    Values.Parent = game.workspace
+    local switch = Instance.new('BoolValue')
+    switch.Name = 'bool'
+    switch.Parent = Values
+    switch.Value = true
+    local alert1 = Instance.new('BoolValue')
+    alert1.Name = 'alertdispenser'
+    alert1.Parent = Values
+    alert1.Value = false
+    local alert2 = Instance.new('BoolValue')
+    alert2.Name = 'alertmondo'
+    alert2.Parent = Values
+    alert2.Value = false
+elseif workspace:WaitForChild('Values', 0.1) then
+end
+
+local EnabledDispensers = game.workspace:WaitForChild('Values', 0.3)
+EnabledDispensers = EnabledDispensers.bool.Value
+local AlertDispensers = game.workspace:WaitForChild('Values', 0.3)
+AlertDispensers = AlertDispensers.alertdispenser.Value
+local AlertMondo = game.workspace:WaitForChild('Values', 0.3)
+AlertMondo = AlertMondo.alertmondo.Value
+
+
+local args, args2, args3, args4 = 
+{[1] = "Honey Dispenser"}, 
+{[1] = "Treat Dispenser"}, 
+{[1] = "Strawberry Dispenser"}, 
+{[1] = "Blueberry Dispenser"}
+local args5, args6, args7, args8, args9, args10 = 
+{[1] = "Wealth Clock"},
+{[1] = "Free Ant Pass Dispenser"},
+{[1] = "Coconut Dispenser"},
+{[1] = "Free Royal Jelly Dispenser"},
+{[1] = "Honeyday Candles"},
+{[1] = "Gingerbread House"}
+local e1, e2, e3, e4 = 
+{[1] = "Beesmas Feast"},
+{[1] = "Onett's Lid Art"},
+{[1] = "Glue Dispenser"},
+{[1] = "Honey Wreath"}
+
+local f1, f2, f3= 
+{[1] = "Red Field Booster"},
+{[1] = "Blue Field Booster"},
+{[1] = "Field Booster"}
+
+
+--Global Variables
+_G.Mondo = false
+_G.Crab = false
+_G.Snail = false
+getgenv().DispensersIn = game:GetService("CoreGui")["Simple Swarm"].Top.Container["Machines Tab"].TabContainer.AutoDispensers.Toggled
+getgenv().FieldBoosterIn = game:GetService("CoreGui")["Simple Swarm"].Top.Container["Machines Tab"].TabContainer["Auto Boosters"].Toggled
+getgenv().EssentialDispensersIn = game:GetService("CoreGui")["Simple Swarm"].Top.Container["Machines Tab"].TabContainer["Essential Dispensers"].Toggled
+getgenv().StarCatchIn = game:GetService("CoreGui")["Simple Swarm"].Top.Container.Extras.TabContainer["Star Catcher"].Toggled
+getgenv().MondoIn = game:GetService("CoreGui")["Simple Swarm"].Top.Container["Bosses Tab"].TabContainer["Mondo Chick"].Toggled
+getgenv().CoconutCrabIn = game:GetService("CoreGui")["Simple Swarm"].Top.Container["Bosses Tab"].TabContainer["Coconut Crab"].Toggled
+getgenv().SnailIn = game:GetService("CoreGui")["Simple Swarm"].Top.Container["Bosses Tab"].TabContainer["Stump Snail"].Toggled
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+while true do
+local Cooldown = false
+if Cooldown == false then
+    -- Script Down Here
+    
+    --Dispensers
+    if getgenv().DispensersIn.Value == true and workspace.Values.alertdispenser.Value == false then
+    local CoreGui = game:GetService("StarterGui")
+    local bindable = Instance.new("BindableFunction")
+    function bindable.OnInvoke(response)
+    game.Workspace.Values.alertdispenser.Value = true
+    end
+CoreGui:SetCore("SendNotification", {
+	Title = "AutoDispensers Enabled",
+	Text = "AutoDispenser is enabled, may cause lag once it autocollects em",
+	Duration = 30,
+	Callback = bindable,
+	Button1 = "Yeah"
+})
+    while getgenv().DispensersIn.Value == true do
+    if game.Players.LocalPlayer:IsInGroup(3982592) and getgenv().DispensersIn.Value == true then
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args))
+    wait()
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args2))
+    wait()
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args3))
+    wait()
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args4))
+    wait()
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args5))
+    wait()
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args6))
+    wait()
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args7))
+    wait()
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args8))
+    wait()
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args9))
+    wait()
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args10))
+    wait()
+elseif not game.Players.LocalPlayer:IsInGroup(3982592) and getgenv().DispensersIn.Value == true then
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args5))
+    wait()
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args6))
+    wait()
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args7))
+    wait()
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args8))
+    wait()
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args9))
+    wait()
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args10))
+    wait()
+end
+    if getgenv().EssentialDispensersIn.Value == true then
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(e1))
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(e2))
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(e3))
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(e4))
+end
+    if getgenv().FieldBoosterIn.Value == true then
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(f1))
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(f2))
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(f3))
+end
+
+
+
+
+Cooldown = true
+game:GetService("RunService").Heartbeat:Wait(1)
+Cooldown = false
+end
+end
+
+
+
+    --Star Catcher
+    if getgenv().StarCatchIn.Value == true then
+       while getgenv().StarCatchIn.Value == true do
+    local EnabledStar = true
+    local Star = false
+    if EnabledStar == true then
+    game.Workspace.Particles:WaitForChild('WarningDisk', 0.05)
+    if game.Workspace.Particles:WaitForChild('WarningDisk', 0.05) then
+        Star = true
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game.Workspace.Particles:WaitForChild('WarningDisk', 0.05).Position)
+    elseif not game.Workspace.Particles:WaitForChild('WarningDisk', 0.05) and Star == true then
+    wait()
+    Star = false
+    elseif not game.Workspace.Particles:WaitForChild('WarningDisk', 0.05) then
+    game.Workspace.Particles:WaitForChild('WarningDisk', 5)
+    end
+    end
+    EnabledStar = false
+    wait(0.03)
+    EnabledStar = true
+end
+end
+
+
+
+    --MondoChick
+    if getgenv().MondoIn.Value == true then
+    if game.Workspace.Values.alertmondo.Value == true then 
+        game.Workspace.Values.alertmondo.Value = false
+    end
+    if workspace:WaitForChild('MondoPlatform', 0.05) then
+    workspace:WaitForChild('MondoPlatform', 0.05):Destroy()
+    end
+    if game:GetService("Workspace").Monsters:WaitForChild("Mondo Chick (Lvl 8)", 0.05) then
+        Character.HumanoidRootPart.CFrame = CFrame.new(-54, 210, -249)
+        local Platform3 = Instance.new('Part')
+        Platform3.Parent = game.workspace
+        Platform3.Name = 'MondoPlatform'
+        Platform3.Anchored = true
+        Platform3.CFrame = CFrame.new(79, 210, -166)
+        Platform3.Size = Vector3.new(10, 1, 10)
+        Platform3.Color = Color3.new(0, 0, 0)
+        wait(1)
+        _G.Mondo = true
+        Character.HumanoidRootPart.CFrame = CFrame.new(79, 213, -166)
+        while _G.Mondo == true and getgenv().MondoIn.Value == true do
+        if EnabledMondo == true and game:GetService("Workspace").Monsters:WaitForChild("Mondo Chick (Lvl 8)", 0.05) then
+        EnabledMondo = false
+        local MondoMonster = game:GetService("Workspace").Monsters:WaitForChild("Mondo Chick (Lvl 8)", 0.05)
+        local MondoPlatform = game.Workspace:FindFirstChild('MondoPlatform', 0.05)
+        local MondoHumanoid = MondoMonster:FindFirstChild('Humanoid', 0.05)
+        local Health = MondoHumanoid.Health
+        if game:GetService("Workspace").Monsters:WaitForChild("Mondo Chick (Lvl 8)", 0.05) and Health >= 1000 then
+        Character.HumanoidRootPart.CFrame = CFrame.new(79, 213, -166)
+        elseif game:GetService("Workspace").Monsters:WaitForChild("Mondo Chick (Lvl 8)", 0.05) and Health <= 1000 then
+        Character.HumanoidRootPart.CFrame = CFrame.new(23, 176, -181)
+        game.Workspace:FindFirstChild('MondoPlatform', 0.05):Destroy()
+        getgenv().MondoIn.Value = false
+        elseif not game:GetService("Workspace").Monsters:WaitForChild("Mondo Chick (Lvl 8)", 0.05) then
+        Character.HumanoidRootPart.CFrame = CFrame.new(23, 176, -181)
+        game.Workspace:FindFirstChild('MondoPlatform', 0.05):Destroy()
+        getgenv().MondoIn.Value = false
+end
+end
+end
+end
+    elseif not game:GetService("Workspace").Monsters:WaitForChild("Mondo Chick (Lvl 8)", 0.05) and game.Workspace.Values.alertmondo.Value == false and getgenv().MondoIn.Value == true then
+        local CoreGui = game:GetService("StarterGui")
+        local bindable = Instance.new("BindableFunction")
+        function bindable.OnInvoke(response)
+        game.Workspace.Values.alertmondo.Value = true
+        getgenv().MondoIn.Value = false
+        local sound = Instance.new("Sound", Character.HumanoidRootPart)
+        sound.Name = 'bruh'
+        sound.SoundId = "rbxassetid://170040190"
+        sound:Play()
+        wait(60)
+        Character.HumanoidRootPart.bruh:Destroy()
+end
+
+CoreGui:SetCore("SendNotification", {
+	Title = "MondoChick Enabled",
+	Text = "There is no Mondo Chick",
+	Duration = 6000,
+	Callback = bindable,
+	Button1 = "Ok"
+})
+game.Workspace.Values.alertmondo.Value = true
+wait(10)
+end
+
+
+
+
+    --Coconut Crab
+    if getgenv().CoconutCrabIn.Value == true then
+    if workspace:WaitForChild('CoconutPlatform', 0.07) then
+        workspace:WaitForChild('CoconutPlatform', 0.2):Destroy()
+end
+        Character.HumanoidRootPart.CFrame = CFrame.new(-344, 111, 535)
+        local Platform2 = Instance.new("Part")
+        Platform2.Parent = game.workspace
+        Platform2.Name = 'CoconutPlatform'
+        Platform2.Anchored = true
+        Platform2.CFrame = CFrame.new(-262, 109, 510)
+        Platform2.Size = Vector3.new(10, 1, 10)
+        Platform2.Color = Color3.new(0, 0, 0)
+        wait(0.3)
+        Character.HumanoidRootPart.CFrame = CFrame.new(-262, 114, 508)
+        _G.Crab = true
+        while _G.Crab == true and getgenv().CoconutCrabIn.Value == true do
+            if EnabledCrab == true then
+            EnabledCrab = false
+            local CoconutMonster = game:GetService("Workspace").Monsters:WaitForChild("Coconut Crab (Lvl 12)", 0.1)
+            if game:GetService("Workspace").Monsters:WaitForChild("Coconut Crab (Lvl 12)", 0.1) then
+                if game:GetService("Workspace").Monsters:WaitForChild("Coconut Crab (Lvl 12)", 0.1).Target.Value == Character and game:GetService("Workspace").Monsters:WaitForChild("Coconut Crab (Lvl 12)", 0.1).Humanoid.Health >= 1000 then
+                    Character.HumanoidRootPart.CFrame = CFrame.new(-262, 114, 508)
+                elseif game:GetService("Workspace").Monsters:WaitForChild("Coconut Crab (Lvl 12)", 0.1).Target.Value == Character and game:GetService("Workspace").Monsters:WaitForChild("Coconut Crab (Lvl 12)", 0.1).Humanoid.Health <= 100 and workspace:WaitForChild('CoconutPlatform', 1) then
+                    wait(15)
+                    Character.HumanoidRootPart.CFrame = CFrame.new(-244, 71, 437)
+                    _G.Crab = false
+                    getgenv().CoconutCrabIn.Value = false
+                end
+            end
+end
+            if not game:GetService("Workspace").Monsters:WaitForChild("Coconut Crab (Lvl 12)", 0.1) and EnabledCrab == true then
+                    _G.Crab = false
+                    getgenv().CoconutCrabIn.Value = false
+                    workspace:WaitForChild('CoconutPlatform', 1):Destroy()
+            end
+                wait(0.08)
+                EnabledCrab = true
+
+end
+if getgenv().CoconutCrabIn.Value == false and game:GetService("Workspace").Monsters:WaitForChild("Coconut Crab (Lvl 12)", 0.1) then
+    Character.HumanoidRootPart.CFrame = CFrame.new(-275, 78, 425)
+end
+if workspace:WaitForChild('CoconutPlatform', 1) then
+    workspace:WaitForChild('CoconutPlatform', 1):Destroy()
+    end
+end
+
+
+
+    --Stump Snail
+    if getgenv().SnailIn.Value == true then
+    if workspace:WaitForChild('SnailPlatform', 1) then
+    workspace:WaitForChild('SnailPlatform', 1):Destroy()
+end
+Character.HumanoidRootPart.CFrame = CFrame.new(310, 133, 2)
+local Platform = Instance.new("Part")
+Platform.Parent = game.workspace
+Platform.Name = 'SnailPlatform'
+Platform.Anchored = true
+Platform.CFrame = CFrame.new(423, 128, -178)
+Platform.Size = Vector3.new(10, 1, 10)
+Platform.Color = Color3.new(0, 0, 0)
+wait(0.08)
+_G.Snail = true
+Character.HumanoidRootPart.CFrame = CFrame.new(423, 133, -178)
+wait(0.07)
+while _G.Snail == true do
+    if EnabledSnail == true then
+        EnabledSnail = false
+        local SnailMonster = game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.15)
+        if SnailMonster then
+            if game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.15).Target.Value == Character and game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.15).Humanoid.Health >= 3000 then
+                Character.HumanoidRootPart.CFrame = CFrame.new(423, 133, -178)
+            elseif game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.15).Target.Value == Character and game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.15).Humanoid.Health <= 3000 then
+            workspace:WaitForChild('SnailPlatform', 1):Destroy()
+            getgenv().SnailIn.Value = false
+             _G.Snail = false
+            end
+        elseif not game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.15) then
+            getgenv().SnailIn.Value = false
+            _G.Snail = false
+        end
+        wait(0.08)
+EnabledSnail = true
+end
+if workspace:WaitForChild('SnailPlatform', 1) then
+    workspace:WaitForChild('SnailPlatform', 1):Destroy()
+end
+end
+elseif getgenv().SnailIn.Value == false and game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.15) then
+    if workspace:WaitForChild('SnailPlatform', 1) then
+        workspace:WaitForChild('SnailPlatform', 1):Destroy()
+        else
+    Character.HumanoidRootPart.CFrame = CFrame.new(425, 96, -178)
+end
+end
+
+
+
+end
+Cooldown = true
+game:GetService("RunService").Heartbeat:Wait(3)
+Cooldown = false
+end
