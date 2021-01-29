@@ -1,3 +1,6 @@
+--A very sexy lib made by https://v3rmillion.net/member.php?action=profile&uid=1379221
+--Here's the release thread https://v3rmillion.net/showthread.php?tid=1066917
+
 function CreateMain(title)
 	local destroyIfExist = game.CoreGui:GetChildren()
 	for index, destroyIfExist in pairs(destroyIfExist) do
