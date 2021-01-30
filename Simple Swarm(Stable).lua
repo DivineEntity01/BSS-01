@@ -145,7 +145,6 @@ end
 if getgenv().DispensersIn == false then
     break
 end
-print('AutoDispensers')
 wait(900)
 EnabledDispensers = true
 end
@@ -166,7 +165,6 @@ CreateToggle(tabs['Machines Tab'], "Auto Boosters", "Activates the boosters auto
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(f2))
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(f3))
     end
-    print('Field Boosters!')
     wait(1200)
     EssentianEnabled = false
     if getgenv().DispensersIn == false then
@@ -217,7 +215,7 @@ CreateLabel(tabs['Extras'], "You need to manually pick", Color3.fromRGB(0,255,0)
 CreateLabel(tabs['Extras'], "the boss tokens", Color3.fromRGB(0,255,0))
 CreateLabel(tabs['Extras'], "", Color3.fromRGB(0,255,0))
 CreateLabel(tabs['Extras'], "Simple Swarm Version:", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "0.2.8(Stable)", Color3.fromRGB(0,255,0))
+CreateLabel(tabs['Extras'], "0.2.6(Stable)", Color3.fromRGB(0,255,0))
 CreateLabel(tabs['Extras'], "Stable Version, some", Color3.fromRGB(0,255,0))
 CreateLabel(tabs['Extras'], "bugs might be present", Color3.fromRGB(0,255,0))
 CreateToggle(tabs['Extras'], "Star Catcher", "Catches the falling lights(Needs to complete the science bear beesmas quest)",function()
@@ -259,5 +257,3 @@ end
 wait(0.04)
 Cooldown = false
 end
-
-print('Simple Swarm Stable 0.2.8 Loaded')
