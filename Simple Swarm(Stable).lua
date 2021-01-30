@@ -101,54 +101,6 @@ CreateToggle(tabs['Machines Tab'], "AutoDispensers", "Autocollects the dispenser
 	    Button1 = "Yeah"
         })  
             getgenv().DispensersIn = true
-        elseif getgenv().DispensersIn then
-            getgenv().DispensersIn = false
-    end
-end)
-CreateToggle(tabs['Machines Tab'], "Auto Boosters", "Activates the boosters automatically",function()
-    if not getgenv().FieldBoosterIn then
-        getgenv().FieldBoosterIn = true
-    elseif getgenv().FieldBoosterIn then
-        getgenv().FieldBoosterIn = false
-end
-end)
-CreateToggle(tabs['Machines Tab'], "Essential Dispensers", "Do not recommend, doesn't collect the tokens from manual dispensers",function()
-        if not getgenv().EssentialDispensersIn then
-        getgenv().EssentialDispensersIn = true
-    elseif getgenv().EssentialDispensersIn then
-        getgenv().EssentialDispensersIn = false
-    end
-end)
-
---E X T R A S 
-
-CreateLabel(tabs['Extras'], "Notes", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "You need to manually pick", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "the boss tokens", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "Simple Swarm Version:", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "0.2.6(Stable)", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "Stable Version, some", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "bugs might be present", Color3.fromRGB(0,255,0))
-CreateToggle(tabs['Extras'], "Star Catcher", "Catches the falling lights(Needs to complete the science bear beesmas quest)",function()
-    if not getgenv().StarCatchIn then
-        getgenv().StarCatchIn = true
-    elseif getgenv().StarCatchIn then
-        getgenv().StarCatchIn = false
-    end
-end)
-
-
-
-
-
-
--------------------------------------------------------------------------------------------------------------------
-
-
-while wait() do
-local Cooldown = false
-if Cooldown == false then
     if getgenv().DispensersIn == true then
     while true do
     local EnabledDispensers = true 
@@ -193,13 +145,44 @@ end
 if getgenv().DispensersIn == false then
     break
 end
-print('Claimed')
+print('AutoDispensers')
 wait(900)
 EnabledDispensers = true
 end
 end
-    if getgenv().EssentialDispensersIn == true then
+        elseif getgenv().DispensersIn then
+            getgenv().DispensersIn = false
+    end
+end)
+CreateToggle(tabs['Machines Tab'], "Auto Boosters", "Activates the boosters automatically",function()
+    if not getgenv().FieldBoosterIn then
+        getgenv().FieldBoosterIn = true
+    if getgenv().FieldBoosterIn == true then
+    local EssentianEnabled = false
     while true do
+    if EssentianEnabled == false and getgenv().FieldBoosterIn then 
+    EssentianEnabled = true
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(f1))
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(f2))
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(f3))
+    end
+    print('Field Boosters!')
+    wait(1200)
+    EssentianEnabled = false
+    if getgenv().DispensersIn == false then
+    break
+    
+end
+end
+end
+    elseif getgenv().FieldBoosterIn then
+        getgenv().FieldBoosterIn = false
+end
+end)
+CreateToggle(tabs['Machines Tab'], "Essential Dispensers", "Do not recommend, doesn't collect the tokens from manual dispensers",function()
+        if not getgenv().EssentialDispensersIn then
+        getgenv().EssentialDispensersIn = true
+        if getgenv().EssentialDispensersIn == true then
     local EssentianEnabled = false
     if EssentianEnabled == false and getgenv().EssentialDispensersIn then
     EssentianEnabled = true
@@ -208,30 +191,56 @@ end
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(e3))
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(e4))
     end
-    if getgenv().EssentialDispensersIn == false then
-        break
-    end
     wait(1200)
     EssentianEnabled = false
 end
-end
-    if getgenv().FieldBoosterIn == true then
-    while true do
-    local FieldEnabled = false
-    if EssentianEnabled == false and getgenv().FieldBoosterIn then 
-    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(f1))
-    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(f2))
-    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(f3))
-    if getgenv().EssentialDispensersIn == false then
-        break
+    elseif getgenv().EssentialDispensersIn then
+        getgenv().EssentialDispensersIn = false
     end
-    wait(600)
-    EssentianEnabled = false
+end)
+
+
+-------------------------------------------------------------------------------------------------------------------
+-- B O S S E S 
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------
+--E X T R A S 
+
+CreateLabel(tabs['Extras'], "Notes", Color3.fromRGB(0,255,0))
+CreateLabel(tabs['Extras'], "You need to manually pick", Color3.fromRGB(0,255,0))
+CreateLabel(tabs['Extras'], "the boss tokens", Color3.fromRGB(0,255,0))
+CreateLabel(tabs['Extras'], "", Color3.fromRGB(0,255,0))
+CreateLabel(tabs['Extras'], "Simple Swarm Version:", Color3.fromRGB(0,255,0))
+CreateLabel(tabs['Extras'], "0.2.8(Stable)", Color3.fromRGB(0,255,0))
+CreateLabel(tabs['Extras'], "Stable Version, some", Color3.fromRGB(0,255,0))
+CreateLabel(tabs['Extras'], "bugs might be present", Color3.fromRGB(0,255,0))
+CreateToggle(tabs['Extras'], "Star Catcher", "Catches the falling lights(Needs to complete the science bear beesmas quest)",function()
+    if not getgenv().StarCatchIn then
+        getgenv().StarCatchIn = true
+    elseif getgenv().StarCatchIn then
+        getgenv().StarCatchIn = false
     end
-end
-end
-    if getgenv().StarCatchIn == true then
-        while true do
+end)
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------
+
+
+while wait() do
+local Cooldown = false
+if Cooldown == false then
+Cooldown = true
+if getgenv().StarCatchIn == true then
         local StarEnabled = false
         if StarEnabled == false then
         StarEnabled = true
@@ -239,19 +248,16 @@ end
     if game.Workspace.Particles:WaitForChild('WarningDisk', 0.03).BrickColor.Name == "Lime green" then
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game.Workspace.Particles:WaitForChild('WarningDisk', 0.03).Position)
     elseif not game.Workspace.Particles:WaitForChild('WarningDisk', 0.05) then
-    game.Workspace.Particles:WaitForChild('WarningDisk', 0.07)
+    game.Workspace.Particles:FindFirstChild('WarningDisk', 0.07)
     end
 end
-if not getgenv().StarCatchIn then
-    StarEnabled = false
-    break
-end
-end
-wait(0.22)
+wait(0.03)
 StarEnabled = false
 end
 end
 end
-wait(0.6)
-Cooldown = true
+wait(0.04)
+Cooldown = false
 end
+
+print('Simple Swarm Stable 0.2.8 Loaded')
