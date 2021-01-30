@@ -247,8 +247,11 @@ end
         ContextActionService:UnbindAction(FreezeAc)
         if workspace:WaitForChild('CoconutPlatform', 0.07) then
         workspace:WaitForChild('CoconutPlatform', 0.2):Destroy()
-end
-break
+        end
+        game:GetService("CoreGui")["Simple Swarm"].Top.Container["Bosses Tab"].TabContainer["Coconut Crab"].TextColor3 = Color3.new(255, 255, 255)
+        getgenv().CoconutCrabIn = false
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-275, 78, 425)
+        break
 end
 end
 if getgenv().CoconutCrabIn == false then
@@ -310,6 +313,8 @@ end
                     workspace:WaitForChild('SnailPlatform', 1):Destroy()
             end
             ContextActionService:UnbindAction(FreezeAc)
+            game:GetService("CoreGui")["Simple Swarm"].Top.Container["Bosses Tab"].TabContainer["Stump Snail"].TextColor3 = Color3.new(255, 255, 255)
+            getgenv().SnailIn = false
             break
 end
 end
@@ -354,31 +359,27 @@ CreateToggle(tabs['Bosses Tab'], "Mondo Chick", "Turn on to kill the Mondo Chick
     wait(1)
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(79, 213, -166)
     wait(1)
-    if not game:GetService("Workspace").Monsters:WaitForChild("Mondo Chick (Lvl 8)", 0.05) then
-                if game.Workspace:FindFirstChild('MondoPlatform', 0.05) then
-                game.Workspace:FindFirstChild('MondoPlatform', 0.05):Destroy()
-        end
-            Character.HumanoidRootPart.CFrame = CFrame.new(23, 176, -181)
-    end
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(23, 176, -181)
     while true do 
         local EnabledMondo = true
-        if EnabledMondo then
-            EnabledMondo = false
+        if EnabledMondo == true then
+        EnabledMondo = false
         if game:GetService("Workspace").Monsters:WaitForChild("Mondo Chick (Lvl 8)", 0.05) then
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(79, 213, -166)
-        elseif not game:GetService("Workspace").Monsters:WaitForChild("Mondo Chick (Lvl 8)", 0.05) then
+        end
+        if not game:GetService("Workspace").Monsters:WaitForChild("Mondo Chick (Lvl 8)", 0.05) then
         if game.Workspace:FindFirstChild('MondoPlatform', 0.05) then
                 game.Workspace:FindFirstChild('MondoPlatform', 0.05):Destroy()
         end
         local CoreGui = game:GetService("StarterGui")
         local bindable = Instance.new("BindableFunction")
         function bindable.OnInvoke(response)
-        local sound = Instance.new("Sound", Character.HumanoidRootPart)
+        local sound = Instance.new("Sound", game.Players.LocalPlayer.Character.HumanoidRootPart)
         sound.Name = 'bruh'
         sound.SoundId = "rbxassetid://170040190"
         sound:Play()
         wait(60)
-        Character.HumanoidRootPart.bruh:Destroy()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.bruh:Destroy()
 end
         CoreGui:SetCore("SendNotification", {
 	Title = "MondoChick Enabled",
@@ -389,8 +390,13 @@ end
 })
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(23, 176, -181)
         ContextActionService:UnbindAction(FreezeAc)
+        game:GetService("CoreGui")["Simple Swarm"].Top.Container["Bosses Tab"].TabContainer["Mondo Chick"].TextColor3 = Color3.new(255, 255, 255)
+        getgenv().MondoIn = false
         break
 end
+end
+if not getgenv().MondoIn then
+    break
 end
 wait(0.05)
 EnabledMondo = true
@@ -398,7 +404,7 @@ end
     elseif getgenv().MondoIn then
     getgenv().MondoIn = false
     if game.Workspace:FindFirstChild('MondoPlatform', 0.05) then
-                game.Workspace:FindFirstChild('MondoPlatform', 0.05):Destroy()
+    game.Workspace:FindFirstChild('MondoPlatform', 0.05):Destroy()
     end
     ContextActionService:UnbindAction(FreezeAc)
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(23, 176, -181)
@@ -410,14 +416,14 @@ end)
 --E X T R A S 
 
 CreateLabel(tabs['Extras'], "Notes", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "You need to manually pick", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "the boss tokens", Color3.fromRGB(0,255,0))
+CreateLabel(tabs['Extras'], "I do recommend to have a bee", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "with the token link ability!", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "", Color3.fromRGB(0,255,0))
 CreateLabel(tabs['Extras'], "Simple Swarm Version:", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "0.4.2(Stable)", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "Stable Version, some", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "bugs might be present", Color3.fromRGB(0,255,0))
-CreateToggle(tabs['Extras'], "Star Catcher", "Catches the falling lights(Needs to complete the science bear beesmas quest)",function()
+CreateLabel(tabs['Extras'], "0.5.1(Stable)", Color3.fromRGB(0,255,0))
+CreateLabel(tabs['Extras'], "Stable Version, a few bugs", Color3.fromRGB(0,255,0))
+CreateLabel(tabs['Extras'], "might be present, just a few", Color3.fromRGB(0,255,0))
+CreateToggle(tabs['Extras'], ">> Star Catcher", "Catches the falling lights(Needs to complete the science bear beesmas quest)",function()
     if not getgenv().StarCatchIn then
         getgenv().StarCatchIn = true
         while wait() do
@@ -428,14 +434,14 @@ if getgenv().StarCatchIn == true then
         local StarEnabled = false
         if StarEnabled == false then
         StarEnabled = true
-    if game.workspace.Particles:WaitForChild('WarningDisk', 0.05) then
+    if game.workspace.Particles:WaitForChild('WarningDisk', 0.03) then
     if game.Workspace.Particles:WaitForChild('WarningDisk', 0.03).BrickColor.Name == "Lime green" then
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game.Workspace.Particles:WaitForChild('WarningDisk', 0.03).Position)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game.Workspace.Particles:FindFirstChild('WarningDisk', 0.03).Position)
     elseif not game.Workspace.Particles:WaitForChild('WarningDisk', 0.05) then
-    game.Workspace.Particles:FindFirstChild('WarningDisk', 0.05)
+    game.Workspace.Particles:WaitForChild('WarningDisk', 0.03)
     end
 end
-wait(0.03)
+wait(0.01)
 StarEnabled = false
 end
 end
@@ -443,15 +449,13 @@ end
 if getgenv().StarCatchIn == false then
     break
 end
-wait()
+wait(0.05)
 Cooldown = false
 end
     elseif getgenv().StarCatchIn then
         getgenv().StarCatchIn = false
     end
 end)
-
-
 
 
 
