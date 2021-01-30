@@ -9,6 +9,8 @@ Players = game.Players
 Character = LocalPlayer.Character
 local GC = getconnections or get_signal_cons
 local AlertMondo = game.workspace
+local ContextActionService = game:GetService("ContextActionService")
+local FreezeAc = "freezeMovement"
 
 if GC then
 		for i,v in pairs(GC(Players.LocalPlayer.Idled)) do
@@ -78,7 +80,7 @@ wait()
 elseif not game:GetService('CoreGui'):WaitForChild('Simple Swarm', 0.08) then
 CreateMain("Simple Swarm")
 CreateTab("Machines Tab")
---CreateTab("Bosses Tab")
+CreateTab("Bosses Tab")
 CreateTab("Extras")
 end
 
@@ -157,17 +159,17 @@ CreateToggle(tabs['Machines Tab'], "Auto Boosters", "Activates the boosters auto
     if not getgenv().FieldBoosterIn then
         getgenv().FieldBoosterIn = true
     if getgenv().FieldBoosterIn == true then
-    local EssentianEnabled = false
+    local FieldEnabled = false
     while true do
-    if EssentianEnabled == false and getgenv().FieldBoosterIn then 
-    EssentianEnabled = true
+    if FieldEnabled == false and getgenv().FieldBoosterIn then 
+    FieldEnabled = true
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(f1))
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(f2))
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(f3))
     end
     wait(1200)
-    EssentianEnabled = false
-    if getgenv().DispensersIn == false then
+    FieldEnabled = false
+    if getgenv().FieldBoosterIn == false then
     break
     
 end
@@ -180,7 +182,8 @@ end)
 CreateToggle(tabs['Machines Tab'], "Essential Dispensers", "Do not recommend, doesn't collect the tokens from manual dispensers",function()
         if not getgenv().EssentialDispensersIn then
         getgenv().EssentialDispensersIn = true
-        if getgenv().EssentialDispensersIn == true then
+    if getgenv().EssentialDispensersIn == true then
+    while true do
     local EssentianEnabled = false
     if EssentianEnabled == false and getgenv().EssentialDispensersIn then
     EssentianEnabled = true
@@ -189,8 +192,12 @@ CreateToggle(tabs['Machines Tab'], "Essential Dispensers", "Do not recommend, do
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(e3))
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(e4))
     end
+    if getgenv().EssentialDispensersIn == false then
+    break
+end
     wait(1200)
     EssentianEnabled = false
+end
 end
     elseif getgenv().EssentialDispensersIn then
         getgenv().EssentialDispensersIn = false
@@ -201,10 +208,202 @@ end)
 -------------------------------------------------------------------------------------------------------------------
 -- B O S S E S 
 
+CreateToggle(tabs['Bosses Tab'], "Coconut Crab", "Turn on to kill the Crab",function()
+    if not getgenv().CoconutCrabIn then
+    getgenv().CoconutCrabIn = true
+    ContextActionService:BindAction(
+    FreezeAc,
+    function()
+        return Enum.ContextActionResult.Sink
+    end,
+    false,
+    unpack(Enum.PlayerActions:GetEnumItems()))
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-344, 111, 535)
+    local Platform2 = Instance.new("Part")
+    Platform2.Parent = game.workspace
+    Platform2.Name = 'CoconutPlatform'
+    Platform2.Anchored = true
+    Platform2.CFrame = CFrame.new(-262, 109, 510)
+    Platform2.Size = Vector3.new(100, 1, 100)
+    Platform2.Color = Color3.new(0, 0, 0)
+    Platform2.Transparency = 1
+    wait(1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-262, 114, 508)
+    wait(1)
+    while true do
+    local EnabledCrab = false
+    if EnabledCrab == false then
+    EnabledCrab = true
+    if game:GetService("Workspace").Monsters:WaitForChild("Coconut Crab (Lvl 12)", 0.1) then
+    if game:GetService("Workspace").Monsters:WaitForChild("Coconut Crab (Lvl 12)", 0.1) and game:GetService("Workspace").Monsters:WaitForChild("Coconut Crab (Lvl 12)", 0.1).Target.Value == game.Players.LocalPlayer.Character then
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-262, 114, 508)
+    elseif game:GetService("Workspace").Monsters:WaitForChild("Coconut Crab (Lvl 12)", 0.1) and game:GetService("Workspace").Monsters:WaitForChild("Coconut Crab (Lvl 12)", 0.1).Target.Value ~= game.Players.LocalPlayer.Character then
+        ContextActionService:UnbindAction(FreezeAc)
+        if workspace:WaitForChild('CoconutPlatform', 0.07) then
+        workspace:WaitForChild('CoconutPlatform', 0.2):Destroy()
+end
+end
+    elseif not game:GetService("Workspace").Monsters:WaitForChild("Coconut Crab (Lvl 12)", 0.1) then
+        ContextActionService:UnbindAction(FreezeAc)
+        if workspace:WaitForChild('CoconutPlatform', 0.07) then
+        workspace:WaitForChild('CoconutPlatform', 0.2):Destroy()
+end
+break
+end
+end
+if getgenv().CoconutCrabIn == false then
+    ContextActionService:UnbindAction(FreezeAc)
+        break
+end
+wait(0.03)
+EnabledCrab = false  
+end
+    elseif getgenv().CoconutCrabIn then
+    getgenv().CoconutCrabIn = false
+    ContextActionService:UnbindAction(FreezeAc)
+        if workspace:WaitForChild('CoconutPlatform', 0.07) then
+        workspace:WaitForChild('CoconutPlatform', 0.06):Destroy()
+end
+wait()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-275, 78, 425)
+end
+end)
 
 
+CreateToggle(tabs['Bosses Tab'], "Stump Snail", "Turn on to kill the Snail",function()
+    if not getgenv().SnailIn then
+    getgenv().SnailIn = true
+    ContextActionService:BindAction(
+    FreezeAc,
+    function()
+        return Enum.ContextActionResult.Sink
+    end,
+    false,
+    unpack(Enum.PlayerActions:GetEnumItems()))
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(310, 133, 2)
+    local Platform = Instance.new("Part")
+    Platform.Parent = game.workspace
+    Platform.Name = 'SnailPlatform'
+    Platform.Anchored = true
+    Platform.CFrame = CFrame.new(423, 128, -178)
+    Platform.Size = Vector3.new(100, 1, 100)
+    Platform.Color = Color3.new(0, 0, 0)
+    Platform.Transparency = 1
+    wait(1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(423, 133, -178)
+    wait(1)
+    while true do
+    if EnabledSnail == true then
+        EnabledSnail = false
+        if game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.3) then
+            if game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.15) and game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.15).Target.Value == Character then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(423, 133, -178)
+            elseif game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.15) and game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.15).Target.Value ~= Character then
+                if workspace:WaitForChild('SnailPlatform', 1) then
+                    workspace:WaitForChild('SnailPlatform', 1):Destroy()
+                end
+            ContextActionService:UnbindAction(FreezeAc)
+end
+
+    elseif not game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.15) then
+            if workspace:WaitForChild('SnailPlatform', 1) then
+                    workspace:WaitForChild('SnailPlatform', 1):Destroy()
+            end
+            ContextActionService:UnbindAction(FreezeAc)
+            break
+end
+end
+    if getgenv().SnailIn == false then
+        ContextActionService:UnbindAction(FreezeAc)
+        break
+    end
+    wait(0.03)
+    EnabledSnail = true
+end
+    elseif getgenv().SnailIn then
+    getgenv().SnailIn = false
+    ContextActionService:UnbindAction(FreezeAc)
+    if workspace:WaitForChild('SnailPlatform', 0.08) then
+        workspace:WaitForChild('SnailPlatform', 0.08):Destroy()
+    end
+    wait()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(425, 96, -178)
+end
+end)
 
 
+CreateToggle(tabs['Bosses Tab'], "Mondo Chick", "Turn on to kill the Mondo Chick",function()
+    if not getgenv().MondoIn then
+    getgenv().MondoIn = true
+    ContextActionService:BindAction(
+    FreezeAc,
+    function()
+        return Enum.ContextActionResult.Sink
+    end,
+    false,
+    unpack(Enum.PlayerActions:GetEnumItems()))
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-54, 210, -249)
+    local Platform3 = Instance.new('Part')
+    Platform3.Parent = game.workspace
+    Platform3.Name = 'MondoPlatform'
+    Platform3.Anchored = true
+    Platform3.CFrame = CFrame.new(79, 210, -166)
+    Platform3.Size = Vector3.new(100, 1, 100)
+    Platform3.Color = Color3.new(0, 0, 0)
+    Platform3.Transparency = 1
+    wait(1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(79, 213, -166)
+    wait(1)
+    if not game:GetService("Workspace").Monsters:WaitForChild("Mondo Chick (Lvl 8)", 0.05) then
+                if game.Workspace:FindFirstChild('MondoPlatform', 0.05) then
+                game.Workspace:FindFirstChild('MondoPlatform', 0.05):Destroy()
+        end
+            Character.HumanoidRootPart.CFrame = CFrame.new(23, 176, -181)
+    end
+    while true do 
+        local EnabledMondo = true
+        if EnabledMondo then
+            EnabledMondo = false
+        if game:GetService("Workspace").Monsters:WaitForChild("Mondo Chick (Lvl 8)", 0.05) then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(79, 213, -166)
+        elseif not game:GetService("Workspace").Monsters:WaitForChild("Mondo Chick (Lvl 8)", 0.05) then
+        if game.Workspace:FindFirstChild('MondoPlatform', 0.05) then
+                game.Workspace:FindFirstChild('MondoPlatform', 0.05):Destroy()
+        end
+        local CoreGui = game:GetService("StarterGui")
+        local bindable = Instance.new("BindableFunction")
+        function bindable.OnInvoke(response)
+        local sound = Instance.new("Sound", Character.HumanoidRootPart)
+        sound.Name = 'bruh'
+        sound.SoundId = "rbxassetid://170040190"
+        sound:Play()
+        wait(60)
+        Character.HumanoidRootPart.bruh:Destroy()
+end
+        CoreGui:SetCore("SendNotification", {
+	Title = "MondoChick Enabled",
+	Text = "There is no Mondo Chick",
+	Duration = 6000,
+	Callback = bindable,
+	Button1 = "Ok"
+})
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(23, 176, -181)
+        ContextActionService:UnbindAction(FreezeAc)
+        break
+end
+end
+wait(0.05)
+EnabledMondo = true
+end
+    elseif getgenv().MondoIn then
+    getgenv().MondoIn = false
+    if game.Workspace:FindFirstChild('MondoPlatform', 0.05) then
+                game.Workspace:FindFirstChild('MondoPlatform', 0.05):Destroy()
+    end
+    ContextActionService:UnbindAction(FreezeAc)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(23, 176, -181)
+end
+end)
 
 
 -------------------------------------------------------------------------------------------------------------------
@@ -215,12 +414,38 @@ CreateLabel(tabs['Extras'], "You need to manually pick", Color3.fromRGB(0,255,0)
 CreateLabel(tabs['Extras'], "the boss tokens", Color3.fromRGB(0,255,0))
 CreateLabel(tabs['Extras'], "", Color3.fromRGB(0,255,0))
 CreateLabel(tabs['Extras'], "Simple Swarm Version:", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "0.2.6(Stable)", Color3.fromRGB(0,255,0))
+CreateLabel(tabs['Extras'], "0.4.2(Stable)", Color3.fromRGB(0,255,0))
 CreateLabel(tabs['Extras'], "Stable Version, some", Color3.fromRGB(0,255,0))
 CreateLabel(tabs['Extras'], "bugs might be present", Color3.fromRGB(0,255,0))
 CreateToggle(tabs['Extras'], "Star Catcher", "Catches the falling lights(Needs to complete the science bear beesmas quest)",function()
     if not getgenv().StarCatchIn then
         getgenv().StarCatchIn = true
+        while wait() do
+local Cooldown = false
+if Cooldown == false then
+Cooldown = true
+if getgenv().StarCatchIn == true then
+        local StarEnabled = false
+        if StarEnabled == false then
+        StarEnabled = true
+    if game.workspace.Particles:WaitForChild('WarningDisk', 0.05) then
+    if game.Workspace.Particles:WaitForChild('WarningDisk', 0.03).BrickColor.Name == "Lime green" then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game.Workspace.Particles:WaitForChild('WarningDisk', 0.03).Position)
+    elseif not game.Workspace.Particles:WaitForChild('WarningDisk', 0.05) then
+    game.Workspace.Particles:FindFirstChild('WarningDisk', 0.05)
+    end
+end
+wait(0.03)
+StarEnabled = false
+end
+end
+end
+if getgenv().StarCatchIn == false then
+    break
+end
+wait()
+Cooldown = false
+end
     elseif getgenv().StarCatchIn then
         getgenv().StarCatchIn = false
     end
@@ -234,26 +459,3 @@ end)
 -------------------------------------------------------------------------------------------------------------------
 
 
-while wait() do
-local Cooldown = false
-if Cooldown == false then
-Cooldown = true
-if getgenv().StarCatchIn == true then
-        local StarEnabled = false
-        if StarEnabled == false then
-        StarEnabled = true
-    if game.workspace.Particles:WaitForChild('WarningDisk', 0.05) then
-    if game.Workspace.Particles:WaitForChild('WarningDisk', 0.03).BrickColor.Name == "Lime green" then
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game.Workspace.Particles:WaitForChild('WarningDisk', 0.03).Position)
-    elseif not game.Workspace.Particles:WaitForChild('WarningDisk', 0.05) then
-    game.Workspace.Particles:FindFirstChild('WarningDisk', 0.07)
-    end
-end
-wait(0.03)
-StarEnabled = false
-end
-end
-end
-wait(0.04)
-Cooldown = false
-end
