@@ -495,7 +495,7 @@ CreateToggle(tabs['Extras'], ">> TP to rares", "Teleport to rare tokens, useful!
     local radius = 50
     local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Position).Magnitude
 	if(distance <= radius) then
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Position)
     end
     end
     end
