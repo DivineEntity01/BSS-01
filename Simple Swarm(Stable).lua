@@ -2,7 +2,6 @@
 --Here's the release thread https://v3rmillion.net/showthread.php?tid=1066917
 
 -------------------------------------------------------------------------------------------------------------------
-_G.Keybind = Enum.KeyCode.RightAlt
 --Local Variables
 LocalPlayer = game.Players.LocalPlayer
 Players = game.Players
@@ -128,7 +127,6 @@ if getgenv().DispensersIn == false then
     EnabledDispensers = true
     break
 end
-print('Claimed')
 EnabledDispensers = false
 wait(600)
 EnabledDispensers = true
