@@ -430,7 +430,7 @@ CreateLabel(tabs['Extras'], "I recommend having a bee", Color3.fromRGB(255,255,2
 CreateLabel(tabs['Extras'], "with the token link ability!", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "", Color3.fromRGB(0,255,0))
 CreateLabel(tabs['Extras'], "Simple Swarm Version:", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "0.5.1(Stable)", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "0.5.8(Stable)", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "Stable Version, a few bugs", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "might be present, just a few", Color3.fromRGB(255,255,255))
 CreateToggle(tabs['Extras'], ">> Star Catcher", "Catches the falling lights(Needs to complete the science bear beesmas quest)",function()
