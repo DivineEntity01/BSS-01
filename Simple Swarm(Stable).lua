@@ -80,7 +80,19 @@ local f1, f2, f3=
 {[1] = "Blue Field Booster"},
 {[1] = "Field Booster"}
 
-
+                                local t = {
+                    "rbxassetid://2306224708", --Mooncharm
+                    "rbxassetid://2545746569", --Oil
+                    "rbxassetid://1674686518", --Ticket
+                    "rbxassetid://1674871631", --Ticket
+                    "rbxassetid://2504978518", --Glue
+                    "rbxassetid://2584584968", --Enzymes
+                    "rbxassetid://1629547638", --Token link
+                    "rbxassetid://2319943273", --Starjelly
+                    "rbxassetid://2000457501", --Inspire Token
+                    "rbxassetid://177997841",  --Glob Token
+                    "rbxassetid://1839454544"  -- Gumdrop Barrage
+}
 
 --UI Library
 loadstring(game:HttpGet("https://raw.githubusercontent.com/DivineEntity01/BSS-01/main/Rodus%20%7C%20UI-Library", true))()
