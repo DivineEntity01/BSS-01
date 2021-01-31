@@ -2,7 +2,7 @@
 --Here's the release thread https://v3rmillion.net/showthread.php?tid=1066917
 
 -------------------------------------------------------------------------------------------------------------------
-
+_G.Keybind = Enum.KeyCode.RightAlt
 --Local Variables
 LocalPlayer = game.Players.LocalPlayer
 Players = game.Players
@@ -11,7 +11,9 @@ local GC = getconnections or get_signal_cons
 local AlertMondo = game.workspace
 local ContextActionService = game:GetService("ContextActionService")
 local FreezeAc = "freezeMovement"
-
+local EnabledDispensers = true 
+local FieldEnabled = true
+local EssentianEnabled = true
 if GC then
 		for i,v in pairs(GC(Players.LocalPlayer.Idled)) do
 			if v["Disable"] then
@@ -41,9 +43,6 @@ if not workspace:WaitForChild('Values', 0.06) then
     alert2.Value = false
 elseif workspace:WaitForChild('Values', 0.1) then
 end
-
-local EnabledDispensers = game.workspace:WaitForChild('Values', 0.07)
-EnabledDispensers = EnabledDispensers.bool.Value
 local AlertDispensers = game.workspace:WaitForChild('Values', 0.07)
 AlertDispensers = AlertDispensers.alertdispenser
 local AlertMondo = game.workspace:WaitForChild('Values', 0.07)
@@ -90,25 +89,19 @@ end
 
 CreateToggle(tabs['Machines Tab'], "AutoDispensers", "Autocollects the dispensers",function(bool)
         if not getgenv().DispensersIn then
+        getgenv().DispensersIn = true
         local CoreGui = game:GetService("StarterGui")
         local bindable = Instance.new("BindableFunction")
-        function bindable.OnInvoke(response)
-        game.Workspace.Values.alertdispenser.Value = true
-        end
         CoreGui:SetCore("SendNotification", {
 	    Title = "AutoDispensers Enabled",
 	    Text = "AutoDispenser is enabled, may cause lag once it autocollects em",
 	    Duration = 30,
-	    Callback = bindable,
 	    Button1 = "Yeah"
         })  
-            getgenv().DispensersIn = true
     if getgenv().DispensersIn == true then
     while true do
-    local EnabledDispensers = true 
+    wait()
     if EnabledDispensers == true then
-        EnabledDispensers = false
-    if game.Players.LocalPlayer:IsInGroup(3982592) and getgenv().DispensersIn == true then
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args))
     wait()
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args2))
@@ -129,50 +122,41 @@ CreateToggle(tabs['Machines Tab'], "AutoDispensers", "Autocollects the dispenser
     wait()
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args10))
     wait()
-elseif not game.Players.LocalPlayer:IsInGroup(3982592) and getgenv().DispensersIn == true then
-    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args5))
-    wait()
-    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args6))
-    wait()
-    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args7))
-    wait()
-    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args8))
-    wait()
-    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args9))
-    wait()
-    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args10))
-    wait()
 end
-end
+
 if getgenv().DispensersIn == false then
+    EnabledDispensers = true
     break
 end
-wait(900)
+print('Claimed')
+EnabledDispensers = false
+wait(600)
 EnabledDispensers = true
 end
+print('what')
 end
-        elseif getgenv().DispensersIn then
-            getgenv().DispensersIn = false
-    end
+elseif getgenv().DispensersIn then
+    getgenv().DispensersIn = false
+    EnabledDispensers = true
+end
 end)
 CreateToggle(tabs['Machines Tab'], "Auto Boosters", "Activates the boosters automatically",function()
     if not getgenv().FieldBoosterIn then
         getgenv().FieldBoosterIn = true
     if getgenv().FieldBoosterIn == true then
-    local FieldEnabled = false
     while true do
-    if FieldEnabled == false and getgenv().FieldBoosterIn then 
-    FieldEnabled = true
+    if FieldEnabled == true and getgenv().FieldBoosterIn then 
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(f1))
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(f2))
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(f3))
     end
-    wait(1200)
-    FieldEnabled = false
     if getgenv().FieldBoosterIn == false then
+        FieldEnabled = true
     break
-    
 end
+    FieldEnabled = false
+    wait(600)
+    FieldEnabled = true
 end
 end
     elseif getgenv().FieldBoosterIn then
@@ -184,9 +168,8 @@ CreateToggle(tabs['Machines Tab'], "Essential Dispensers", "Do not recommend, do
         getgenv().EssentialDispensersIn = true
     if getgenv().EssentialDispensersIn == true then
     while true do
-    local EssentianEnabled = false
-    if EssentianEnabled == false and getgenv().EssentialDispensersIn then
-    EssentianEnabled = true
+    EssentianEnabled = false
+    if EssentianEnabled == true then
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(e1))
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(e2))
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(e3))
@@ -195,8 +178,9 @@ CreateToggle(tabs['Machines Tab'], "Essential Dispensers", "Do not recommend, do
     if getgenv().EssentialDispensersIn == false then
     break
 end
+    EssentianEnabled = true
     wait(1200)
-    EssentianEnabled = false
+    EssentianEnabled = true
 end
 end
     elseif getgenv().EssentialDispensersIn then
@@ -392,10 +376,12 @@ end
         ContextActionService:UnbindAction(FreezeAc)
         game:GetService("CoreGui")["Simple Swarm"].Top.Container["Bosses Tab"].TabContainer["Mondo Chick"].TextColor3 = Color3.new(255, 255, 255)
         getgenv().MondoIn = false
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(23, 176, -181)
         break
 end
 end
 if not getgenv().MondoIn then
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(23, 176, -181)
     break
 end
 wait(0.05)
