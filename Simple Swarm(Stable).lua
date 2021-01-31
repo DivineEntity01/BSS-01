@@ -278,6 +278,7 @@ CreateToggle(tabs['Bosses Tab'], "Stump Snail", "Turn on to kill the Snail",func
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(423, 133, -178)
     wait(1)
     while true do
+    local EnabledSnail = false
     if EnabledSnail == true then
         EnabledSnail = false
         if game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.3) then
