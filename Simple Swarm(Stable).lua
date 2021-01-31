@@ -458,12 +458,14 @@ if getgenv().StarCatchIn == true then
         StarEnabled = true
     if game.workspace.Particles:FindFirstChild('WarningDisk', 0.02) then
         getgenv().Raining = true
-    if game.Workspace.Particles:FindFirstChild('WarningDisk', 0.02).BrickColor.Name == "Lime green" then
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game.Workspace.Particles:FindFirstChild('WarningDisk', 0.03).Position)
+    if game.Workspace.Particles:FindFirstChild('WarningDisk', 0.02).BrickColor.Name == "Lime green" and game.Workspace.Particles:FindFirstChild('WarningDisk', 0.02).Transparency >= 0.05 then
+	repeat wait()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game.Workspace.Particles:FindFirstChild('WarningDisk', 0.02).Position)
+        until not game.Workspace.Particles:FindFirstChild('WarningDisk', 0.02):IsDescendantOf(game.Workspace.Particles)
 end
     elseif not game.Workspace.Particles:FindFirstChild('WarningDisk', 0.02) then
+	wait(0.05)
     getgenv().Raining = false
-    game.Workspace.Particles:FindFirstChild('WarningDisk', 0.02)
     end
 end
 end
