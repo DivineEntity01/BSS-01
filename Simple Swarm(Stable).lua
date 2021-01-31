@@ -12,7 +12,7 @@ local ContextActionService = game:GetService("ContextActionService")
 local FreezeAc = "freezeMovement"
 local EnabledDispensers = true 
 local FieldEnabled = true
-local EssentianEnabled = true
+local EssentialEnabled = true
 if GC then
 		for i,v in pairs(GC(Players.LocalPlayer.Idled)) do
 			if v["Disable"] then
@@ -140,10 +140,10 @@ end
 end)
 CreateToggle(tabs['Machines Tab'], "Auto Boosters", "Activates the boosters automatically",function()
     if not getgenv().FieldBoosterIn then
-        getgenv().FieldBoosterIn = true
+    getgenv().FieldBoosterIn = true
     if getgenv().FieldBoosterIn == true then
     while true do
-    if FieldEnabled == true and getgenv().FieldBoosterIn then 
+    if FieldEnabled == true then 
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(f1))
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(f2))
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(f3))
