@@ -2,6 +2,12 @@
 --Here's the release thread https://v3rmillion.net/showthread.php?tid=1066917
 
 -------------------------------------------------------------------------------------------------------------------
+--Global Variables
+getgenv().Raining = false
+getgenv().Killing = false
+
+
+
 --Local Variables
 LocalPlayer = game.Players.LocalPlayer
 Players = game.Players
@@ -13,6 +19,9 @@ local FreezeAc = "freezeMovement"
 local EnabledDispensers = true 
 local FieldEnabled = true
 local EssentialEnabled = true
+local Collectibles = game.Workspace.Collectibles
+Collectibles:ClearAllChildren()
+
 if GC then
 		for i,v in pairs(GC(Players.LocalPlayer.Idled)) do
 			if v["Disable"] then
@@ -70,6 +79,8 @@ local f1, f2, f3=
 {[1] = "Red Field Booster"},
 {[1] = "Blue Field Booster"},
 {[1] = "Field Booster"}
+
+
 
 --UI Library
 loadstring(game:HttpGet("https://raw.githubusercontent.com/DivineEntity01/BSS-01/main/Rodus%20%7C%20UI-Library", true))()
@@ -219,8 +230,10 @@ CreateToggle(tabs['Bosses Tab'], "Coconut Crab", "Turn on to kill the Crab",func
     if game:GetService("Workspace").Monsters:WaitForChild("Coconut Crab (Lvl 12)", 0.1) then
     if game:GetService("Workspace").Monsters:WaitForChild("Coconut Crab (Lvl 12)", 0.1) and game:GetService("Workspace").Monsters:WaitForChild("Coconut Crab (Lvl 12)", 0.1).Target.Value == game.Players.LocalPlayer.Character then
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-262, 114, 508)
+    getgenv().Killing = true
     elseif game:GetService("Workspace").Monsters:WaitForChild("Coconut Crab (Lvl 12)", 0.1) and game:GetService("Workspace").Monsters:WaitForChild("Coconut Crab (Lvl 12)", 0.1).Target.Value ~= game.Players.LocalPlayer.Character then
         ContextActionService:UnbindAction(FreezeAc)
+        getgenv().Killing = false
         if workspace:WaitForChild('CoconutPlatform', 0.07) then
         workspace:WaitForChild('CoconutPlatform', 0.2):Destroy()
 end
@@ -233,11 +246,13 @@ end
         game:GetService("CoreGui")["Simple Swarm"].Top.Container["Bosses Tab"].TabContainer["Coconut Crab"].TextColor3 = Color3.new(255, 255, 255)
         getgenv().CoconutCrabIn = false
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-275, 78, 425)
+        getgenv().Killing = false
         break
 end
 end
 if getgenv().CoconutCrabIn == false then
     ContextActionService:UnbindAction(FreezeAc)
+    getgenv().Killing = false
         break
 end
 wait(0.03)
@@ -245,6 +260,7 @@ EnabledCrab = false
 end
     elseif getgenv().CoconutCrabIn then
     getgenv().CoconutCrabIn = false
+    getgenv().Killing = false
     ContextActionService:UnbindAction(FreezeAc)
         if workspace:WaitForChild('CoconutPlatform', 0.07) then
         workspace:WaitForChild('CoconutPlatform', 0.06):Destroy()
@@ -284,10 +300,12 @@ CreateToggle(tabs['Bosses Tab'], "Stump Snail", "Turn on to kill the Snail",func
         if game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.3) then
             if game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.15) and game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.15).Target.Value == Character then
                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(423, 133, -178)
+                getgenv().Killing = true
             elseif game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.15) and game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.15).Target.Value ~= Character then
                 if workspace:WaitForChild('SnailPlatform', 1) then
                     workspace:WaitForChild('SnailPlatform', 1):Destroy()
                 end
+                getgenv().Killing = false
             ContextActionService:UnbindAction(FreezeAc)
 end
 
@@ -298,11 +316,13 @@ end
             ContextActionService:UnbindAction(FreezeAc)
             game:GetService("CoreGui")["Simple Swarm"].Top.Container["Bosses Tab"].TabContainer["Stump Snail"].TextColor3 = Color3.new(255, 255, 255)
             getgenv().SnailIn = false
+            getgenv().Killing = false
             break
 end
 end
     if getgenv().SnailIn == false then
         ContextActionService:UnbindAction(FreezeAc)
+        getgenv().Killing = false
         break
     end
     wait(0.03)
@@ -310,6 +330,7 @@ end
 end
     elseif getgenv().SnailIn then
     getgenv().SnailIn = false
+    getgenv().Killing = false
     ContextActionService:UnbindAction(FreezeAc)
     if workspace:WaitForChild('SnailPlatform', 0.08) then
         workspace:WaitForChild('SnailPlatform', 0.08):Destroy()
@@ -349,11 +370,13 @@ CreateToggle(tabs['Bosses Tab'], "Mondo Chick", "Turn on to kill the Mondo Chick
         EnabledMondo = false
         if game:GetService("Workspace").Monsters:WaitForChild("Mondo Chick (Lvl 8)", 0.05) then
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(79, 213, -166)
+            getgenv().Killing = true
         end
         if not game:GetService("Workspace").Monsters:WaitForChild("Mondo Chick (Lvl 8)", 0.05) then
         if game.Workspace:FindFirstChild('MondoPlatform', 0.05) then
                 game.Workspace:FindFirstChild('MondoPlatform', 0.05):Destroy()
         end
+        getgenv().Killing = false
         local CoreGui = game:GetService("StarterGui")
         local bindable = Instance.new("BindableFunction")
         function bindable.OnInvoke(response)
@@ -380,6 +403,7 @@ end
 end
 end
 if not getgenv().MondoIn then
+    getgenv().Killing = false
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(23, 176, -181)
     break
 end
@@ -387,6 +411,7 @@ wait(0.05)
 EnabledMondo = true
 end
     elseif getgenv().MondoIn then
+    getgenv().Killing = false
     getgenv().MondoIn = false
     if game.Workspace:FindFirstChild('MondoPlatform', 0.05) then
     game.Workspace:FindFirstChild('MondoPlatform', 0.05):Destroy()
@@ -401,7 +426,7 @@ end)
 --E X T R A S 
 
 CreateLabel(tabs['Extras'], "Notes", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "I do recommend having a bee", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "I recommend having a bee", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "with the token link ability!", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "", Color3.fromRGB(0,255,0))
 CreateLabel(tabs['Extras'], "Simple Swarm Version:", Color3.fromRGB(0,255,0))
@@ -409,39 +434,71 @@ CreateLabel(tabs['Extras'], "0.5.1(Stable)", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "Stable Version, a few bugs", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "might be present, just a few", Color3.fromRGB(255,255,255))
 CreateToggle(tabs['Extras'], ">> Star Catcher", "Catches the falling lights(Needs to complete the science bear beesmas quest)",function()
-    if not getgenv().StarCatchIn then
+if not getgenv().StarCatchIn then
         getgenv().StarCatchIn = true
-        while wait() do
+while true do
 local Cooldown = false
-if Cooldown == false then
+if Cooldown == false and getgenv().Killing == false then
 Cooldown = true
 if getgenv().StarCatchIn == true then
         local StarEnabled = false
         if StarEnabled == false then
         StarEnabled = true
-    if game.workspace.Particles:WaitForChild('WarningDisk', 0.03) then
-    if game.Workspace.Particles:WaitForChild('WarningDisk', 0.03).BrickColor.Name == "Lime green" then
+    if game.workspace.Particles:FindFirstChild('WarningDisk', 0.02) then
+        getgenv().Raining = true
+    if game.Workspace.Particles:FindFirstChild('WarningDisk', 0.02).BrickColor.Name == "Lime green" then
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game.Workspace.Particles:FindFirstChild('WarningDisk', 0.03).Position)
-    elseif not game.Workspace.Particles:WaitForChild('WarningDisk', 0.05) then
-    game.Workspace.Particles:WaitForChild('WarningDisk', 0.03)
+end
+    elseif not game.Workspace.Particles:FindFirstChild('WarningDisk', 0.02) then
+    getgenv().Raining = false
+    game.Workspace.Particles:FindFirstChild('WarningDisk', 0.02)
     end
+end
+end
 end
 wait(0.01)
 StarEnabled = false
-end
-end
-end
 if getgenv().StarCatchIn == false then
+    getgenv().Raining = false
     break
 end
-wait(0.05)
+wait(0.02)
 Cooldown = false
 end
-    elseif getgenv().StarCatchIn then
+elseif getgenv().StarCatchIn then
+        getgenv().Raining = false
         getgenv().StarCatchIn = false
-    end
+end
 end)
-
+CreateToggle(tabs['Extras'], ">> TP to rares", "Teleport to rare tokens, useful!",function()
+    if not getgenv().RareTpIn then
+    getgenv().RareTpIn = true
+    while true do 
+    local RareEnabled = true
+    if RareEnabled == true and getgenv().Raining == false and getgenv().Killing == false then
+    RareEnabled = false
+    for i,v in ipairs(game.Workspace.Collectibles:GetChildren()) do
+    local Decal = v.FrontDecal.Texture
+    if table.find(t, Decal) and v.Transparency <= 0.15 then
+    local radius = 50
+    local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Position).Magnitude
+	if(distance <= radius) then
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+    end
+    end
+    end
+    end
+    if getgenv().RareTpIn == false then
+    RareEnabled = true
+    break
+    end
+    wait(3)
+    RareEnabled = true
+    end
+    elseif getgenv().RareTpIn then
+    getgenv().RareTpIn = false
+end
+end)
 
 
 
