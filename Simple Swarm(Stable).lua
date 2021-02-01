@@ -457,11 +457,14 @@ if getgenv().StarCatchIn == true then
         if StarEnabled == false then
         StarEnabled = true
     if game.workspace.Particles:FindFirstChild('WarningDisk', 0.02) then
-        getgenv().Raining = true
     if game.Workspace.Particles:FindFirstChild('WarningDisk', 0.1).BrickColor.Name == "Lime green" and game.Workspace.Particles:FindFirstChild('WarningDisk', 0.02).Transparency >= 0.05 then
+        getgenv().Raining = true
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game.Workspace.Particles:FindFirstChild('WarningDisk', 0.02).Position)
 end
-    elseif not game.Workspace.Particles:FindFirstChild('WarningDisk', 0.1) then
+    elseif not game.Workspace.Particles:WaitForChild('WarningDisk', 0.1) then
+    getgenv().Raining = false
+    end
+    if not game.Workspace.Particles:WaitForChild('WarningDisk', 0.1) then
     getgenv().Raining = false
     end
 end
@@ -488,7 +491,7 @@ CreateToggle(tabs['Extras'], ">> TP to rares", "Teleport to rare tokens, useful!
     if RareEnabled == true and getgenv().Raining == false and getgenv().Killing == false then
     RareEnabled = false
     for i,v in ipairs(game.Workspace.Collectibles:GetChildren()) do
-    local Decal = v.FrontDecal.Texture
+    local Decal = v:WaitForChild('FrontDecal').Texture
     if table.find(t, Decal) and v.Transparency <= 0.15 then
     local radius = 50
     local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Position).Magnitude
