@@ -417,94 +417,7 @@ function CreateMain(title)
 				parent.TabContainer.Size = UDim2.new(0, parent.TabContainer.UIListLayout.AbsoluteContentSize.X, 0, parent.TabContainer.UIListLayout.AbsoluteContentSize.Y)
 			end
 		end
-		function CreateNumberBox (parent, buttontittle, placeholdernumber, callback)
-		local TextBox = Instance.new("TextButton")
-			local Arrow = Instance.new("TextButton")
-			local Side = Instance.new("Frame")
-			local UIListLayout = Instance.new("UIListLayout")
-			local Box = Instance.new("TextBox")
-			local Hover = Instance.new("Frame")
-
-			TextBox.Name = buttonText
-			TextBox.Parent = parent.TabContainer
-			TextBox.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-			TextBox.BackgroundTransparency = 1.000
-			TextBox.Size = UDim2.new(0, 193, 0, 24)
-			TextBox.Font = Enum.Font.JosefinSans
-			TextBox.Text = " "..buttonText
-			TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-			TextBox.TextSize = 14.000
-			TextBox.TextXAlignment = Enum.TextXAlignment.Left
-			TextBox.MouseButton1Down:Connect(function()
-				TextBox.TextColor3 = Color3.new(0, 255, 0)
-				wait(0.05)
-				TextBox.TextColor3 = Color3.new(255, 255, 255)
-				callback(Box.Text)
-			end)
-
-			Arrow.Name = "Arrow"
-			Arrow.Parent = TextBox
-			Arrow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			Arrow.BackgroundTransparency = 1.000
-			Arrow.Position = UDim2.new(0.906735778, 0, 0, 0)
-			Arrow.Size = UDim2.new(0, 18, 0, 21)
-			Arrow.Font = Enum.Font.SourceSans
-			Arrow.Text = ">>"
-			Arrow.TextColor3 = Color3.fromRGB(255, 255, 255)
-			Arrow.TextScaled = true
-			Arrow.TextSize = 14.000
-			Arrow.TextWrapped = true
-
-			Side.Name = "Side"
-			Side.Parent = TextBox
-			Side.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-			Side.BackgroundTransparency = 0.7
-			Side.BorderColor3 = Color3.fromRGB(0, 0, 0)
-			Side.BorderSizePixel = 4
-			Side.Position = UDim2.new(1.055, 0, 0, 0)
-			Side.Size = UDim2.new(0, 193, 0, 24)
-			Side.Visible = false
-			Side.MouseEnter:Connect(function()
-				Side.Visible = true
-			end)
-			Side.MouseLeave:Connect(function()
-				Side.Visible = false
-			end)
-			
-			Hover.Name = "Hover"
-			Hover.Parent = TextBox
-			Hover.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			Hover.BackgroundTransparency = 1.000
-			Hover.Size = UDim2.new(0, 209, 0, 32)
-			Hover.MouseEnter:Connect(function()
-				local allTabs = game.CoreGui[tostring(title)].Top.Container:GetDescendants()
-				for index, allTabs in pairs(allTabs) do
-					if allTabs.Name == "Side" then
-						allTabs.Visible = false
-					end
-				end
-				Side.Visible = true
-			end)
-			Side.MouseLeave:Connect(function()
-				Side.Visible = false
-			end)
-			
-			UIListLayout.Parent = Side
-			UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-
-			Box.Name = "Box"
-			Box.Parent = Side
-			Box.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			Box.BackgroundTransparency = 1.000
-			Box.Size = UDim2.new(0, 193, 0, 24)
-			Box.Font = Enum.Font.JosefinSans
-			Box.Text = ""
-			Box.TextColor3 = Color3.fromRGB(255, 255, 255)
-			Box.TextSize = 14.000
-			Box.TextWrapped = true
-			Box.PlaceholderText = placeholderText
-			parent.TabContainer.Size = UDim2.new(0, parent.TabContainer.UIListLayout.AbsoluteContentSize.X, 0, parent.TabContainer.UIListLayout.AbsoluteContentSize.Y)
-		end
+		
 		function CreateTextBox(parent, buttonText, placeholderText, callback)
 			local TextBox = Instance.new("TextButton")
 			local Arrow = Instance.new("TextButton")
@@ -592,13 +505,6 @@ function CreateMain(title)
 			Box.TextWrapped = true
 			Box.PlaceholderText = placeholderText
 			parent.TabContainer.Size = UDim2.new(0, parent.TabContainer.UIListLayout.AbsoluteContentSize.X, 0, parent.TabContainer.UIListLayout.AbsoluteContentSize.Y)
-			Box.Changed:connect(function(prop)
-    			if prop == "Text" then
-        		if not tonumber(Box.Text) then
-            		Box.Text = Box.Text:sub(1,#textbox.Text-1)
-        end
-    end
-end)
 		end
 	end
 	tabs = game.CoreGui[title].Top.Container
