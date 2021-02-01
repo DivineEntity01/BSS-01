@@ -491,7 +491,6 @@ CreateToggle(tabs['Player Toggles'], "TP to rares", "Teleport to rare tokens, us
     local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Position).Magnitude
 	if(distance <= radius) then
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Position)
-    v.Transparency = 1
 	elseif not v then
     game.Workspace.Collectibles:WaitForChild('C', 1)
     end
@@ -522,7 +521,7 @@ CreateTextBox(tabs['Player Toggles'], "Set Walkspeed", "Click on Walkspeed to se
     break
     end
     game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = arg
-    wait()
+    wait(1)
 end
 end)
 
