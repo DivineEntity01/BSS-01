@@ -499,7 +499,7 @@ CreateToggle(tabs['Player Toggles'], "TP to rares", "Teleport to rare tokens, us
     end
     end
     end
-    wait()
+    wait(0.6)
     RareEnabled = true
     if getgenv().RareTpIn == false then
     RareEnabled = true
