@@ -19,8 +19,10 @@ local FreezeAc = "freezeMovement"
 local EnabledDispensers = true 
 local FieldEnabled = true
 local EssentialEnabled = true
+local RareEnabled = true
 local Collectibles = game.Workspace.Collectibles
 Collectibles:ClearAllChildren()
+
 
 if GC then
 		for i,v in pairs(GC(Players.LocalPlayer.Idled)) do
@@ -100,8 +102,9 @@ if game:GetService('CoreGui'):WaitForChild('Simple Swarm', 0.08) then
 wait()
 elseif not game:GetService('CoreGui'):WaitForChild('Simple Swarm', 0.08) then
 CreateMain("Simple Swarm")
-CreateTab("Machines Tab")
-CreateTab("Bosses Tab")
+CreateTab("Auto Machines")
+CreateTab("Monster Farm")
+CreateTab('Player Toggles')
 CreateTab("Extras")
 end
 
@@ -109,7 +112,7 @@ end
 -------------------------------------------------------------------------------------------------------------------
 -- D I S P E N S E R S
 
-CreateToggle(tabs['Machines Tab'], "AutoDispensers", "Autocollects the dispensers",function(bool)
+CreateToggle(tabs['Auto Machines'], "AutoDispensers", "Autocollects the dispensers",function(bool)
         if not getgenv().DispensersIn then
         getgenv().DispensersIn = true
         local CoreGui = game:GetService("StarterGui")
@@ -161,7 +164,7 @@ elseif getgenv().DispensersIn then
     EnabledDispensers = true
 end
 end)
-CreateToggle(tabs['Machines Tab'], "Auto Boosters", "Activates the boosters automatically",function()
+CreateToggle(tabs['Auto Machines'], "Auto Boosters", "Activates the boosters automatically",function()
     if not getgenv().FieldBoosterIn then
     getgenv().FieldBoosterIn = true
     if getgenv().FieldBoosterIn == true then
@@ -184,7 +187,7 @@ end
         getgenv().FieldBoosterIn = false
 end
 end)
-CreateToggle(tabs['Machines Tab'], "Essential Dispensers", "Do not recommend, doesn't collect the tokens from manual dispensers",function()
+CreateToggle(tabs['Auto Machines'], "Essential Dispensers", "Do not recommend, doesn't collect the tokens from manual dispensers",function()
         if not getgenv().EssentialDispensersIn then
         getgenv().EssentialDispensersIn = true
     if getgenv().EssentialDispensersIn == true then
@@ -209,11 +212,10 @@ end
     end
 end)
 
-
 -------------------------------------------------------------------------------------------------------------------
 -- B O S S E S 
 
-CreateToggle(tabs['Bosses Tab'], "Coconut Crab", "Turn on to kill the Crab",function()
+CreateToggle(tabs['Monster Farm'], "Coconut Crab", "Turn on to kill the Crab",function()
     if not getgenv().CoconutCrabIn then
     getgenv().CoconutCrabIn = true
     ContextActionService:BindAction(
@@ -255,7 +257,7 @@ end
         if workspace:WaitForChild('CoconutPlatform', 0.07) then
         workspace:WaitForChild('CoconutPlatform', 0.2):Destroy()
         end
-        game:GetService("CoreGui")["Simple Swarm"].Top.Container["Bosses Tab"].TabContainer["Coconut Crab"].TextColor3 = Color3.new(255, 255, 255)
+        game:GetService("CoreGui")["Simple Swarm"].Top.Container["Monster Farm"].TabContainer["Coconut Crab"].TextColor3 = Color3.new(255, 255, 255)
         getgenv().CoconutCrabIn = false
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-275, 78, 425)
         getgenv().Killing = false
@@ -281,9 +283,7 @@ wait()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-275, 78, 425)
 end
 end)
-
-
-CreateToggle(tabs['Bosses Tab'], "Stump Snail", "Turn on to kill the Snail",function()
+CreateToggle(tabs['Monster Farm'], "Stump Snail", "Turn on to kill the Snail",function()
     if not getgenv().SnailIn then
     getgenv().SnailIn = true
     ContextActionService:BindAction(
@@ -326,7 +326,7 @@ end
                     workspace:WaitForChild('SnailPlatform', 1):Destroy()
             end
             ContextActionService:UnbindAction(FreezeAc)
-            game:GetService("CoreGui")["Simple Swarm"].Top.Container["Bosses Tab"].TabContainer["Stump Snail"].TextColor3 = Color3.new(255, 255, 255)
+            game:GetService("CoreGui")["Simple Swarm"].Top.Container["Monster Farm"].TabContainer["Stump Snail"].TextColor3 = Color3.new(255, 255, 255)
             getgenv().SnailIn = false
             getgenv().Killing = false
             break
@@ -351,9 +351,7 @@ end
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(425, 96, -178)
 end
 end)
-
-
-CreateToggle(tabs['Bosses Tab'], "Mondo Chick", "Turn on to kill the Mondo Chick",function()
+CreateToggle(tabs['Monster Farm'], "Mondo Chick", "Turn on to kill the Mondo Chick",function()
     if not getgenv().MondoIn then
     getgenv().MondoIn = true
     ContextActionService:BindAction(
@@ -408,7 +406,7 @@ end
 })
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(23, 176, -181)
         ContextActionService:UnbindAction(FreezeAc)
-        game:GetService("CoreGui")["Simple Swarm"].Top.Container["Bosses Tab"].TabContainer["Mondo Chick"].TextColor3 = Color3.new(255, 255, 255)
+        game:GetService("CoreGui")["Simple Swarm"].Top.Container["Monster Farm"].TabContainer["Mondo Chick"].TextColor3 = Color3.new(255, 255, 255)
         getgenv().MondoIn = false
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(23, 176, -181)
         break
@@ -435,17 +433,9 @@ end)
 
 
 -------------------------------------------------------------------------------------------------------------------
---E X T R A S 
+--Player Tab
 
-CreateLabel(tabs['Extras'], "Notes", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "I recommend having a bee", Color3.fromRGB(255,255,255))
-CreateLabel(tabs['Extras'], "with the token link ability!", Color3.fromRGB(255,255,255))
-CreateLabel(tabs['Extras'], "", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "Simple Swarm Version:", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "0.5.8(Stable)", Color3.fromRGB(255,255,255))
-CreateLabel(tabs['Extras'], "Stable Version, a few bugs", Color3.fromRGB(255,255,255))
-CreateLabel(tabs['Extras'], "might be present, just a few", Color3.fromRGB(255,255,255))
-CreateToggle(tabs['Extras'], ">> Star Catcher", "Catches the falling lights(Needs to complete the science bear beesmas quest)",function()
+CreateToggle(tabs['Player Toggles'], "Star Catcher", "Catches the falling lights(Needs to complete the science bear beesmas quest)",function()
 if not getgenv().StarCatchIn then
         getgenv().StarCatchIn = true
 while true do
@@ -456,6 +446,7 @@ if getgenv().StarCatchIn == true then
         local StarEnabled = false
         if StarEnabled == false then
         StarEnabled = true
+    if StarEnabled == true then
     if game.workspace.Particles:FindFirstChild('WarningDisk', 0.02) then
     if game.Workspace.Particles:FindFirstChild('WarningDisk', 0.1).BrickColor.Name == "Lime green" and game.Workspace.Particles:FindFirstChild('WarningDisk', 0.02).Transparency >= 0.05 then
         getgenv().Raining = true
@@ -467,6 +458,7 @@ end
     if not game.Workspace.Particles:WaitForChild('WarningDisk', 0.1) then
     getgenv().Raining = false
     end
+end
 end
 end
 end
@@ -483,40 +475,79 @@ elseif getgenv().StarCatchIn then
         getgenv().StarCatchIn = false
 end
 end)
-CreateToggle(tabs['Extras'], ">> TP to rares", "Teleport to rare tokens, useful!",function()
+
+CreateToggle(tabs['Player Toggles'], "TP to rares", "Teleport to rare tokens, useful!",function()
     if not getgenv().RareTpIn then
     getgenv().RareTpIn = true
+    if getgenv().RareTpIn then
     while true do 
-    local RareEnabled = true
-    if RareEnabled == true and getgenv().Raining == false and getgenv().Killing == false then
+    if RareEnabled == true and getgenv().Killing == false then
     RareEnabled = false
     for i,v in ipairs(game.Workspace.Collectibles:GetChildren()) do
-    local Decal = v:WaitForChild('FrontDecal').Texture
-    if table.find(t, Decal) and v.Transparency <= 0.15 then
+    if v then
+    local Decal = v:WaitForChild('FrontDecal', 0.3).Texture
+    if table.find(t, Decal) and v.Transparency <= 0.15 and getgenv().Raining == false then
     local radius = 50
     local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Position).Magnitude
 	if(distance <= radius) then
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Position)
+    v.Transparency = 1
+	elseif not v then
+    game.Workspace.Collectibles:WaitForChild('C', 1)
+    end
+    end
+    end
+    end
+    end
     wait()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Position)
-    end
-    end
-    end
-    end
+    RareEnabled = true
     if getgenv().RareTpIn == false then
     RareEnabled = true
     break
     end
-    wait(3)
-    RareEnabled = true
     end
+end
     elseif getgenv().RareTpIn then
     getgenv().RareTpIn = false
+    RareEnabled = true
 end
 end)
 
+CreateTextBox(tabs['Player Toggles'], "Set Walkspeed", "Click on Walkspeed to set",function(arg)
+    getgenv().WalkspeedIn = false
+    wait(0.5)
+    getgenv().WalkspeedIn = true
+    while getgenv().WalkspeedIn do
+    if not getgenv().WalkspeedIn then
+    break
+    end
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = arg
+    wait()
+end
+end)
 
+-------------------------------------------------------------------------------------------------------------------
+
+--E X T R A S 
+
+CreateLabel(tabs['Extras'], "Notes", Color3.fromRGB(0,255,0))
+CreateLabel(tabs['Extras'], "I recommend having a bee", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "with the token link ability!", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "", Color3.fromRGB(0,255,0))
+CreateLabel(tabs['Extras'], "Simple Swarm Version:", Color3.fromRGB(0,255,0))
+CreateLabel(tabs['Extras'], "0.5.8(Stable)", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "Stable Version, a few bugs", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "might be present, just a few", Color3.fromRGB(255,255,255))
 
 -------------------------------------------------------------------------------------------------------------------
 
 
+-- E X T R A  F U N C T I O N S
+local textbox = game:GetService("CoreGui")["Simple Swarm"].Top.Container["Player Toggles"].TabContainer["Set Walkspeed"].Side.Box
+textbox.Changed:connect(function(prop)
+    if prop == "Text" then
+        if not tonumber(textbox.Text) then
+            textbox.Text = textbox.Text:sub(1,#textbox.Text-1)
+        end
+    end
+end)
