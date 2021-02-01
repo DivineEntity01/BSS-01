@@ -417,7 +417,7 @@ function CreateMain(title)
 				parent.TabContainer.Size = UDim2.new(0, parent.TabContainer.UIListLayout.AbsoluteContentSize.X, 0, parent.TabContainer.UIListLayout.AbsoluteContentSize.Y)
 			end
 		end
-		function NumberBox (parent, buttontittle, placeholdernumber, callback)
+		function CreateNumberBox (parent, buttontittle, placeholdernumber, callback)
 		local TextBox = Instance.new("TextButton")
 			local Arrow = Instance.new("TextButton")
 			local Side = Instance.new("Frame")
@@ -592,6 +592,13 @@ function CreateMain(title)
 			Box.TextWrapped = true
 			Box.PlaceholderText = placeholderText
 			parent.TabContainer.Size = UDim2.new(0, parent.TabContainer.UIListLayout.AbsoluteContentSize.X, 0, parent.TabContainer.UIListLayout.AbsoluteContentSize.Y)
+			Box.Changed:connect(function(prop)
+    			if prop == "Text" then
+        		if not tonumber(Box.Text) then
+            		Box.Text = Box.Text:sub(1,#textbox.Text-1)
+        end
+    end
+end)
 		end
 	end
 	tabs = game.CoreGui[title].Top.Container
