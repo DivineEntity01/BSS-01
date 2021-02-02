@@ -521,7 +521,7 @@ CreateTextBox(tabs['Player Toggles'], "Set Walkspeed", "Click on Walkspeed to se
     break
     end
     game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = arg
-    wait(1)
+    wait(0.08)
 end
 end)
 
