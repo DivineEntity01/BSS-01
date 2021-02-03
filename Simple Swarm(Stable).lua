@@ -20,6 +20,7 @@ local EnabledDispensers = true
 local FieldEnabled = true
 local EssentialEnabled = true
 local RareEnabled = true
+local GlueEnabled = true
 local Collectibles = game.Workspace.Collectibles
 Collectibles:ClearAllChildren()
 
@@ -164,6 +165,26 @@ elseif getgenv().DispensersIn then
     EnabledDispensers = true
 end
 end)
+CreateToggle(tabs['Auto Machines'], "AutoGlue Dispenser", "Autocollects the Glue dispenser",function()
+    if not getgenv().GlueEnabledIn then
+    getgenv().GlueEnabledIn = true
+    if getgenv().GlueEnabledIn == true then
+    while true do
+    if GlueEnabled == true then
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(e3))
+    end
+    if getgenv().GlueEnabledIn == false then
+    break
+end
+    GlueEnabled = false
+    wait(1200)
+    GlueEnabled = true
+end
+end
+    elseif getgenv().GlueEnabledIn then
+        getgenv().GlueEnabledIn = false
+    end
+end)
 CreateToggle(tabs['Auto Machines'], "Auto Boosters", "Activates the boosters automatically",function()
     if not getgenv().FieldBoosterIn then
     getgenv().FieldBoosterIn = true
@@ -204,7 +225,7 @@ CreateToggle(tabs['Auto Machines'], "Essential Dispensers", "Do not recommend, d
 end
     EssentianEnabled = true
     wait(1200)
-    EssentianEnabled = true
+    EssentianEnabled = false
 end
 end
     elseif getgenv().EssentialDispensersIn then
@@ -285,6 +306,11 @@ end
 end)
 CreateToggle(tabs['Monster Farm'], "Stump Snail", "Turn on to kill the Snail",function()
     if not getgenv().SnailIn then
+    if game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.3) then
+        if game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.3).Target.Value ~= Character then
+        game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.3).Name = 'Stump Snail (Lvl 7)'
+    end
+    end
     getgenv().SnailIn = true
     ContextActionService:BindAction(
     FreezeAc,
@@ -384,7 +410,9 @@ CreateToggle(tabs['Monster Farm'], "Mondo Chick", "Turn on to kill the Mondo Chi
         end
         if not game:GetService("Workspace").Monsters:WaitForChild("Mondo Chick (Lvl 8)", 0.05) then
         if game.Workspace:FindFirstChild('MondoPlatform', 0.05) then
+                ContextActionService:UnbindAction(FreezeAc)
                 game.Workspace:FindFirstChild('MondoPlatform', 0.05):Destroy()
+                break
         end
         getgenv().Killing = false
         local CoreGui = game:GetService("StarterGui")
@@ -534,7 +562,7 @@ CreateLabel(tabs['Extras'], "I recommend having a bee", Color3.fromRGB(255,255,2
 CreateLabel(tabs['Extras'], "with the token link ability!", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "", Color3.fromRGB(0,255,0))
 CreateLabel(tabs['Extras'], "Simple Swarm Version:", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "0.5.8(Stable)", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "0.6.1(Stable)", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "Stable Version, a few bugs", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "might be present, just a few", Color3.fromRGB(255,255,255))
 
