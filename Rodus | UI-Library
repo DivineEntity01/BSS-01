@@ -2,9 +2,6 @@
 --Here's the release thread https://v3rmillion.net/showthread.php?tid=1066917
 
 function CreateMain(title)
-    local HttpService = game:GetService("HttpService");
-    local SaveFileName = "KeyBind.txt"
-    local Setting = HttpService:JSONDecode(readfile(SaveFileName))
 	local destroyIfExist = game.CoreGui:GetChildren()
 	for index, destroyIfExist in pairs(destroyIfExist) do
 		if destroyIfExist.Name == title then
