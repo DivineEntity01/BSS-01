@@ -70,6 +70,8 @@ function CreateMain(title)
 		tog_gled = not tog_gled
 		if tog_gled then Minimize.Text = "+" Container.Visible = false else Minimize.Text = "-" Container.Visible = true end
 	end)
+	
+	--[[
 	function onKeyPress(inputObject, gameProcessedEvent)
 		for i,v in pairs(getgenv().Bind) do
 		if input.UserInputType == Enum.UserInputType.Keyboard and v:lower()==tostring(input.KeyCode):lower() then
@@ -80,7 +82,7 @@ function CreateMain(title)
 	end
 
 	game:GetService("UserInputService").InputBegan:connect(onKeyPress)
-	
+	]]
 	function CreateTab(text)
 		local Tab = Instance.new("TextButton")
 		local Arrow = Instance.new("TextLabel")
