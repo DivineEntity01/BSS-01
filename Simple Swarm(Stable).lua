@@ -23,6 +23,8 @@ local RareEnabled = true
 local GlueEnabled = true
 local Collectibles = game.Workspace.Collectibles
 Collectibles:ClearAllChildren()
+Decorations = game.workspace.Decorations.Misc:GetChildren()
+FieldDecorations = game.workspace.FieldDecos:GetChildren()
 
 
 if GC then
@@ -82,7 +84,7 @@ local f1, f2, f3=
 {[1] = "Red Field Booster"},
 {[1] = "Blue Field Booster"},
 {[1] = "Field Booster"}
-
+local d = {"Bamboo", "strawberry", "Pumpkin", "Cactus", "Sundower", "Pineapple", "Pine Tree", "Big Pine Tree", "Mushroom"}
                                 local t = {
                     "rbxassetid://2306224708", --Mooncharm
                     "rbxassetid://2545746569", --Oil
@@ -306,10 +308,12 @@ end
 end)
 CreateToggle(tabs['Monster Farm'], "Stump Snail", "Turn on to kill the Snail",function()
     if not getgenv().SnailIn then
-    if game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.3) then
-        if game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.3).Target.Value ~= Character then
-        game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.3).Name = 'Stump Snail (Lvl 7)'
+    if game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.03) then
+        if game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.03).Target.Value ~= Character then
+        game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.03).Name = 'Stump Snail (Lvl 7)'
     end
+    
+    elseif not game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.03) then
     end
     getgenv().SnailIn = true
     ContextActionService:BindAction(
@@ -412,7 +416,7 @@ CreateToggle(tabs['Monster Farm'], "Mondo Chick", "Turn on to kill the Mondo Chi
         if game.Workspace:FindFirstChild('MondoPlatform', 0.05) then
                 ContextActionService:UnbindAction(FreezeAc)
                 game.Workspace:FindFirstChild('MondoPlatform', 0.05):Destroy()
-                break
+                
         end
         getgenv().Killing = false
         local CoreGui = game:GetService("StarterGui")
@@ -463,7 +467,7 @@ end)
 -------------------------------------------------------------------------------------------------------------------
 --Player Tab
 
-CreateToggle(tabs['Player Toggles'], "Star Catcher", "Catches the falling lights(Needs to complete the science bear beesmas quest)",function()
+CreateToggle(tabs['Player Toggles'], "Star Catcher", "Catches the falling lights",function()
 if not getgenv().StarCatchIn then
         getgenv().StarCatchIn = true
 while true do
@@ -540,6 +544,48 @@ end
 end
 end)
 
+CreateButton(tabs['Player Toggles'], "Delete Decorations", "Delete those annoying decorations, smh",function()
+    local CoreGui = game:GetService("StarterGui")
+    if not getgenv().FieldDecosIn then
+    getgenv().FieldDecosIn = true
+if getgenv().FieldDecosIn then
+    CoreGui:SetCore("SendNotification", {
+	Title = "Deleting Decorations...",
+	Text = "Might reduce fps for a just for a few seconds",
+	Duration = 4
+})
+for i,v in pairs(Decorations) do
+        if table.find(d, v.Name) then
+        if v.DataCost == 82 then
+            v:Destroy()
+end
+        if v:FindFirstChild('Part') and not v.Part:FindFirstChild('Decal', 0.03) then
+            v:FindFirstChild('Part'):Destroy()
+end
+end
+        if string.match(v.Name, 'Flower') then
+            v:Destroy()
+end
+end
+wait(1.7)
+for i,v in pairs(FieldDecorations) do
+    wait()
+    if table.find(d, v.Name) then
+                v:Destroy()
+end
+end
+wait(6)
+    CoreGui:SetCore("SendNotification", {
+	Title = "Field Decorations",
+	Text = "Success!",
+	Duration = 6
+})
+end
+end
+end)
+CreateButton(tabs['Player Toggles'], "Teleport to your hive for your needs",function()
+    game:GetService("Players").LocalPlayer.Character:MoveTo(game:GetService("Players").LocalPlayer.SpawnPos.Value.p)
+end)
 CreateTextBox(tabs['Player Toggles'], "Set Walkspeed", "Click on Walkspeed to set",function(arg)
     getgenv().WalkspeedIn = false
     wait(0.5)
@@ -562,7 +608,7 @@ CreateLabel(tabs['Extras'], "I recommend having a bee", Color3.fromRGB(255,255,2
 CreateLabel(tabs['Extras'], "with the token link ability!", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "", Color3.fromRGB(0,255,0))
 CreateLabel(tabs['Extras'], "Simple Swarm Version:", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "0.6.1(Stable)", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "0.6.5(Stable)", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "Stable Version, a few bugs", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "might be present, just a few", Color3.fromRGB(255,255,255))
 
@@ -570,6 +616,7 @@ CreateLabel(tabs['Extras'], "might be present, just a few", Color3.fromRGB(255,2
 
 
 -- E X T R A  F U N C T I O N S
+game:GetService("CoreGui")["Simple Swarm"].Top.Container["Player Toggles"].TabContainer:WaitForChild("Set Walkspeed", 0.3)
 local textbox = game:GetService("CoreGui")["Simple Swarm"].Top.Container["Player Toggles"].TabContainer["Set Walkspeed"].Side.Box
 textbox.Changed:connect(function(prop)
     if prop == "Text" then
