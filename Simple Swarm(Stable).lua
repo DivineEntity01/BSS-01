@@ -1,12 +1,28 @@
 --A very sexy lib made by https://v3rmillion.net/member.php?action=profile&uid=1379221
 --Here's the release thread https://v3rmillion.net/showthread.php?tid=1066917
 
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------
+--SaveConfig
+local HttpService = game:GetService("HttpService");
+local SaveFileName = "KeyBind.txt"
+local Configuration = {Bind = 'Enum.KeyCode.RightAlt', Before = false}
+    if not pcall(function()
+    readfile(SaveFileName)
+    end) then
+    writefile(SaveFileName, HttpService:JSONEncode(Configuration))
+end
+local Setting = HttpService:JSONDecode(readfile(SaveFileName))
+local function SaveSettings()
+   writefile(SaveFileName, HttpService:JSONEncode(Setting))
+end
 -------------------------------------------------------------------------------------------------------------------
 --Global Variables
 getgenv().Raining = false
 getgenv().Killing = false
-
-
 
 --Local Variables
 LocalPlayer = game.Players.LocalPlayer
@@ -15,6 +31,7 @@ Character = LocalPlayer.Character
 local GC = getconnections or get_signal_cons
 local AlertMondo = game.workspace
 local ContextActionService = game:GetService("ContextActionService")
+local UIS = game:GetService("UserInputService")
 local FreezeAc = "freezeMovement"
 local EnabledDispensers = true 
 local FieldEnabled = true
@@ -25,7 +42,6 @@ local Collectibles = game.Workspace.Collectibles
 Collectibles:ClearAllChildren()
 Decorations = game.workspace.Decorations.Misc:GetChildren()
 FieldDecorations = game.workspace.FieldDecos:GetChildren()
-
 
 if GC then
 		for i,v in pairs(GC(Players.LocalPlayer.Idled)) do
@@ -99,6 +115,12 @@ local d = {"Bamboo", "strawberry", "Pumpkin", "Cactus", "Sundower", "Pineapple",
                     "rbxassetid://1839454544"  -- Gumdrop Barrage
 }
 
+
+    
+    
+    
+    
+
 --UI Library
 loadstring(game:HttpGet("https://raw.githubusercontent.com/DivineEntity01/BSS-01/main/Rodus%20%7C%20UI-Library", true))()
 if game:GetService('CoreGui'):WaitForChild('Simple Swarm', 0.08) then
@@ -111,7 +133,13 @@ CreateTab('Player Toggles')
 CreateTab("Extras")
 end
 
-
+function onInputBegan(input,gameProcessed)
+if input.UserInputType == Enum.UserInputType.Keyboard and Setting.Bind:lower()==tostring(input.KeyCode):lower() and not gameProcessed then
+    if game:GetService('CoreGui'):WaitForChild('Simple Swarm', 0.08).Top.Visible == false then game:GetService('CoreGui'):WaitForChild('Simple Swarm', 0.08).Top.Visible = true
+    else game:GetService('CoreGui'):WaitForChild('Simple Swarm', 0.08).Top.Visible = false end
+end
+end
+game:GetService("UserInputService").InputBegan:connect(onInputBegan)
 -------------------------------------------------------------------------------------------------------------------
 -- D I S P E N S E R S
 
@@ -583,10 +611,11 @@ wait(6)
 end
 end
 end)
-CreateButton(tabs['Player Toggles'], "Teleport to your hive for your needs",function()
+CreateButton(tabs['Player Toggles'], "Teleport to your hive", "Teleport to your hive for your needs(Claim First)",function()
+    wait()
     game:GetService("Players").LocalPlayer.Character:MoveTo(game:GetService("Players").LocalPlayer.SpawnPos.Value.p)
 end)
-CreateTextBox(tabs['Player Toggles'], "Set Walkspeed", "Click on Walkspeed to set",function(arg)
+CreateTextBox(tabs['Player Toggles'], "Set Walkspeed", "Set your Walkspeed",function(arg)
     getgenv().WalkspeedIn = false
     wait(0.5)
     getgenv().WalkspeedIn = true
@@ -608,20 +637,44 @@ CreateLabel(tabs['Extras'], "I recommend having a bee", Color3.fromRGB(255,255,2
 CreateLabel(tabs['Extras'], "with the token link ability!", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "", Color3.fromRGB(0,255,0))
 CreateLabel(tabs['Extras'], "Simple Swarm Version:", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "0.6.5(Stable)", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "0.8.1(Stable)", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "Stable Version, a few bugs", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "might be present, just a few", Color3.fromRGB(255,255,255))
-
+CreateTextBox(tabs['Extras'], "GUI Keybind", "Set Keybind",function(arg)
+end)
 -------------------------------------------------------------------------------------------------------------------
 
 
 -- E X T R A  F U N C T I O N S
 game:GetService("CoreGui")["Simple Swarm"].Top.Container["Player Toggles"].TabContainer:WaitForChild("Set Walkspeed", 0.3)
 local textbox = game:GetService("CoreGui")["Simple Swarm"].Top.Container["Player Toggles"].TabContainer["Set Walkspeed"].Side.Box
+local textboxk = game:GetService("CoreGui")["Simple Swarm"].Top.Container["Extras"].TabContainer["GUI Keybind"].Side.Box
+textboxk.Text = string.sub(Setting.Bind, 14)
 textbox.Changed:connect(function(prop)
     if prop == "Text" then
         if not tonumber(textbox.Text) then
             textbox.Text = textbox.Text:sub(1,#textbox.Text-1)
         end
     end
+end)
+
+textboxk.Focused:Connect(function()
+    game:GetService("CoreGui")["Simple Swarm"].Top.Container["Extras"].TabContainer["GUI Keybind"].Text = "Press a key"
+	textboxk.TextEditable = false
+	local Enabled = true
+	wait(0.2)
+    UIS.InputBegan:Connect(function(Input , GPE)
+    if Enabled == false then
+        return
+    end
+    Setting.Bind = tostring(Input.KeyCode)
+    SaveSettings()
+    textboxk.Text = string.sub(tostring(Input.KeyCode), 14)
+    wait()
+    Enabled = false
+    textboxk:ReleaseFocus()
+    end)
+end)
+textboxk.FocusLost:Connect(function()
+    game:GetService("CoreGui")["Simple Swarm"].Top.Container["Extras"].TabContainer["GUI Keybind"].Text = "GUI Keybind"
 end)
