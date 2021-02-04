@@ -2,6 +2,8 @@
 --Here's the release thread https://v3rmillion.net/showthread.php?tid=1066917
 
 function CreateMain(title)
+    local SaveFileName = "KeyBind.txt"
+    local Setting = HttpService:JSONDecode(readfile(SaveFileName))
 	local destroyIfExist = game.CoreGui:GetChildren()
 	for index, destroyIfExist in pairs(destroyIfExist) do
 		if destroyIfExist.Name == title then
@@ -69,9 +71,11 @@ function CreateMain(title)
 		if tog_gled then Minimize.Text = "+" Container.Visible = false else Minimize.Text = "-" Container.Visible = true end
 	end)
 	function onKeyPress(inputObject, gameProcessedEvent)
-		if inputObject.KeyCode == getgenv().Bind then
+		for i,v in pairs(Setting.Bind) do
+		if input.UserInputType == Enum.UserInputType.Keyboard and v:lower()==tostring(input.KeyCode):lower() then
 			if game.CoreGui[title].Top.Visible == false then game.CoreGui[title].Top.Visible = true
 			else game.CoreGui[title].Top.Visible = false end
+			end
 		end
 	end
 
