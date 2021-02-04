@@ -71,7 +71,7 @@ function CreateMain(title)
 		if tog_gled then Minimize.Text = "+" Container.Visible = false else Minimize.Text = "-" Container.Visible = true end
 	end)
 	function onKeyPress(inputObject, gameProcessedEvent)
-		for i,v in pairs(Setting.Bind) do
+		for i,v in pairs(getgenv().Bind) do
 		if input.UserInputType == Enum.UserInputType.Keyboard and v:lower()==tostring(input.KeyCode):lower() then
 			if game.CoreGui[title].Top.Visible == false then game.CoreGui[title].Top.Visible = true
 			else game.CoreGui[title].Top.Visible = false end
