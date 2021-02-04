@@ -9,21 +9,21 @@
 --SaveConfig
 local HttpService = game:GetService("HttpService");
 local SaveFileName = "KeyBind.txt"
-local Configurations = {Bind = Enum.KeyCode.RightAlt}
+local Configuration = {Bind = 'Enum.KeyCode.RightAlt', Before = false}
     if not pcall(function()
     readfile(SaveFileName)
     end) then
-    writefile(SaveFileName, HttpService:JSONEncode(Configurations))
+    writefile(SaveFileName, HttpService:JSONEncode(Configuration))
 end
-local Settings = HttpService:JSONDecode(readfile(SaveFileName))
+local Setting = HttpService:JSONDecode(readfile(SaveFileName))
 local function SaveSettings()
-   writefile(SaveFileName, HttpService:JSONEncode(Settings))
+   writefile(SaveFileName, HttpService:JSONEncode(Setting))
 end
-
 -------------------------------------------------------------------------------------------------------------------
 --Global Variables
 getgenv().Raining = false
 getgenv().Killing = false
+
 --Local Variables
 LocalPlayer = game.Players.LocalPlayer
 Players = game.Players
@@ -133,6 +133,13 @@ CreateTab('Player Toggles')
 CreateTab("Extras")
 end
 
+function onInputBegan(input,gameProcessed)
+if input.UserInputType == Enum.UserInputType.Keyboard and Setting.Bind:lower()==tostring(input.KeyCode):lower() and not gameProcessed then
+    if game:GetService('CoreGui'):WaitForChild('Simple Swarm', 0.08).Top.Visible == false then game:GetService('CoreGui'):WaitForChild('Simple Swarm', 0.08).Top.Visible = true
+    else game:GetService('CoreGui'):WaitForChild('Simple Swarm', 0.08).Top.Visible = false end
+end
+end
+game:GetService("UserInputService").InputBegan:connect(onInputBegan)
 -------------------------------------------------------------------------------------------------------------------
 -- D I S P E N S E R S
 
@@ -604,7 +611,8 @@ wait(6)
 end
 end
 end)
-CreateButton(tabs['Player Toggles'], "Teleport to your hive", "Teleport to your hive for your needs",function()
+CreateButton(tabs['Player Toggles'], "Teleport to your hive", "Teleport to your hive for your needs(Claim First)",function()
+    wait()
     game:GetService("Players").LocalPlayer.Character:MoveTo(game:GetService("Players").LocalPlayer.SpawnPos.Value.p)
 end)
 CreateTextBox(tabs['Player Toggles'], "Set Walkspeed", "Set your Walkspeed",function(arg)
@@ -641,7 +649,7 @@ end)
 game:GetService("CoreGui")["Simple Swarm"].Top.Container["Player Toggles"].TabContainer:WaitForChild("Set Walkspeed", 0.3)
 local textbox = game:GetService("CoreGui")["Simple Swarm"].Top.Container["Player Toggles"].TabContainer["Set Walkspeed"].Side.Box
 local textboxk = game:GetService("CoreGui")["Simple Swarm"].Top.Container["Extras"].TabContainer["GUI Keybind"].Side.Box
-textboxk.Text = "RightAlt"
+textboxk.Text = string.sub(Setting.Bind, 14)
 textbox.Changed:connect(function(prop)
     if prop == "Text" then
         if not tonumber(textbox.Text) then
@@ -659,7 +667,7 @@ textboxk.Focused:Connect(function()
     if Enabled == false then
         return
     end
-    Settings.Bind = Input.KeyCode
+    Setting.Bind = tostring(Input.KeyCode)
     SaveSettings()
     textboxk.Text = string.sub(tostring(Input.KeyCode), 14)
     wait()
@@ -671,3 +679,4 @@ textboxk.FocusLost:Connect(function()
     game:GetService("CoreGui")["Simple Swarm"].Top.Container["Extras"].TabContainer["GUI Keybind"].Text = "GUI Keybind"
 end)
 
+UserInputService.InputBegan:Connect(onInputBegan)
