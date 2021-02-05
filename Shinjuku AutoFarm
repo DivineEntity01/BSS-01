@@ -1,5 +1,4 @@
 _G.addedt = false
-_G.Toggle = true
 local Weapons = game.workspace:GetChildren()
 local WalkingTo = false
 local GC = getconnections or get_signal_cons
@@ -23,7 +22,7 @@ if _G.Toggle then
                 WalkingTo = true
                 game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
 --                game.Players.LocalPlayer:WaitForChild('Character').Humanoid:MoveTo(v.WeaponLocation.Position, v.WeaponLocation)
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.WeaponLocation.Position) + Vector3.new(-0.2, 2.73, 0)
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.WeaponLocation.Position) + Vector3.new(-0.1, 2.718, 0)
                 wait()
                 until v.WeaponLocation.WeaponTaken.Value == true
 wait()
