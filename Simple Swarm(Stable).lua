@@ -927,16 +927,19 @@ end
 end
 end
 
-if not getgenv().AutoFarm then
+if not getgenv().AutoFarm and then
     fields.FocusLost:Connect(function(enterPressed, inputThatCausedFocusLost)
     if enterPressed then
             FindField()
             for i,v in pairs(game:GetService("Workspace").FlowerZones:GetChildren()) do
-            if v.Name:sub(1, string.len(fields.Text)):gsub("%s+", ""):lower() == fields.Text:lower():gsub("%s+", "") then
-            local tween = game:GetService('TweenService'):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(1.3, Enum.EasingStyle.Sine, Enum.EasingDirection.Out, 0, false, 0), {CFrame = v.CFrame + Vector3.new(0, 1, 0)})
-            tween:Play()
-            fields.Text = v.Name
-    game.Players.LocalPlayer.Character.Humanoid.HipHeight = 3
+      if v.Name:sub(1, string.len(fields.Text)):gsub("%s+", ""):lower() == fields.Text:lower():gsub("%s+", "") then
+      local tween = game:GetService('TweenService'):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(1.3, Enum.EasingStyle.Sine, Enum.EasingDirection.Out, 0, false, 0), {CFrame = v.CFrame + Vector3.new(0, 1, 0)})
+	fields.Text = v.Name
+	if game:GetService("Players").LocalPlayer.CoreStats.Pollen.Value >= game:GetService("Players").LocalPlayer.CoreStats.Capacity.Value/1.07 then
+		wait()
+	else
+	tween:Play()
+    game.Players.LocalPlayer.Character.Humanoid.HipHeight = 6
     game:GetService("ReplicatedStorage").Events.PlayerActivesCommand:FireServer(unpack(args))
     wait(2)
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame + Vector3.new(11, 3, 16)
@@ -951,5 +954,6 @@ end
 end
 end
 end)
+		wait(3)
 game.Players.LocalPlayer.Character.Humanoid.HipHeight = 2.47
 end
