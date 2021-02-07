@@ -50,6 +50,10 @@ local Blur = Instance.new('BlurEffect')
 Blur.Parent = game:GetService("Lighting")
 Blur.Size = 14
 Blur.Name = "effect"
+local TweenService = game:GetService("TweenService")
+local RS = game:GetService("RunService")
+local Tokens = game.Workspace.Collectibles:GetChildren()
+
 
 if GC then
 		for i,v in pairs(GC(Players.LocalPlayer.Idled)) do
@@ -157,7 +161,7 @@ local f = {
     Coconut = game:GetService("Workspace").FlowerZones["Coconut Field"],
     -----------------------------------------------------------------------
     --No Field
-    Nil = nil or ''
+    Nil = 'nil'
 }
 
 local fieldslocated = {}
@@ -207,143 +211,83 @@ getgenv().FieldChange = false
 CreateToggle(tabs['AutoFarm'], "AutoFarm", "Collects and sells the pollen when you are full",function()
 if not getgenv().AutoFarm then
 getgenv().AutoFarm = true
-local Selling = false
-local cooldownin = false
-while getgenv().AutoFarm do
-if not getgenv().AutoFarm then
-cooldownin = false
-Selling = false
-Reached = false
-Walking = true
-    break
-end
-if cooldownin == false then
-local fields = game:GetService("CoreGui")["Simple Swarm"].Top.Container["AutoFarm"].TabContainer["Select Field"].Side.Box
-local Selling = false
-local radiusSell = 13
+local radiusSell = 15
 local distanceSell = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.SpawnPos.Value.p).Magnitude
-cooldownin = true
---FIELD TP------------------------------------
-fields.FocusLost:Connect(function(enterPressed, inputThatCausedFocusLost)
-    if enterPressed and not Selling then
-        game.Players.LocalPlayer.Character.Humanoid.HipHeight = 8
-            FindField()
-            for i,v in pairs(game:GetService("Workspace").FlowerZones:GetChildren()) do
-            if v.Name:sub(1, string.len(fields.Text)):gsub("%s+", ""):lower() == fields.Text:lower():gsub("%s+", "") and not Selling then
-            local tween = game:GetService('TweenService'):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(1.3, Enum.EasingStyle.Sine, Enum.EasingDirection.Out, 0, false, 0), {CFrame = v.CFrame + Vector3.new(0, 7, 0)})
-            tween:Play()
-            fields.Text = v.Name
-    local args = {[1] = {["Name"] = "Sprinkler Builder"}}
-    game:GetService("ReplicatedStorage").Events.PlayerActivesCommand:FireServer(unpack(args))
-    wait(2)
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame + Vector3.new(11, 9, 26)
-    game:GetService("ReplicatedStorage").Events.PlayerActivesCommand:FireServer(unpack(args))
-    wait(2)
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame + Vector3.new(21, 9, 0)
-    game:GetService("ReplicatedStorage").Events.PlayerActivesCommand:FireServer(unpack(args))
-    wait(2)
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame + Vector3.new(0, 9, 24)
-    game:GetService("ReplicatedStorage").Events.PlayerActivesCommand:FireServer(unpack(args))
+while getgenv().AutoFarm do
+    
+
+------------------------------------------------------------------------
+--#TokenVariables
+
+
+local Humanoid = game.Players.LocalPlayer.Character:WaitForChild("Humanoid")
+
+------------------------------------------------------------------------
+--#AutoHoney
+if game:GetService("Players").LocalPlayer.CoreStats.Pollen.Value >= game:GetService("Players").LocalPlayer.CoreStats.Capacity.Value/1.03 then
+    getgenv().Selling = true
+if not getgenv().MakingHoney then
+    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Players").LocalPlayer.SpawnPos.Value.p)
+    getgenv().MakingHoney = true
+    local args = {[1] = "ToggleHoneyMaking"}
+    game:GetService("ReplicatedStorage").Events.PlayerHiveCommand:FireServer(unpack(args))
     wait(1)
-    game.Players.LocalPlayer.Character.Humanoid.HipHeight = 2.47
+end
+while getgenv().MakingHoney do
+    if game:GetService("Players").LocalPlayer.CoreStats.Pollen.Value <= 0 then
+        wait(15)
+        getgenv().Selling = false
+        break
+    end
+    if (distanceSell >= radiusSell) then
+    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Players").LocalPlayer.SpawnPos.Value.p)
+    wait(1)
+    local args = {[1] = "ToggleHoneyMaking"}
+    game:GetService("ReplicatedStorage").Events.PlayerHiveCommand:FireServer(unpack(args))
+    wait(30)
+    end
+    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Players").LocalPlayer.SpawnPos.Value.p) + Vector3.new(0, 1.5, 0)
+    wait(10)
 end
 end
-end
-end)
-for i,v in pairs(game:GetService("Workspace").FlowerZones:GetChildren()) do
-local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Position).Magnitude
-    if v.Name:gsub("%s+", ""):lower() == fields.Text:gsub("%s+", ""):lower() and not Selling then
-    local size1 = v.Size.z
-    local size2 = v.Size.x
-    local radius = (size1 + size2) / 4.2
-    local tween = game:GetService('TweenService'):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(1.3, Enum.EasingStyle.Sine, Enum.EasingDirection.Out, 0, false, 0), {CFrame = v.CFrame + Vector3.new(0, 7, 0)})
-    if(distance >= radius and not Selling) then
-    tween:Play()
-    local args = {[1] = {["Name"] = "Sprinkler Builder"}}
-    game.Players.LocalPlayer.Character.Humanoid.HipHeight = 6
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame + Vector3.new(math.random(2, 13), 10, math.random(2, 13))
-    wait(0.1)
-    game:GetService("ReplicatedStorage").Events.PlayerActivesCommand:FireServer(unpack(args))
-    wait(0.2)
-    game.Players.LocalPlayer.Character.Humanoid.HipHeight = 2.47
+------------------------------------------------------------------------
+--#FieldTeleport
+if getgenv().LastField == "nil" or nil and not getgenv().Selling then
+elseif getgenv().LastField ~= nil then
+local goal = {}
+goal.CFrame = getgenv().LastField.CFrame
+local tweenInfo = TweenInfo.new(1.5, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
+local FieldTween = TweenService:Create(game.Players.LocalPlayer.Character.Humanoid.RootPart, tweenInfo, goal)
+Area = (getgenv().LastField.Size.x + getgenv().LastField.Size.z) / 4
+Distance = (game.Players.LocalPlayer.Character.Humanoid.RootPart.Position - getgenv().LastField.Position).Magnitude
+if (Distance >= Area) then
+    FieldTween:Play()
 end
 end
-end
--------------------------------------------------------------------------------------------------------------------
-
-
-
---AUTO TOKENS---------------------
-for i,v in ipairs(game.Workspace.Collectibles:GetChildren()) do
-    if v and not Selling then
-    local radius = 45
+for i,v in pairs(game.Workspace.Collectibles:GetChildren()) do
+    if v and not getgenv().Selling then
+    local radius = 45 or Area
     local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Position).Magnitude
-	if(distance <= radius) then
+	if(distance <= radius) and v.Transparency <= 0.8 then
     local Walking = false
     local Reached = false
-    repeat
-        local Decal = v:WaitForChild('FrontDecal', 0.009)
-        game.Players.LocalPlayer.Character.Humanoid.MoveToFinished:Connect(function()
+    game.Players.LocalPlayer.Character.Humanoid.MoveToFinished:Connect(function()
             Walking = false
             Reached = true
         end)
         if not Walking then
             Walking = true
-            if v:WaitForChild('FrontDecal', 0.009) then
-                if v:WaitForChild('FrontDecal', 0.009).Texture == "rbxassetid://1629547638" then
-                game.Players.LocalPlayer.Character.Humanoid:MoveTo(v.Position, v)
-                end
-            end
-            while not Reached do
-            if not getgenv().AutoFarm then
-                break
-            end
+            if not Reached then
             game.Players.LocalPlayer.Character.Humanoid:MoveTo(v.Position, v)
-            wait()
-            end
-        end
-    until not Walking or not getgenv().AutoFarm or Selling
+end
 end
     elseif not v then
     game.Workspace.Collectibles:WaitForChild('C', 0.01)
 end
 end
-if game:GetService("Players").LocalPlayer.CoreStats.Pollen.Value >= game:GetService("Players").LocalPlayer.CoreStats.Capacity.Value/1.07 and not cooldownin then
-wait()
-Selling = true
-if Selling == true then
-wait()
-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Players").LocalPlayer.SpawnPos.Value.p)
-wait(7)
-local args = {[1] = "ToggleHoneyMaking"}
-game:GetService("ReplicatedStorage").Events.PlayerHiveCommand:FireServer(unpack(args))
 end
-repeat
-if (distanceSell >= radiusSell) and Selling then
-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Players").LocalPlayer.SpawnPos.Value.p) + Vector3.new(0, 1.5, 0)
-wait(7)
-end
-until game:GetService("Players").LocalPlayer.CoreStats.Pollen.Value <= 1 or not getgenv().AutoFarm 
-if (distanceSell >= radiusSell) and Selling then
-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Players").LocalPlayer.SpawnPos.Value.p) + Vector3.new(0, 1.5, 0)
-wait(7)
-local args = {[1] = "ToggleHoneyMaking"}
-game:GetService("ReplicatedStorage").Events.PlayerHiveCommand:FireServer(unpack(args))
-end
-wait(15)
-end
-----------------------------------
-end
-if cooldownin then
-cooldownin = true
+RS.RenderStepped:Wait(true)
 wait(0.08)
-end
-cooldownin = true
-wait(0.15)
-cooldownin = false
-Selling = false
-Reached = false
-Walking = true
 end
 
 elseif getgenv().AutoFarm then
@@ -859,7 +803,7 @@ CreateLabel(tabs['Extras'], "I recommend having a bee", Color3.fromRGB(255,255,2
 CreateLabel(tabs['Extras'], "with the token link ability!", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "", Color3.fromRGB(0,255,0))
 CreateLabel(tabs['Extras'], "Simple Swarm Version:", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "0.8.1(Stable)", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "1.1(Stable)", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "Stable Version, a few bugs", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "might be present, just a few", Color3.fromRGB(255,255,255))
 CreateTextBox(tabs['Extras'], "GUI Keybind", "Set Keybind",function(arg)
@@ -871,11 +815,7 @@ end)
 game:GetService("CoreGui")["Simple Swarm"].Top.Container["Player Toggles"].TabContainer:WaitForChild("Set Walkspeed", 0.3)
 local textbox = game:GetService("CoreGui")["Simple Swarm"].Top.Container["Player Toggles"].TabContainer["Set Walkspeed"].Side.Box
 local textboxk = game:GetService("CoreGui")["Simple Swarm"].Top.Container["Extras"].TabContainer["GUI Keybind"].Side.Box
-local fields = game:GetService("CoreGui")["Simple Swarm"].Top.Container["AutoFarm"].TabContainer["Select Field"].Side.Box
-fields.Text = "Nil"
-fields.ClearTextOnFocus = true
-
-
+local FieldBox = game:GetService("CoreGui")["Simple Swarm"].Top.Container["AutoFarm"].TabContainer["Select Field"].Side.Box
 
 
 textboxk.Text = string.sub(Setting.Bind, 14)
@@ -908,53 +848,31 @@ textboxk.FocusLost:Connect(function()
     game:GetService("CoreGui")["Simple Swarm"].Top.Container["Extras"].TabContainer["GUI Keybind"].Text = "GUI Keybind"
 end)
 
-
-local fields = game:GetService("CoreGui")["Simple Swarm"].Top.Container["AutoFarm"].TabContainer["Select Field"].Side.Box
-fields.Text = "Nil"
-fields.ClearTextOnFocus = true
-
-
 function FindField()
-local text = fields.Text
+local text = FieldBox.Text
     for _,v in pairs(f) do
-    if tostring(_):sub(2, string.len(text)):lower() == text:lower():gsub("%s+", "") then
-    table.insert(fieldslocated, tostring(_))
+    if tostring(v):sub(1, string.len(text)):lower():gsub("[%s]","") == text:lower():gsub("[%s]","") then
+    if text:gsub("[%s]","") == "" or #text == 0 then
+    table.remove(fieldslocated, 1)
+    wait(0.1)
+    table.insert(fieldslocated, 'nil')
+    else
+    table.remove(fieldslocated, 1)
+    wait(0.1)
+    table.insert(fieldslocated, v)
+end
+end
 end
 end
     for i,v in pairs(fieldslocated) do
         if #fieldslocated == 1 then
 end
 end
-end
 
-if not getgenv().AutoFarm and game:GetService("Players").LocalPlayer.CoreStats.Pollen.Value >= game:GetService("Players").LocalPlayer.CoreStats.Capacity.Value/1.07 then
-    fields.FocusLost:Connect(function(enterPressed, inputThatCausedFocusLost)
+FieldBox.FocusLost:Connect(function(enterPressed, inputThatCausedFocusLost)
     if enterPressed then
-            FindField()
-            for i,v in pairs(game:GetService("Workspace").FlowerZones:GetChildren()) do
-      if v.Name:sub(1, string.len(fields.Text)):gsub("%s+", ""):lower() == fields.Text:lower():gsub("%s+", "") then
-      local tween = game:GetService('TweenService'):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(1.3, Enum.EasingStyle.Sine, Enum.EasingDirection.Out, 0, false, 0), {CFrame = v.CFrame + Vector3.new(0, 1, 0)})
-	fields.Text = v.Name
-	if game:GetService("Players").LocalPlayer.CoreStats.Pollen.Value >= game:GetService("Players").LocalPlayer.CoreStats.Capacity.Value/1.07 then
-		wait()
-	else
-	tween:Play()
-    game.Players.LocalPlayer.Character.Humanoid.HipHeight = 6
-    game:GetService("ReplicatedStorage").Events.PlayerActivesCommand:FireServer(unpack(args))
-    wait(2)
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame + Vector3.new(11, 3, 16)
-    game:GetService("ReplicatedStorage").Events.PlayerActivesCommand:FireServer(unpack(args))
-    wait(2)
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame + Vector3.new(21, 3, 0)
-    game:GetService("ReplicatedStorage").Events.PlayerActivesCommand:FireServer(unpack(args))
-    wait(2)
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame + Vector3.new(0, 3, 14)
-    game:GetService("ReplicatedStorage").Events.PlayerActivesCommand:FireServer(unpack(args))
+    FindField()
+    FieldBox.Text = tostring(fieldslocated[1])
+    getgenv().LastField = fieldslocated[1]
 end
-end
-end
-end
-wait(3)
-game.Players.LocalPlayer.Character.Humanoid.HipHeight = 2.47
 end)
-end
