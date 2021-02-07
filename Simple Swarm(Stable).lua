@@ -314,19 +314,19 @@ Selling = true
 if Selling == true then
 wait()
 game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Players").LocalPlayer.SpawnPos.Value.p)
-wait(0.5)
+wait(7)
 local args = {[1] = "ToggleHoneyMaking"}
 game:GetService("ReplicatedStorage").Events.PlayerHiveCommand:FireServer(unpack(args))
 end
 repeat
 if (distanceSell >= radiusSell) and Selling then
 game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Players").LocalPlayer.SpawnPos.Value.p) + Vector3.new(0, 1.5, 0)
-wait(0.2)
+wait(7)
 end
 until game:GetService("Players").LocalPlayer.CoreStats.Pollen.Value <= 1 or not getgenv().AutoFarm 
 if (distanceSell >= radiusSell) and Selling then
 game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Players").LocalPlayer.SpawnPos.Value.p) + Vector3.new(0, 1.5, 0)
-wait(0.2)
+wait(7)
 local args = {[1] = "ToggleHoneyMaking"}
 game:GetService("ReplicatedStorage").Events.PlayerHiveCommand:FireServer(unpack(args))
 end
