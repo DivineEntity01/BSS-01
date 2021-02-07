@@ -927,7 +927,7 @@ end
 end
 end
 
-if not getgenv().AutoFarm and then
+if not getgenv().AutoFarm and game:GetService("Players").LocalPlayer.CoreStats.Pollen.Value >= game:GetService("Players").LocalPlayer.CoreStats.Capacity.Value/1.07 then
     fields.FocusLost:Connect(function(enterPressed, inputThatCausedFocusLost)
     if enterPressed then
             FindField()
@@ -954,6 +954,6 @@ end
 end
 end
 end)
-		wait(3)
+wait(3)
 game.Players.LocalPlayer.Character.Humanoid.HipHeight = 2.47
 end
