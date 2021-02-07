@@ -53,7 +53,9 @@ Blur.Name = "effect"
 local TweenService = game:GetService("TweenService")
 local RS = game:GetService("RunService")
 local Tokens = game.Workspace.Collectibles:GetChildren()
-
+local pollenTool = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool") or player.Backpack:FindFirstChildOfClass("Tool")
+if pollenTool==nil or pollenTool:FindFirstChild("ClickEvent")==nil then
+end
 
 if GC then
 		for i,v in pairs(GC(Players.LocalPlayer.Idled)) do
@@ -288,11 +290,29 @@ end
 end
 RS.RenderStepped:Wait(true)
 wait(0.08)
+pollenTool.ClickEvent:FireServer()
 end
 
 elseif getgenv().AutoFarm then
     getgenv().AutoFarm = false
     end
+end)
+
+CreateToggle(tabs['AutoFarm'], "AutoTool", "AutoCollects Pollen with your tool",function()
+    if not getgenv().AutoToolIn then
+    getgenv().AutoToolIn = true
+    if getgenv().AutoToolIn then
+        while true do
+            if not getgenv().AutoToolIn then
+                break
+            end
+            pollenTool.ClickEvent:FireServer()
+            wait(0.35)
+        end
+    end
+    elseif getgenv().AutoToolIn then
+        getgenv().AutoToolIn = false
+end
 end)
 
 CreateTextBox(tabs['AutoFarm'], "Select Field", "Select the fild you want to farm on",function()
@@ -799,13 +819,15 @@ end)
 --E X T R A S 
 
 CreateLabel(tabs['Extras'], "Notes", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "I recommend having a bee", Color3.fromRGB(255,255,255))
-CreateLabel(tabs['Extras'], "with the token link ability!", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "aza you dumbfuck, maybe if", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "you got rid of that yee yee", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "ass haircut you got you'd", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "get some bitches on your dick", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "", Color3.fromRGB(0,255,0))
 CreateLabel(tabs['Extras'], "Simple Swarm Version:", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "1.1(Stable)", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "1.1.3(Stable)", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "Stable Version, a few bugs", Color3.fromRGB(255,255,255))
-CreateLabel(tabs['Extras'], "might be present, just a few", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "might be present, yeah", Color3.fromRGB(255,255,255))
 CreateTextBox(tabs['Extras'], "GUI Keybind", "Set Keybind",function(arg)
 end)
 -------------------------------------------------------------------------------------------------------------------
