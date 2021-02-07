@@ -954,7 +954,7 @@ end
 end
 end
 end
-end)
 wait(3)
 game.Players.LocalPlayer.Character.Humanoid.HipHeight = 2.47
+end)
 end
