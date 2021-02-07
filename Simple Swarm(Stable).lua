@@ -267,6 +267,7 @@ if (Distance >= Area) then
 end
 end
 for i,v in pairs(game.Workspace.Collectibles:GetChildren()) do
+wait()
     if v and not getgenv().Selling then
     local radius = 45 or Area
     local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Position).Magnitude
@@ -286,11 +287,10 @@ end
     elseif not v then
     game.Workspace.Collectibles:WaitForChild('C', 0.01)
 end
+						
 end
 end
-RS.RenderStepped:Wait(true)
-wait(0.08)
-pollenTool.ClickEvent:FireServer()
+wait(0.15)
 end
 
 elseif getgenv().AutoFarm then
@@ -307,7 +307,7 @@ CreateToggle(tabs['AutoFarm'], "AutoTool", "AutoCollects Pollen with your tool",
                 break
             end
             pollenTool.ClickEvent:FireServer()
-            wait(0.35)
+            wait(0.45)
         end
     end
     elseif getgenv().AutoToolIn then
