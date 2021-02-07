@@ -953,6 +953,7 @@ if not getgenv().AutoFarm and game:GetService("Players").LocalPlayer.CoreStats.P
 end
 end
 end
+end
 end)
 wait(3)
 game.Players.LocalPlayer.Character.Humanoid.HipHeight = 2.47
