@@ -825,7 +825,7 @@ CreateLabel(tabs['Extras'], "ass haircut you got you'd get", Color3.fromRGB(255,
 CreateLabel(tabs['Extras'], "some bitches on your dick", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "", Color3.fromRGB(0,255,0))
 CreateLabel(tabs['Extras'], "Simple Swarm Version:", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "1.1.3(Stable)", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "1.1.4(Stable)", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "Stable Version, a few bugs", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "might be present, yeah", Color3.fromRGB(255,255,255))
 CreateTextBox(tabs['Extras'], "GUI Keybind", "Set Keybind",function(arg)
