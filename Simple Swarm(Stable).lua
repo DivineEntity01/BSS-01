@@ -308,7 +308,8 @@ end
     game.Workspace.Collectibles:WaitForChild('C', 0.01)
 end
 end
-if game:GetService("Players").LocalPlayer.CoreStats.Pollen.Value >= game:GetService("Players").LocalPlayer.CoreStats.Capacity.Value/1.07 then
+if game:GetService("Players").LocalPlayer.CoreStats.Pollen.Value >= game:GetService("Players").LocalPlayer.CoreStats.Capacity.Value/1.07 and not cooldownin then
+wait()
 Selling = true
 if Selling == true then
 wait()
@@ -338,7 +339,7 @@ cooldownin = true
 wait(0.08)
 end
 cooldownin = true
-wait(0.1)
+wait(0.15)
 cooldownin = false
 Selling = false
 Reached = false
