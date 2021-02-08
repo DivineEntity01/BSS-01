@@ -116,6 +116,7 @@ local f1, f2, f3=
 {[1] = "Field Booster"}
 local d = {"Bamboo", "strawberry", "Pumpkin", "Cactus", "Sundower", "Pineapple", "Pine Tree", "Big Pine Tree", "Mushroom"}
 local t = {
+"rbxassetid://3030569073", --Cloud Vial
 "rbxassetid://2529092020", --Magic Bean
 "rbxassetid://2545746569", --Oil
 "rbxassetid://2495936068", --Blue Extract
@@ -219,13 +220,12 @@ while getgenv().AutoFarm do
     
 
 ------------------------------------------------------------------------
---#TokenVariables
+--#TokenVariables/AutoSell
 
 
 local Humanoid = game.Players.LocalPlayer.Character:WaitForChild("Humanoid")
 
-------------------------------------------------------------------------
---#AutoHoney
+
 if game:GetService("Players").LocalPlayer.CoreStats.Pollen.Value >= game:GetService("Players").LocalPlayer.CoreStats.Capacity.Value/1.03 then
     getgenv().Selling = true
 if not getgenv().MakingHoney then
@@ -266,6 +266,8 @@ if (Distance >= Area) then
     FieldTween:Play()
 end
 end
+------------------------------------------------------------------------
+--#AutoHoney
 for i,v in pairs(game.Workspace.Collectibles:GetChildren()) do
 wait()
     if v and not getgenv().Selling then
@@ -396,8 +398,70 @@ end
 end
 end)
 
+CreateSideDropButton(tabs['AutoFarm'], "Find Windy/Vicious", {"Vicious Bee","Windy Bee", "Disable"},function(arg)
+------#Disable
+if arg == "Disable" then
+getgenv().AutoMiniBoss = false
+getgenv().Selling = false
+game.Players.LocalPlayer.Character.Humanoid.HipHeight = 2.47
+end
+------#Windy Bee
+if arg == "Windy Bee" then
+getgenv().AutoMiniBoss = false
+wait(0.1)
+getgenv().AutoMiniBoss = true
+while getgenv().AutoMiniBoss do
+if not getgenv().AutoMiniBoss then
+break
+end
+if game:GetService("Workspace").NPCBees:WaitForChild('Windy', 1) then
+    repeat wait(1)
+    if getgenv().AutoMiniBoss then
+        getgenv().Selling = true
+        if game:GetService("Workspace").NPCBees:WaitForChild('Windy', 1) then
+        game.Players.LocalPlayer.Character:MoveTo(game:GetService("Workspace").NPCBees:WaitForChild('Windy').Position)
+        else
+            game.Players.LocalPlayer.Character.Humanoid.HipHeight = 2.47
+            getgenv().Selling = false
+        end
+    end
+    until not getgenv().AutoMiniBoss
+else
+game.Players.LocalPlayer.Character.Humanoid.HipHeight = 2.47
+end
+wait()
+end
+end
+------#Vicious Bee
+if arg == "Vicious Bee" then
+getgenv().AutoMiniBoss = false
+wait(0.1)
+getgenv().AutoMiniBoss = true
+while getgenv().AutoMiniBoss do
+if not getgenv().AutoMiniBoss then
+break
+end
+if game:GetService("Workspace").Particles:WaitForChild('Vicious', 1) then
+    game.Players.LocalPlayer.Character.Humanoid.HipHeight = 14
+    repeat wait(2)
+    if getgenv().AutoMiniBoss then
+        if game:GetService("Workspace").Particles:WaitForChild('Vicious', 1) then
+        getgenv().Selling = true
+        game.Players.LocalPlayer.Character:MoveTo(game:GetService("Workspace").Particles:WaitForChild('Vicious', 1).Position)
+        else
+            game.Players.LocalPlayer.Character.Humanoid.HipHeight = 2.47
+            getgenv().Selling = false
+        end
+    end
+    until not getgenv().AutoMiniBoss
+else
+    game.Players.LocalPlayer.Character.Humanoid.HipHeight = 2.47
+end
 
-
+wait()
+end
+end
+end)
 
 
 
