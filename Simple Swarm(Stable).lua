@@ -662,14 +662,12 @@ end
 end)
 CreateToggle(tabs['Monster Farm'], "Stump Snail", "Turn on to kill the Snail",function()
     if not getgenv().SnailIn then
+	getgenv().SnailIn = true
     if game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.03) then
         if game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.03).Target.Value ~= Character then
         game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.03).Name = 'Stump Snail (Lvl 7)'
     end
-    
-    elseif not game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.03) then
     end
-    getgenv().SnailIn = true
     ContextActionService:BindAction(
     FreezeAc,
     function()
@@ -692,6 +690,7 @@ CreateToggle(tabs['Monster Farm'], "Stump Snail", "Turn on to kill the Snail",fu
     while true do
     local EnabledSnail = true
     if EnabledSnail == true then
+	wait()
         EnabledSnail = false
         if game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.3) then
             if game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.15) and game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.15).Target.Value == Character then
