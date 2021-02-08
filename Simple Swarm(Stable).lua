@@ -225,7 +225,8 @@ while getgenv().AutoFarm do
 
 local Humanoid = game.Players.LocalPlayer.Character:WaitForChild("Humanoid")
 
-
+------------------------------------------------------------------------
+--#AutoHoney
 if game:GetService("Players").LocalPlayer.CoreStats.Pollen.Value >= game:GetService("Players").LocalPlayer.CoreStats.Capacity.Value/1.03 then
     getgenv().Selling = true
 if not getgenv().MakingHoney then
@@ -255,7 +256,7 @@ end
 ------------------------------------------------------------------------
 --#FieldTeleport
 if getgenv().LastField == "nil" or nil and not getgenv().Selling then
-elseif getgenv().LastField ~= nil then
+elseif getgenv().LastField ~= nil and not getgenv().Selling then
 local goal = {}
 goal.CFrame = getgenv().LastField.CFrame
 local tweenInfo = TweenInfo.new(1.5, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
@@ -267,7 +268,7 @@ if (Distance >= Area) then
 end
 end
 ------------------------------------------------------------------------
---#AutoHoney
+--#Token Collector
 for i,v in pairs(game.Workspace.Collectibles:GetChildren()) do
 wait()
     if v and not getgenv().Selling then
@@ -415,14 +416,14 @@ if not getgenv().AutoMiniBoss then
 break
 end
 if game:GetService("Workspace").NPCBees:WaitForChild('Windy', 1) then
-    repeat wait(1)
+    repeat wait(5)
     if getgenv().AutoMiniBoss then
         getgenv().Selling = true
         if game:GetService("Workspace").NPCBees:WaitForChild('Windy', 1) then
         game.Players.LocalPlayer.Character:MoveTo(game:GetService("Workspace").NPCBees:WaitForChild('Windy').Position)
         else
-            game.Players.LocalPlayer.Character.Humanoid.HipHeight = 2.47
             getgenv().Selling = false
+            game.Players.LocalPlayer.Character.Humanoid.HipHeight = 2.47
         end
     end
     until not getgenv().AutoMiniBoss
@@ -443,7 +444,7 @@ break
 end
 if game:GetService("Workspace").Particles:WaitForChild('Vicious', 1) then
     game.Players.LocalPlayer.Character.Humanoid.HipHeight = 14
-    repeat wait(2)
+    repeat wait(1)
     if getgenv().AutoMiniBoss then
         if game:GetService("Workspace").Particles:WaitForChild('Vicious', 1) then
         getgenv().Selling = true
@@ -829,7 +830,12 @@ CreateTextBox(tabs['Player Toggles'], "Set Walkspeed", "Set your Walkspeed",func
     if not getgenv().WalkspeedIn then
     break
     end
+    if game.Players.LocalPlayer.Character:WaitForChild('Humanoid', 4) then
     game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = arg
+    else
+        game.Players.LocalPlayer.Character:WaitForChild('Humanoid', 4)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = arg
+    end
     wait(0.08)
 end
 end)
@@ -889,7 +895,7 @@ CreateLabel(tabs['Extras'], "ass haircut you got you'd get", Color3.fromRGB(255,
 CreateLabel(tabs['Extras'], "some bitches on your dick", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "", Color3.fromRGB(0,255,0))
 CreateLabel(tabs['Extras'], "Simple Swarm Version:", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "1.1.4(Stable)", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "1.2.7(Stable)", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "Stable Version, a few bugs", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "might be present, yeah", Color3.fromRGB(255,255,255))
 CreateTextBox(tabs['Extras'], "GUI Keybind", "Set Keybind",function(arg)
