@@ -232,13 +232,11 @@ if game:GetService("Players").LocalPlayer.CoreStats.Pollen.Value >= game:GetServ
 if not getgenv().MakingHoney then
     game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Players").LocalPlayer.SpawnPos.Value.p)
     getgenv().MakingHoney = true
-    local args = {[1] = "ToggleHoneyMaking"}
-    game:GetService("ReplicatedStorage").Events.PlayerHiveCommand:FireServer(unpack(args))
-    wait(1)
+    wait()
 end
 while getgenv().MakingHoney do
     if game:GetService("Players").LocalPlayer.CoreStats.Pollen.Value <= 0 then
-        wait(15)
+        wait(20)
         getgenv().Selling = false
         break
     end
@@ -247,7 +245,7 @@ while getgenv().MakingHoney do
     wait(1)
     local args = {[1] = "ToggleHoneyMaking"}
     game:GetService("ReplicatedStorage").Events.PlayerHiveCommand:FireServer(unpack(args))
-    wait(30)
+    wait(45)						
     end
     game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Players").LocalPlayer.SpawnPos.Value.p) + Vector3.new(0, 1.5, 0)
     wait(10)
@@ -399,6 +397,7 @@ end
 end
 end)
 
+--[[
 CreateSideDropButton(tabs['AutoFarm'], "Find Windy/Vicious", {"Vicious Bee","Windy Bee", "Disable"},function(arg)
 ------#Disable
 if arg == "Disable" then
@@ -464,7 +463,7 @@ end
 end
 end)
 
-
+]]--
 
 
 
