@@ -256,7 +256,7 @@ end
 if getgenv().LastField == "nil" or nil and not getgenv().Selling then
 elseif getgenv().LastField ~= nil and not getgenv().Selling then
 local goal = {}
-goal.CFrame = CFrame.new(getgenv().LastField.Position)
+goal.CFrame = getgenv().LastField.CFrame
 local tweenInfo = TweenInfo.new(1.5, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
 local FieldTween = TweenService:Create(game.Players.LocalPlayer.Character.Humanoid.RootPart, tweenInfo, goal + Vector3.new(0, 5, 0))
 Area = (getgenv().LastField.Size.x + getgenv().LastField.Size.z) / 4
