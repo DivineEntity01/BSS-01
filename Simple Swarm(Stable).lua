@@ -256,9 +256,9 @@ end
 if getgenv().LastField == "nil" or nil and not getgenv().Selling then
 elseif getgenv().LastField ~= nil and not getgenv().Selling then
 local goal = {}
-goal.CFrame = getgenv().LastField.CFrame
+goal.CFrame = getgenv().LastField.CFrame + Vector3.new(0, 5, 0)
 local tweenInfo = TweenInfo.new(1.5, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
-local FieldTween = TweenService:Create(game.Players.LocalPlayer.Character.Humanoid.RootPart, tweenInfo, goal + Vector3.new(0, 5, 0))
+local FieldTween = TweenService:Create(game.Players.LocalPlayer.Character.Humanoid.RootPart, tweenInfo, goal)
 Area = (getgenv().LastField.Size.x + getgenv().LastField.Size.z) / 4
 Distance = (game.Players.LocalPlayer.Character.Humanoid.RootPart.Position - getgenv().LastField.Position).Magnitude
 if (Distance >= Area) then
