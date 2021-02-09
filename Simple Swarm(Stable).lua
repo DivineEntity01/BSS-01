@@ -236,7 +236,7 @@ if not getgenv().MakingHoney then
 end
 while getgenv().MakingHoney do
     if game:GetService("Players").LocalPlayer.CoreStats.Pollen.Value <= 0 then
-        wait(20)
+        wait(8)
         getgenv().Selling = false
         break
     end
