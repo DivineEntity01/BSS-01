@@ -663,9 +663,9 @@ end)
 CreateToggle(tabs['Monster Farm'], "Stump Snail", "Turn on to kill the Snail",function()
     if not getgenv().SnailIn then
 	getgenv().SnailIn = true
-    if game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.03) then
-        if game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.03).Target.Value ~= Character then
-        game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.03).Name = 'Stump Snail (Lvl 7)'
+    if game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.01) then
+        if game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.01).Target.Value ~= Character then
+        game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.01).Name = 'Stump Snail (Lvl 7)'
     end
     end
     ContextActionService:BindAction(
