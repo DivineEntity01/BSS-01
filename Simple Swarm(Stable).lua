@@ -9,7 +9,7 @@
 --SaveConfig
 local HttpService = game:GetService("HttpService");
 local SaveFileName = "KeyBind.txt"
-local Configuration = {Bind = 'Enum.KeyCode.RightAlt', Before = false}
+local Configuration = {Bind = 'Enum.KeyCode.RightAlt', Bind2 = 'Enum.KeyCode.F'}
     if not pcall(function()
     readfile(SaveFileName)
     end) then
@@ -19,11 +19,13 @@ local Setting = HttpService:JSONDecode(readfile(SaveFileName))
 local function SaveSettings()
    writefile(SaveFileName, HttpService:JSONEncode(Setting))
 end
+repeat wait()
+until game:IsLoaded()
 -------------------------------------------------------------------------------------------------------------------
 --Global Variables
 getgenv().Raining = false
 getgenv().Killing = false
-
+getgenv().WSended = false
 --Local Variables
         game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.Enabled = false
         game:GetService("Players").LocalPlayer.PlayerGui.Chat.Enabled = false
@@ -174,10 +176,11 @@ local fieldslocated = {}
     
 
 --UI Library
-loadstring(game:HttpGet("https://raw.githubusercontent.com/DivineEntity01/BSS-01/main/Rodus%20%7C%20UI-Library", true))()
 if game:GetService('CoreGui'):WaitForChild('Simple Swarm', 0.08) then
 wait()
 elseif not game:GetService('CoreGui'):WaitForChild('Simple Swarm', 0.08) then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/DivineEntity01/BSS-01/main/Rodus%20%7C%20UI-Library", true))()
+wait()
 CreateMain("Simple Swarm")
 CreateTab("AutoFarm")
 CreateTab("Auto Machines")
@@ -204,9 +207,16 @@ if input.UserInputType == Enum.UserInputType.Keyboard and Setting.Bind:lower()==
         game:GetService("Lighting").effect.Enabled = false
 end
 end
+if input.UserInputType == Enum.UserInputType.Keyboard and Setting.Bind2:lower()==tostring(input.KeyCode):lower() and not gameProcessed then
+if game:GetService("Workspace").NPCBees:WaitForChild('Windy', 5) then
+        game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Workspace").NPCBees:WaitForChild('Windy', 5).Position)
+end
+end
 end
 game:GetService("UserInputService").InputBegan:connect(onInputBegan)
 -------------------------------------------------------------------------------------------------------------------
+wait(1)
+
 -- A U T O F A R M
 getgenv().FieldChange = false
 
@@ -216,8 +226,10 @@ if not getgenv().AutoFarm then
 getgenv().AutoFarm = true
 local radiusSell = 15
 local distanceSell = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.SpawnPos.Value.p).Magnitude
+local Walking = false
+local Reached = false
 while getgenv().AutoFarm do
-    
+if not getgenv().Hunt then
 
 ------------------------------------------------------------------------
 --#TokenVariables/AutoSell
@@ -229,6 +241,10 @@ local Humanoid = game.Players.LocalPlayer.Character:WaitForChild("Humanoid")
 --#AutoHoney
 if game:GetService("Players").LocalPlayer.CoreStats.Pollen.Value >= game:GetService("Players").LocalPlayer.CoreStats.Capacity.Value/1.03 then
     getgenv().Selling = true
+    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Players").LocalPlayer.SpawnPos.Value.p)
+    wait(0.3)
+    local args = {[1] = "ToggleHoneyMaking"}
+    game:GetService("ReplicatedStorage").Events.PlayerHiveCommand:FireServer(unpack(args))
 if not getgenv().MakingHoney then
     game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Players").LocalPlayer.SpawnPos.Value.p)
     getgenv().MakingHoney = true
@@ -236,19 +252,15 @@ if not getgenv().MakingHoney then
 end
 while getgenv().MakingHoney do
     if game:GetService("Players").LocalPlayer.CoreStats.Pollen.Value <= 0 then
-        wait(8)
+        wait(10)
         getgenv().Selling = false
+        getgenv().MakingHoney = false
         break
     end
     if (distanceSell >= radiusSell) then
     game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Players").LocalPlayer.SpawnPos.Value.p)
-    wait(1)
-    local args = {[1] = "ToggleHoneyMaking"}
-    game:GetService("ReplicatedStorage").Events.PlayerHiveCommand:FireServer(unpack(args))
-    wait(45)						
     end
-    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Players").LocalPlayer.SpawnPos.Value.p) + Vector3.new(0, 1.5, 0)
-    wait(10)
+wait(2)
 end
 end
 ------------------------------------------------------------------------
@@ -268,32 +280,37 @@ end
 ------------------------------------------------------------------------
 --#Token Collector
 for i,v in pairs(game.Workspace.Collectibles:GetChildren()) do
-wait()
-    if v and not getgenv().Selling then
-    local radius = 45 or Area
-    local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Position).Magnitude
-	if(distance <= radius) and v.Transparency <= 0.8 then
-    local Walking = false
-    local Reached = false
+local radius = 55 or Area
+local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Position).Magnitude
+    if v and not getgenv().Selling and (distance <= radius) then
+    if v:WaitForChild("FrontDecal", 0.02) then
+        if v.FrontDecal.Texture == "rbxassetid://6087969886" then
+            v.Locked = true
+        end
+        if v.FrontDecal.Texture == "rbxassetid://1629547638" and not v.Locked and not getgenv().Raining then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Position)
+            v.Locked = true
+        end
+    end
+	if(distance <= radius) then
     game.Players.LocalPlayer.Character.Humanoid.MoveToFinished:Connect(function()
             Walking = false
             Reached = true
-        end)
+    end)
         if not Walking then
             Walking = true
-            if not Reached then
+            Reached = false
+            if not Reached and not v.Locked then
             game.Players.LocalPlayer.Character.Humanoid:MoveTo(v.Position, v)
 end
 end
     elseif not v then
-    game.Workspace.Collectibles:WaitForChild('C', 0.01)
-end
-						
 end
 end
-wait(0.15)
 end
-
+wait(0.02)
+end
+end
 elseif getgenv().AutoFarm then
     getgenv().AutoFarm = false
     end
@@ -307,6 +324,9 @@ CreateToggle(tabs['AutoFarm'], "AutoTool", "AutoCollects Pollen with your tool",
             if not getgenv().AutoToolIn then
                 break
             end
+local pollenTool = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool") or player.Backpack:FindFirstChildOfClass("Tool")
+if pollenTool==nil or pollenTool:FindFirstChild("ClickEvent")==nil then
+end
             pollenTool.ClickEvent:FireServer()
             wait(0.45)
         end
@@ -397,39 +417,57 @@ end
 end
 end)
 
---[[
 CreateSideDropButton(tabs['AutoFarm'], "Find Windy/Vicious", {"Vicious Bee","Windy Bee", "Disable"},function(arg)
 ------#Disable
 if arg == "Disable" then
 getgenv().AutoMiniBoss = false
-getgenv().Selling = false
+getgenv().Hunt = false
+getgenv().WSended = false
 game.Players.LocalPlayer.Character.Humanoid.HipHeight = 2.47
 end
 ------#Windy Bee
 if arg == "Windy Bee" then
-getgenv().AutoMiniBoss = false
-wait(0.1)
+local CoreGui = game:GetService("StarterGui")
+local Notification = {
+	    Title = "Windy Bee Spawned!",
+	    Text = string.format("Press %s to teleport", string.sub(tostring(Setting.Bind2), 14)),
+	    Duration = 30,
+	    Button1 = "ligma"
+}
+local NotificationW = {
+	    Title = "Windy Bee Enabled",
+	    Text = string.format("You will be notified if there's a Wild Windy Bee", string.sub(tostring(Setting.Bind2), 14)),
+	    Duration = 30,
+	    Button1 = "yes my lord..."
+}
+if not getgenv().WSended then
+CoreGui:SetCore("SendNotification", NotificationW)
+getgenv().WSended = true
 getgenv().AutoMiniBoss = true
 while getgenv().AutoMiniBoss do
 if not getgenv().AutoMiniBoss then
+    break
+end
+local windyenabled = true
+if windyenabled then
+windyenabled = false
+if not getgenv().AutoMiniBoss then
 break
 end
-if game:GetService("Workspace").NPCBees:WaitForChild('Windy', 1) then
-    repeat wait(5)
-    if getgenv().AutoMiniBoss then
-        getgenv().Selling = true
-        if game:GetService("Workspace").NPCBees:WaitForChild('Windy', 1) then
-        game.Players.LocalPlayer.Character:MoveTo(game:GetService("Workspace").NPCBees:WaitForChild('Windy').Position)
-        else
-            getgenv().Selling = false
-            game.Players.LocalPlayer.Character.Humanoid.HipHeight = 2.47
-        end
-    end
-    until not getgenv().AutoMiniBoss
-else
-game.Players.LocalPlayer.Character.Humanoid.HipHeight = 2.47
-end
+if game:GetService("Workspace").NPCBees:WaitForChild('Windy', 5) then
+CoreGui:SetCore("SendNotification", Notification)
+print("Windy Spawned!")
+repeat wait(5)
+until not game:GetService("Workspace").NPCBees:WaitForChild('Windy', 5)
 wait()
+end
+if not game:GetService("Workspace").NPCBees:WaitForChild('Windy', 5) then
+    wait()
+end
+end
+wait(5)
+windyenabled = true
+end
 end
 end
 ------#Vicious Bee
@@ -446,25 +484,21 @@ if game:GetService("Workspace").Particles:WaitForChild('Vicious', 1) then
     repeat wait(1)
     if getgenv().AutoMiniBoss then
         if game:GetService("Workspace").Particles:WaitForChild('Vicious', 1) then
-        getgenv().Selling = true
+        getgenv().Hunt = true
         game.Players.LocalPlayer.Character:MoveTo(game:GetService("Workspace").Particles:WaitForChild('Vicious', 1).Position)
         else
             game.Players.LocalPlayer.Character.Humanoid.HipHeight = 2.47
-            getgenv().Selling = false
+            getgenv().Hunt = false
         end
     end
     until not getgenv().AutoMiniBoss
 else
     game.Players.LocalPlayer.Character.Humanoid.HipHeight = 2.47
 end
-
 wait()
 end
 end
 end)
-
-]]--
-
 
 
 -------------------------------------------------------------------------------------------------------------------
@@ -475,7 +509,7 @@ CreateToggle(tabs['Auto Machines'], "AutoDispensers", "Autocollects the dispense
         getgenv().DispensersIn = true
         local CoreGui = game:GetService("StarterGui")
         local bindable = Instance.new("BindableFunction")
-        CoreGui:SetCore("SendNotification", {
+        CoreGui:SetCore("SendNotification",{
 	    Title = "AutoDispensers Enabled",
 	    Text = "AutoDispenser is enabled, may cause lag once it autocollects em",
 	    Duration = 30,
@@ -570,7 +604,7 @@ CreateToggle(tabs['Auto Machines'], "Essential Dispensers", "Do not recommend, d
     if getgenv().EssentialDispensersIn == true then
     while true do
     EssentianEnabled = false
-    if EssentianEnabled == true then
+    if EssentianEnabled == false then
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(e1))
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(e2))
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(e3))
@@ -664,7 +698,7 @@ CreateToggle(tabs['Monster Farm'], "Stump Snail", "Turn on to kill the Snail",fu
     if not getgenv().SnailIn then
 	getgenv().SnailIn = true
     if game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.01) then
-        if game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.01).Target.Value ~= Character then
+        if game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 2.01).Target.Value ~= Character then
         game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.01).Name = 'Stump Snail (Lvl 7)'
     end
     end
@@ -704,7 +738,7 @@ CreateToggle(tabs['Monster Farm'], "Stump Snail", "Turn on to kill the Snail",fu
             ContextActionService:UnbindAction(FreezeAc)
 end
 
-    elseif not game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 0.15) then
+    elseif not game:GetService("Workspace").Monsters:WaitForChild("Stump Snail (Lvl 6)", 1.15) then
             if workspace:WaitForChild('SnailPlatform', 1) then
                     workspace:WaitForChild('SnailPlatform', 1):Destroy()
             end
@@ -886,17 +920,19 @@ end)
 
 --E X T R A S 
 
-CreateLabel(tabs['Extras'], "Notes", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "aza you dumbfuck, maybe if", Color3.fromRGB(255,255,255))
-CreateLabel(tabs['Extras'], "you got rid of that yee yee", Color3.fromRGB(255,255,255))
-CreateLabel(tabs['Extras'], "ass haircut you got you'd get", Color3.fromRGB(255,255,255))
-CreateLabel(tabs['Extras'], "some bitches on your dick", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "Notes:", Color3.fromRGB(0,255,0))
+CreateLabel(tabs['Extras'], "19 dollar fornite card, who", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "wants it, and yes, im giving", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "it away, share share share", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "and trolls... DONT GET BLOCK", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "", Color3.fromRGB(0,255,0))
 CreateLabel(tabs['Extras'], "Simple Swarm Version:", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "1.2.7(Stable)", Color3.fromRGB(255,255,255))
-CreateLabel(tabs['Extras'], "Stable Version, a few bugs", Color3.fromRGB(255,255,255))
-CreateLabel(tabs['Extras'], "might be present, yeah", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "1.7.8(Stable)", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "you may find some bugs with", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "the autofarm, 是的", Color3.fromRGB(255,255,255))
 CreateTextBox(tabs['Extras'], "GUI Keybind", "Set Keybind",function(arg)
+end)
+CreateTextBox(tabs['Extras'], "Windy Keybind", "Set Keybind",function(arg)
 end)
 -------------------------------------------------------------------------------------------------------------------
 
@@ -905,10 +941,12 @@ end)
 game:GetService("CoreGui")["Simple Swarm"].Top.Container["Player Toggles"].TabContainer:WaitForChild("Set Walkspeed", 0.3)
 local textbox = game:GetService("CoreGui")["Simple Swarm"].Top.Container["Player Toggles"].TabContainer["Set Walkspeed"].Side.Box
 local textboxk = game:GetService("CoreGui")["Simple Swarm"].Top.Container["Extras"].TabContainer["GUI Keybind"].Side.Box
+local textboxx = game:GetService("CoreGui")["Simple Swarm"].Top.Container["Extras"].TabContainer["Windy Keybind"].Side.Box
 local FieldBox = game:GetService("CoreGui")["Simple Swarm"].Top.Container["AutoFarm"].TabContainer["Select Field"].Side.Box
 
 
 textboxk.Text = string.sub(Setting.Bind, 14)
+textboxx.Text = string.sub(Setting.Bind2, 14)
 textbox.Changed:connect(function(prop)
     if prop == "Text" then
         if not tonumber(textbox.Text) then
@@ -918,7 +956,7 @@ textbox.Changed:connect(function(prop)
 end)
 
 textboxk.Focused:Connect(function()
-    game:GetService("CoreGui")["Simple Swarm"].Top.Container["Extras"].TabContainer["GUI Keybind"].Text = "Press a key"
+    game:GetService("CoreGui")["Simple Swarm"].Top.Container["Extras"].TabContainer["GUI Keybind"].Text = " Press a key"
 	textboxk.TextEditable = false
 	local Enabled = true
 	wait(0.2)
@@ -935,7 +973,28 @@ textboxk.Focused:Connect(function()
     end)
 end)
 textboxk.FocusLost:Connect(function()
-    game:GetService("CoreGui")["Simple Swarm"].Top.Container["Extras"].TabContainer["GUI Keybind"].Text = "GUI Keybind"
+    game:GetService("CoreGui")["Simple Swarm"].Top.Container["Extras"].TabContainer["GUI Keybind"].Text = " GUI Keybind"
+end)
+
+textboxx.Focused:Connect(function()
+    game:GetService("CoreGui")["Simple Swarm"].Top.Container["Extras"].TabContainer["Windy Keybind"].Text = " Press a key"
+	textboxx.TextEditable = false
+	local Enabled = true
+	wait(0.2)
+    UIS.InputBegan:Connect(function(Input , GPE)
+    if Enabled == false then
+        return
+    end
+    Setting.Bind2 = tostring(Input.KeyCode)
+    SaveSettings()
+    textboxx.Text = string.sub(tostring(Input.KeyCode), 14)
+    wait()
+    Enabled = false
+    textboxx:ReleaseFocus()
+    end)
+end)
+textboxx.FocusLost:Connect(function()
+    game:GetService("CoreGui")["Simple Swarm"].Top.Container["Extras"].TabContainer["Windy Keybind"].Text = " Windy Keybind"
 end)
 
 function FindField()
