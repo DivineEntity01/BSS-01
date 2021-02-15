@@ -3,7 +3,7 @@
 
 
 
-
+print('made by NEGROEATINGSOAP a.k.a DivineEntity01 \na GA SHASHUMGA FROM WUHAN UNIVERSITY \na learning lua since the year 0 \na AZA YOU DUMB IDIOT GIVE ME MY CANTONES YOU PIECE OF \na hello this is pajeet \na ok ill stop sorry... \na AHAHAHA OIL F L O A T S IN W A T E R')
 
 -------------------------------------------------------------------------------------------------------------------
 --SaveConfig
@@ -229,6 +229,9 @@ local distanceSell = (game.Players.LocalPlayer.Character.HumanoidRootPart.Positi
 local Walking = false
 local Reached = false
 while getgenv().AutoFarm do
+if not getgenv().AutoFarm then
+    break
+end
 if not getgenv().Hunt then
 
 ------------------------------------------------------------------------
@@ -251,6 +254,9 @@ if not getgenv().MakingHoney then
     wait()
 end
 while getgenv().MakingHoney do
+    if not getgenv().AutoFarm then
+        break
+    end
     if game:GetService("Players").LocalPlayer.CoreStats.Pollen.Value <= 0 then
         wait(10)
         getgenv().Selling = false
@@ -260,7 +266,7 @@ while getgenv().MakingHoney do
     if (distanceSell >= radiusSell) then
     game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Players").LocalPlayer.SpawnPos.Value.p)
     end
-wait(2)
+wait(0.03)
 end
 end
 ------------------------------------------------------------------------
@@ -294,11 +300,9 @@ local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position -
     end
 	if(distance <= radius) then
     game.Players.LocalPlayer.Character.Humanoid.MoveToFinished:Connect(function()
-            Walking = false
             Reached = true
     end)
         if not Walking then
-            Walking = true
             Reached = false
             if not Reached and not v.Locked then
             game.Players.LocalPlayer.Character.Humanoid:MoveTo(v.Position, v)
@@ -308,7 +312,7 @@ end
 end
 end
 end
-wait(0.02)
+wait(0.3)
 end
 end
 elseif getgenv().AutoFarm then
@@ -916,24 +920,6 @@ CreateButton(tabs['Player Toggles'], "Teleport to your hive", "Teleport to your 
 end)
 
 
--------------------------------------------------------------------------------------------------------------------
-
---E X T R A S 
-
-CreateLabel(tabs['Extras'], "Notes:", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "19 dollar fornite card, who", Color3.fromRGB(255,255,255))
-CreateLabel(tabs['Extras'], "wants it, and yes, im giving", Color3.fromRGB(255,255,255))
-CreateLabel(tabs['Extras'], "it away, share share share", Color3.fromRGB(255,255,255))
-CreateLabel(tabs['Extras'], "and trolls... DONT GET BLOCK", Color3.fromRGB(255,255,255))
-CreateLabel(tabs['Extras'], "", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "Simple Swarm Version:", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "1.7.8(Stable)", Color3.fromRGB(255,255,255))
-CreateLabel(tabs['Extras'], "you may find some bugs with", Color3.fromRGB(255,255,255))
-CreateLabel(tabs['Extras'], "the autofarm, 是的", Color3.fromRGB(255,255,255))
-CreateTextBox(tabs['Extras'], "GUI Keybind", "Set Keybind",function(arg)
-end)
-CreateTextBox(tabs['Extras'], "Windy Keybind", "Set Keybind",function(arg)
-end)
 -------------------------------------------------------------------------------------------------------------------
 
 
