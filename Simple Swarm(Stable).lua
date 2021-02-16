@@ -3,7 +3,7 @@
 
 
 
-print('made by NEGROEATINGSOAP a.k.a DivineEntity01 \na GA SHASHUMGA FROM WUHAN UNIVERSITY \na learning lua since the year 0 \na AZA YOU DUMB IDIOT GIVE ME MY CANTONES YOU PIECE OF \na hello this is pajeet \na ok ill stop sorry... \na AHAHAHA OIL F L O A T S IN W A T E R')
+print('made by NEGROEATINGSOAP a.k.a DivineEntity01 \n GA SHASHUMGA FROM WUHAN UNIVERSITY \n learning lua since the year 0 \n AZA YOU DUMB IDIOT GIVE ME MY CANTONES YOU PIECE OF \n hello this is pajeet \na ok ill stop sorry... \n AHAHAHA OIL F L O A T S IN W A T E R')
 
 -------------------------------------------------------------------------------------------------------------------
 --SaveConfig
