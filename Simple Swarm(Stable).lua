@@ -919,7 +919,24 @@ CreateButton(tabs['Player Toggles'], "Teleport to your hive", "Teleport to your 
     game:GetService("Players").LocalPlayer.Character:MoveTo(game:GetService("Players").LocalPlayer.SpawnPos.Value.p)
 end)
 
+-------------------------------------------------------------------------------------------------------------------
 
+--E X T R A S 
+
+CreateLabel(tabs['Extras'], "Notes:", Color3.fromRGB(0,255,0))
+CreateLabel(tabs['Extras'], "19 dollar fornite card, who", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "wants it, and yes, im giving", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "it away, share share share", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "and trolls... DONT GET BLOCK", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "", Color3.fromRGB(0,255,0))
+CreateLabel(tabs['Extras'], "Simple Swarm Version:", Color3.fromRGB(0,255,0))
+CreateLabel(tabs['Extras'], "1.7.8(Stable)", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "you may find some bugs with", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "the autofarm, 是的", Color3.fromRGB(255,255,255))
+CreateTextBox(tabs['Extras'], "GUI Keybind", "Set Keybind",function(arg)
+end)
+CreateTextBox(tabs['Extras'], "Windy Keybind", "Set Keybind",function(arg)
+end)
 -------------------------------------------------------------------------------------------------------------------
 
 
