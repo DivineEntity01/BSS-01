@@ -3,7 +3,7 @@
 
 
 
-print('made by NEGROEATINGSOAP a.k.a DivineEntity01 \n GA SHASHUMGA FROM WUHAN UNIVERSITY \n learning lua since the year 0 \n AZA YOU DUMB IDIOT GIVE ME MY CANTONES YOU PIECE OF \n hello this is pajeet \n ok ill stop sorry... \n AHAHAHA OIL F L O A T S IN W A T E R')
+print('made by NEGROEATINGSOAP a.k.a DivineEntity01 \n learning lua since the year 0)
 
 -------------------------------------------------------------------------------------------------------------------
 --SaveConfig
@@ -106,11 +106,12 @@ local args5, args6, args7, args8, args9, args10 =
 {[1] = "Free Royal Jelly Dispenser"},
 {[1] = "Honeyday Candles"},
 {[1] = "Gingerbread House"}
-local e1, e2, e3, e4 = 
+local e1, e2, e3, e4, e5 = 
 {[1] = "Beesmas Feast"},
 {[1] = "Onett's Lid Art"},
 {[1] = "Glue Dispenser"},
-{[1] = "Honey Wreath"}
+{[1] = "Honey Wreath"},
+{[1] = "Stockings"}
 
 local f1, f2, f3= 
 {[1] = "Red Field Booster"},
@@ -613,6 +614,7 @@ CreateToggle(tabs['Auto Machines'], "Essential Dispensers", "Do not recommend, d
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(e2))
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(e3))
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(e4))
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(e5))
     end
     if getgenv().EssentialDispensersIn == false then
     break
