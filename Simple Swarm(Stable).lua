@@ -3,7 +3,7 @@
 
 
 
-print('made by NEGROEATINGSOAP a.k.a DivineEntity01 \n learning lua since the year 0)
+print('made by NEGROEATINGSOAP a.k.a DivineEntity01 \n learning lua since the year 0')
 
 -------------------------------------------------------------------------------------------------------------------
 --SaveConfig
