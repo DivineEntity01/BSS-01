@@ -209,7 +209,7 @@ if input.UserInputType == Enum.UserInputType.Keyboard and Setting.Bind:lower()==
 end
 end
 if input.UserInputType == Enum.UserInputType.Keyboard and Setting.Bind2:lower()==tostring(input.KeyCode):lower() and not gameProcessed then
-if game:GetService("Workspace").NPCBees:WaitForChild('Windy', 5) then
+if game:GetService("Workspace").NPCBees:WaitForChild('Windy', 0.02) then
         game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Workspace").NPCBees:WaitForChild('Windy', 5).Position)
 end
 end
@@ -266,8 +266,10 @@ while getgenv().MakingHoney do
     end
     if (distanceSell >= radiusSell) then
     game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Players").LocalPlayer.SpawnPos.Value.p)
+    wait(0.5)
+    game:GetService("ReplicatedStorage").Events.PlayerHiveCommand:FireServer(unpack(args))
     end
-wait(0.03)
+wait(1)
 end
 end
 ------------------------------------------------------------------------
@@ -312,9 +314,11 @@ end
     elseif not v then
 end
 end
+wait(0.1)
 end
-wait(0.3)
+wait(0.2)
 end
+wait(0.1)
 end
 elseif getgenv().AutoFarm then
     getgenv().AutoFarm = false
