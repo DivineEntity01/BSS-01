@@ -229,6 +229,7 @@ local radiusSell = 15
 local distanceSell = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.SpawnPos.Value.p).Magnitude
 local Walking = false
 local Reached = false
+if getgenv().AutoFarm then
 while getgenv().AutoFarm do
 if not getgenv().AutoFarm then
     break
@@ -316,13 +317,14 @@ end
 end
 wait(0.1)
 end
-wait(0.2)
+wait(0.06)
 end
 wait(0.1)
 end
+end
 elseif getgenv().AutoFarm then
     getgenv().AutoFarm = false
-    end
+end
 end)
 
 CreateToggle(tabs['AutoFarm'], "AutoTool", "AutoCollects Pollen with your tool",function()
