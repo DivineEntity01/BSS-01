@@ -345,8 +345,8 @@ CreateTextBox(tabs['AutoFarm'], "Select Field", "Select the field you want to fa
     wait()
 end)
 
---[[
-CreateToggle(tabs['AutoFarm'], "Star Catcher", "Catches the falling lights",function()
+
+CreateToggle(tabs['AutoFarm'], "Coconut Catcher", "Catches the falling coconuts",function()
 if not getgenv().StarCatchIn then
         getgenv().StarCatchIn = true
 while true do
@@ -386,7 +386,7 @@ elseif getgenv().StarCatchIn then
         getgenv().StarCatchIn = false
 end
 end)
-]]
+
 
 CreateToggle(tabs['AutoFarm'], "TP to rares", "Teleport to rare tokens, useful!",function()
     if not getgenv().RareTpIn then
