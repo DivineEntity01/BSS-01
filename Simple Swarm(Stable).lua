@@ -1,6 +1,6 @@
 --A very sexy lib made by https://v3rmillion.net/member.php?action=profile&uid=1379221
 --Here's the release thread https://v3rmillion.net/showthread.php?tid=1066917
-
+--Bye beesmas...
 
 
 print('made by NEGROEATINGSOAP a.k.a DivineEntity01 \n learning lua since the year 0')
@@ -99,19 +99,13 @@ local args, args2, args3, args4 =
 {[1] = "Treat Dispenser"}, 
 {[1] = "Strawberry Dispenser"}, 
 {[1] = "Blueberry Dispenser"}
-local args5, args6, args7, args8, args9, args10 = 
+local args5, args6, args7, args8 = 
 {[1] = "Wealth Clock"},
 {[1] = "Free Ant Pass Dispenser"},
 {[1] = "Coconut Dispenser"},
-{[1] = "Free Royal Jelly Dispenser"},
-{[1] = "Honeyday Candles"},
-{[1] = "Gingerbread House"}
-local e1, e2, e3, e4, e5 = 
-{[1] = "Beesmas Feast"},
-{[1] = "Onett's Lid Art"},
-{[1] = "Glue Dispenser"},
-{[1] = "Honey Wreath"},
-{[1] = "Stockings"}
+{[1] = "Free Royal Jelly Dispenser"}
+
+local e1 =  {[1] = "Glue Dispenser"}
 
 local f1, f2, f3= 
 {[1] = "Red Field Booster"},
@@ -347,10 +341,11 @@ end
 end
 end)
 
-CreateTextBox(tabs['AutoFarm'], "Select Field", "Select the fild you want to farm on",function()
+CreateTextBox(tabs['AutoFarm'], "Select Field", "Select the field you want to farm on",function()
     wait()
 end)
 
+--[[
 CreateToggle(tabs['AutoFarm'], "Star Catcher", "Catches the falling lights",function()
 if not getgenv().StarCatchIn then
         getgenv().StarCatchIn = true
@@ -391,6 +386,7 @@ elseif getgenv().StarCatchIn then
         getgenv().StarCatchIn = false
 end
 end)
+]]
 
 CreateToggle(tabs['AutoFarm'], "TP to rares", "Teleport to rare tokens, useful!",function()
     if not getgenv().RareTpIn then
@@ -414,7 +410,7 @@ CreateToggle(tabs['AutoFarm'], "TP to rares", "Teleport to rare tokens, useful!"
     end
     end
     end
-    wait(0.6)
+    wait(0.06)
     RareEnabled = true
     if getgenv().RareTpIn == false then
     RareEnabled = true
@@ -546,10 +542,6 @@ CreateToggle(tabs['Auto Machines'], "AutoDispensers", "Autocollects the dispense
     wait()
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args8))
     wait()
-    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args9))
-    wait()
-    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(args10))
-    wait()
 end
 
 if getgenv().DispensersIn == false then
@@ -572,7 +564,7 @@ CreateToggle(tabs['Auto Machines'], "AutoGlue Dispenser", "Autocollects the Glue
     if getgenv().GlueEnabledIn == true then
     while true do
     if GlueEnabled == true then
-    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(e3))
+    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(e1))
     end
     if getgenv().GlueEnabledIn == false then
     break
@@ -617,10 +609,6 @@ CreateToggle(tabs['Auto Machines'], "Essential Dispensers", "Do not recommend, d
     EssentianEnabled = false
     if EssentianEnabled == false then
     game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(e1))
-    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(e2))
-    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(e3))
-    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(e4))
-    game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(e5))
     end
     if getgenv().EssentialDispensersIn == false then
     break
@@ -932,15 +920,15 @@ end)
 --E X T R A S 
 
 CreateLabel(tabs['Extras'], "Notes:", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "19 dollar fornite card, who", Color3.fromRGB(255,255,255))
-CreateLabel(tabs['Extras'], "wants it, and yes, im giving", Color3.fromRGB(255,255,255))
-CreateLabel(tabs['Extras'], "it away, share share share", Color3.fromRGB(255,255,255))
-CreateLabel(tabs['Extras'], "and trolls..DONT GET BLOCK", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "if you are still using", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "this gui, for whatever", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "reason... i really", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "appreciate it...", Color3.fromRGB(255,255,255))
 CreateLabel(tabs['Extras'], "", Color3.fromRGB(0,255,0))
 CreateLabel(tabs['Extras'], "Simple Swarm Version:", Color3.fromRGB(0,255,0))
-CreateLabel(tabs['Extras'], "1.7.8(Stable)", Color3.fromRGB(255,255,255))
-CreateLabel(tabs['Extras'], "you may find some bugs with", Color3.fromRGB(255,255,255))
-CreateLabel(tabs['Extras'], "the autofarm, 是的", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "1.8.4(Stable)", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "Use other autofarm", Color3.fromRGB(255,255,255))
+CreateLabel(tabs['Extras'], "mine is broken ;c", Color3.fromRGB(255,255,255))
 CreateTextBox(tabs['Extras'], "GUI Keybind", "Set Keybind",function(arg)
 end)
 CreateTextBox(tabs['Extras'], "Windy Keybind", "Set Keybind",function(arg)
